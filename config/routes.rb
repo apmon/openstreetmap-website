@@ -92,21 +92,21 @@ ActionController::Routing::Routes.draw do |map|
 
   # web site
   map.root :controller => 'site', :action => 'index'
-  map.connect '/',           :controller => 'site', :action => 'index'
-  map.connect '/edit',       :controller => 'site', :action => 'edit'
-  map.connect '/copyright',  :controller => 'site', :action => 'copyright'
+  map.connect '/', :controller => 'site', :action => 'index'
+  map.connect '/edit', :controller => 'site', :action => 'edit'
+  map.connect '/copyright', :controller => 'site', :action => 'copyright'
   map.connect '/copyright/:copyright_locale', :controller => 'site', :action => 'copyright'
-  map.connect '/history',    :controller => 'changeset', :action => 'list'
+  map.connect '/history', :controller => 'changeset', :action => 'list'
   map.connect '/history/feed', :controller => 'changeset', :action => 'list', :format => :atom
-  map.connect '/export',     :controller => 'site', :action => 'export'
-  map.connect '/routing',    :controller => 'site', :action => 'routing'
-  map.connect '/login',      :controller => 'user', :action => 'login'
-  map.connect '/logout',     :controller => 'user', :action => 'logout'
-  map.connect '/offline',    :controller => 'site', :action => 'offline'
-  map.connect '/key',        :controller => 'site', :action => 'key'
-  map.connect '/user/new',   :controller => 'user', :action => 'new'
+  map.connect '/export', :controller => 'site', :action => 'export'
+  map.connect '/routing', :controller => 'site', :action => 'routing'
+  map.connect '/login', :controller => 'user', :action => 'login'
+  map.connect '/logout', :controller => 'user', :action => 'logout'
+  map.connect '/offline', :controller => 'site', :action => 'offline'
+  map.connect '/key', :controller => 'site', :action => 'key'
+  map.connect '/user/new', :controller => 'user', :action => 'new'
   map.connect '/user/terms', :controller => 'user', :action => 'terms'
-  map.connect '/user/save',  :controller => 'user', :action => 'save'
+  map.connect '/user/save', :controller => 'user', :action => 'save'
   map.connect '/user/:display_name/confirm/resend', :controller => 'user', :action => 'confirm_resend'
   map.connect '/user/:display_name/confirm', :controller => 'user', :action => 'confirm'
   map.connect '/user/confirm', :controller => 'user', :action => 'confirm'
@@ -116,12 +116,12 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/user/forgot-password', :controller => 'user', :action => 'lost_password'
   map.connect '/user/suspended', :controller => 'user', :action => 'suspended'
 
-  map.connect '/index.html',   :controller => 'site', :action => 'index'
-  map.connect '/edit.html',    :controller => 'site', :action => 'edit'
-  map.connect '/export.html',  :controller => 'site', :action => 'export'
+  map.connect '/index.html', :controller => 'site', :action => 'index'
+  map.connect '/edit.html', :controller => 'site', :action => 'edit'
+  map.connect '/export.html', :controller => 'site', :action => 'export'
   map.connect '/routing.html', :controller => 'site', :action => 'routing'
-  map.connect '/login.html',   :controller => 'user', :action => 'login'
-  map.connect '/logout.html',  :controller => 'user', :action => 'logout'
+  map.connect '/login.html', :controller => 'user', :action => 'login'
+  map.connect '/logout.html', :controller => 'user', :action => 'logout'
   map.connect '/create-account.html', :controller => 'user', :action => 'new'
   map.connect '/forgot-password.html', :controller => 'user', :action => 'lost_password'
 
@@ -199,21 +199,21 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/geocoder/description_geonames', :controller => 'geocoder', :action => 'description_geonames'
 
   # export
-  map.connect '/export/start',  :controller => 'export', :action => 'start'
+  map.connect '/export/start', :controller => 'export', :action => 'start'
   map.connect '/export/finish', :controller => 'export', :action => 'finish'
 
   # routing
-  map.connect '/routing/start',      :controller => 'routing', :action => 'start'
-  map.connect '/routing/finish',     :controller => 'routing', :action => 'finish'
+  map.connect '/routing/start', :controller => 'routing', :action => 'start'
+  map.connect '/routing/finish', :controller => 'routing', :action => 'finish'
   map.connect '/routing/find_route', :controller => 'routing', :action => 'find_route'
 
   # messages
-  map.connect '/user/:display_name/inbox',   :controller => 'message', :action => 'inbox'
-  map.connect '/user/:display_name/outbox',  :controller => 'message', :action => 'outbox'
-  map.connect '/message/new/:display_name',  :controller => 'message', :action => 'new'
-  map.connect '/message/read/:message_id',   :controller => 'message', :action => 'read'
-  map.connect '/message/mark/:message_id',   :controller => 'message', :action => 'mark'
-  map.connect '/message/reply/:message_id',  :controller => 'message', :action => 'reply'
+  map.connect '/user/:display_name/inbox', :controller => 'message', :action => 'inbox'
+  map.connect '/user/:display_name/outbox', :controller => 'message', :action => 'outbox'
+  map.connect '/message/new/:display_name', :controller => 'message', :action => 'new'
+  map.connect '/message/read/:message_id', :controller => 'message', :action => 'read'
+  map.connect '/message/mark/:message_id', :controller => 'message', :action => 'mark'
+  map.connect '/message/reply/:message_id', :controller => 'message', :action => 'reply'
   map.connect '/message/delete/:message_id', :controller => 'message', :action => 'delete'
 
   # oauth admin pages (i.e: for setting up new clients, etc...)

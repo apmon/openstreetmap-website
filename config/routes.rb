@@ -99,6 +99,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/history', :controller => 'changeset', :action => 'list'
   map.connect '/history/feed', :controller => 'changeset', :action => 'list', :format => :atom
   map.connect '/export', :controller => 'site', :action => 'export'
+  map.connect '/routing', :controller => 'site', :action => 'routing'
   map.connect '/login', :controller => 'user', :action => 'login'
   map.connect '/logout', :controller => 'user', :action => 'logout'
   map.connect '/offline', :controller => 'site', :action => 'offline'
@@ -118,6 +119,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/index.html', :controller => 'site', :action => 'index'
   map.connect '/edit.html', :controller => 'site', :action => 'edit'
   map.connect '/export.html', :controller => 'site', :action => 'export'
+  map.connect '/routing.html', :controller => 'site', :action => 'routing'
   map.connect '/login.html', :controller => 'user', :action => 'login'
   map.connect '/logout.html', :controller => 'user', :action => 'logout'
   map.connect '/create-account.html', :controller => 'user', :action => 'new'
@@ -199,6 +201,11 @@ ActionController::Routing::Routes.draw do |map|
   # export
   map.connect '/export/start', :controller => 'export', :action => 'start'
   map.connect '/export/finish', :controller => 'export', :action => 'finish'
+
+  # routing
+  map.connect '/routing/start', :controller => 'routing', :action => 'start'
+  map.connect '/routing/finish', :controller => 'routing', :action => 'finish'
+  map.connect '/routing/find_route', :controller => 'routing', :action => 'find_route'
 
   # messages
   map.connect '/user/:display_name/inbox', :controller => 'message', :action => 'inbox'

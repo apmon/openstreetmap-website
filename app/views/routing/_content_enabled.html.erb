@@ -43,6 +43,16 @@
    <p class="routing_error_hint"    id="error_message"></p>
    <p class="routing_details" id="debug"></p>
 
+   <p class="routing_heading"><%= t'routing.basic.engine.heading' %></p>
+
+   	<select name="engine">
+		<option value="automatic"><%= t'routing.basic.engine.automatic' %></option>
+		<option value="osrm"><%= t'routing.basic.engine.osrm' %></option>
+		<option value="yours"><%= t'routing.basic.engine.yours' %></option>
+		<option value="mapquest"><%= t'routing.basic.engine.mapquest' %></option>
+		<option value="cloudmade"><%= t'routing.basic.engine.cloudmade' %></option>
+	</select>
+
    <p class="routing_heading"><%= t'routing.basic.means.heading' %></p>
 
    <p class="routing_details">

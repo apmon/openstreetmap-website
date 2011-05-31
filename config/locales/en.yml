@@ -435,6 +435,8 @@ en:
       routing_commit: "Find Route"
       calc_route: "Calculating route ..."
       engine:
+        heading: "Routing engine"
+        automatic: "Best available"
         leading_string: "Route was calculated by"
         osrm:  "Opensource Routing Machine"
         yours: "YOURS routing service"

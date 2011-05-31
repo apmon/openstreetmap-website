@@ -101,17 +101,33 @@ class RoutingController < ApplicationController
   # Decide which routing backend to use
   # simple example for now: fastest car routes by osrm, all the rest by yours
   def route(waypoints)
-    if(params[:means] === "car" && params[:mode] === "fastest")
-      @engine = "osrm"
-      return osrmRoute(waypoints)
-    else
-      @engine = "yours"
-      return yoursRoute(waypoints)
-    end
-    #    else
-    #      @engine = "mapquest"
-    #      return mapquestRoute(waypoints)
-    #    end
+	if(params[:engine] === "automatic")
+	  if(params[:means] === "car" && params[:mode] === "fastest")
+		@engine = "osrm"
+		return osrmRoute(waypoints)
+	  else
+		@engine = "yours"
+		return yoursRoute(waypoints)
+	  end
+	  #    else
+	  #      @engine = "mapquest"
+	  #      return mapquestRoute(waypoints)
+	  #    end
+    elsif (params[:engine] === "osrm")
+	  @engine = "osrm"
+	  return osrmRoute(waypoints)
+	elsif (params[:engine] === "yours")
+	  @engine = "yours"
+		return yoursRoute(waypoints)
+	elsif (params[:engine] === "mapquest")
+	  @engine = "mapquest"
+      return mapquestRoute(waypoints)
+	elsif (params[:engine] === "cloudmade")
+	  @engine = "cloudmade"
+      return cloudmadeRoute(waypoints)
+	else
+	end
+
   end
 
 

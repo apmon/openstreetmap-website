@@ -104,14 +104,14 @@ class RoutingController < ApplicationController
     if(params[:means] === "car" && params[:mode] === "fastest")
       @engine = "osrm"
       return osrmRoute(waypoints)
-	else
-	  @engine = "yours"
+    else
+      @engine = "yours"
       return yoursRoute(waypoints)
-	end
-#    else
-#      @engine = "mapquest"
-#      return mapquestRoute(waypoints)
-#    end
+    end
+    #    else
+    #      @engine = "mapquest"
+    #      return mapquestRoute(waypoints)
+    #    end
   end
 
 
@@ -206,6 +206,64 @@ class RoutingController < ApplicationController
 	line << coordinates
 
     return response.to_s
+  end
+
+     # Get a route calculated via open MapQuest directory service
+  def cloudmadeRoute(waypoints)
+    querystring = "http://navigation.cloudmade.com/#{CLOUDMADE_ROUTING_KEY}/api/0.3/"
+
+    # Static values
+	querystring += waypoints[0][:lat]
+	querystring += "," + waypoints[0][:lon]
+	querystring += "," + waypoints[1][:lat]
+	querystring += "," + waypoints[1][:lon]
+
+	# Dynamic values
+    if(params[:means] === "bicycle")
+       querystring += "/bicycle"
+    elsif(params[:means] === "feet")
+	  querystring += "/foot"
+	elsif(params[:means] == "car")
+	  querystring += "/car"
+	end
+	if(params[:mode] === "fastest")
+		querystring += "/fastest.js"
+	elsif(params[:mode] === "shortest")
+	  querystring += "/shortest.js"
+    end
+
+#	logger.debug(querystring)
+
+    server_response_s = fetch_text(querystring)
+
+	#Reformat from cloudmade specific json to a kml output
+
+	parser = XML::Parser.string(server_response_s)
+	server_response =  ActiveSupport::JSON.decode(server_response_s)
+
+	response = XML::Document.new
+	response.encoding = XML::Encoding::UTF_8
+    kml = XML::Node.new 'kml'
+    response.root = kml
+    kml['xmlns'] = "http://www.opengis.net/kml/2.2"
+    doc = XML::Node.new 'Document'
+    kml << doc
+    placemark = XML::Node.new 'Placemark'
+    doc << placemark
+    geom = XML::Node.new 'GeometryCollection'
+    placemark << geom
+	line = XML::Node.new 'LineString'
+    geom << line
+	coordinates = XML::Node.new 'coordinates'
+	coord = ""
+	server_response["route_geometry"].each do |latLng|
+	  coord = coord + latLng[1].to_s + "," + latLng[0].to_s + " "
+	end
+	coordinates << coord
+	line << coordinates
+
+#	logger.debug(response.to_s)
+	return response.to_s
   end
 
 

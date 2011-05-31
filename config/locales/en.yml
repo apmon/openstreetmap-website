@@ -439,6 +439,7 @@ en:
         osrm:  "Opensource Routing Machine"
         yours: "YOURS routing service"
         mapquest: "MapQuest open directory service"
+        cloudmade: "CloudMade routing"
       error:
         no_response:
           title:     "No response received"

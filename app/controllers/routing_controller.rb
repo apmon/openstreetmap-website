@@ -154,8 +154,21 @@ class RoutingController < ApplicationController
     elsif(params[:mode] === "shortest")
        querystring += "&fast=0"
     end
+	
+	logger.debug(querystring)
 
     response = fetch_text(querystring)
+
+	parser = XML::Parser.string(response)
+	server_response = parser.parse
+
+	@distance = (server_response.find_first('/kml:kml/kml:Document/kml:distance','kml:http://earth.google.com/kml/2.0').content.to_f * 1000).ceil
+	if (@distance > 1000)
+	  @distance = ((@distance / 10) / 100.0).to_s + "km"
+	else
+	  @distance = @distance.to_s + "m"
+	end
+	@timeNeeded = "?"
 
     # Omit busy server
     if(response =~ /Server is busy/i)
@@ -188,9 +201,9 @@ class RoutingController < ApplicationController
 		querystring += "&routeType=shortest"
 	  end
     end
-	querystring += "&generalize=0&shapeFormat=raw"
+	querystring += "&generalize=0&shapeFormat=raw&unit=k"
 
-#	logger.debug(querystring)
+	logger.debug(querystring)
 
     server_response_s = fetch_text(querystring)
 
@@ -220,6 +233,14 @@ class RoutingController < ApplicationController
 	end
 	coordinates << coord
 	line << coordinates
+
+	@distance = (server_response.find_first('/response/route/distance').content.to_f*1000).ceil
+	if (@distance > 1000)
+	  @distance = ((@distance / 10) / 100.0).to_s + "km"
+	else
+	  @distance = @distance.to_s + "m"
+	end
+	@timeNeeded = server_response.find_first('/response/route/formattedTime').content
 
     return response.to_s
   end
@@ -252,9 +273,10 @@ class RoutingController < ApplicationController
 
     server_response_s = fetch_text(querystring)
 
+	logger.debug(server_response_s);
+
 	#Reformat from cloudmade specific json to a kml output
 
-	parser = XML::Parser.string(server_response_s)
 	server_response =  ActiveSupport::JSON.decode(server_response_s)
 
 	response = XML::Document.new
@@ -278,6 +300,15 @@ class RoutingController < ApplicationController
 	coordinates << coord
 	line << coordinates
 
+	@distance = server_response["route_summary"]["total_distance"]
+	if (@distance > 1000)
+	  @distance = ((@distance / 10) / 100.0).to_s + "km"
+	else
+	  @distance = @distance.to_s + "m"
+	end
+	@timeNeeded = server_response["route_summary"]["total_time"]
+	@timeNeeded = (@timeNeeded / 3600).ceil.to_s + ":" + ((@timeNeeded / 60).ceil % 60).to_s + ":" + (@timeNeeded % 60).to_s
+
 #	logger.debug(response.to_s)
 	return response.to_s
   end
@@ -292,7 +323,11 @@ class RoutingController < ApplicationController
     querystring += "&" + waypoints[1][:lat]
     querystring += "&" + waypoints[1][:lon]
 
-    return fetch_text(querystring)
+	logger.debug(querystring)
+
+	response = fetch_text(querystring)
+
+    return response
   end
 
 

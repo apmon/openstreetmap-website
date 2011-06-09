@@ -45,6 +45,21 @@ def showEngine(page, engine)
    end
 end
 
+# Display info about the distance and estimated time of a calculated route
+def showDistanceTime(page, distance, timeNeeded)
+   if(distance)
+      distance_info = "Distance: " + distance + "<br>Time: " + timeNeeded
+   else
+      distance_info = "Distance: ?<br>Time: ?"
+   end
+     page.replace_html 'distance', distance_info
+     
+     page.replace_html 'script_inject', 
+     "<script type=\"text/javascript\">
+        $('distance').style.display    = 'block';
+     </script>"
+end
+
 
 if(!@response)
   # Got no response from controller
@@ -103,6 +118,7 @@ else  # Route present within @response
       map.addLayer(routingLayer);
    </script>"
    showEngine(page, @engine)
+   showDistanceTime(page, @distance, @timeNeeded)
 end
 
 #DEBUG: Visualize response from controller

@@ -116,6 +116,7 @@ else  # Route present within @response
       routingLayer.id = 'route_outline';
       routingLayer.addFeatures(routeFeatures);
       map.addLayer(routingLayer);
+      map.zoomToExtent(routeFeatures[routeFeatures.length - 1].geometry.getBounds())
    </script>"
    showEngine(page, @engine)
    showDistanceTime(page, @distance, @timeNeeded)

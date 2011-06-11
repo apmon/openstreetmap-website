@@ -34,6 +34,12 @@ class RoutingController < ApplicationController
           else
             waypoints[($1.to_i)-1][:lon] = value
           end
+        elsif(key.to_s[/^wp(\d+)_display/])
+          if waypoints[($1.to_i)-1].nil?
+            waypoints[($1.to_i)-1] = { :disp => value }
+          else
+            waypoints[($1.to_i)-1][:disp] = value
+          end
         end
       end
   
@@ -78,6 +84,22 @@ class RoutingController < ApplicationController
   def validateWaypoints(to_validate)
     delete_queue = Array.new
     to_validate.each_with_index do |point_pair, index|
+      if((point_pair[:lat].empty? || point_pair[:lon].empty?) && !point_pair[:disp].empty?)
+        response = fetch_xml("#{NOMINATIM_URL}search?format=xml&q=#{escape_query(point_pair[:disp])}")
+        # create result array 
+        @results = Array.new 
+ 
+        # extract the results from the response 
+        results =  response.elements["searchresults"] 
+ 
+        logger.debug(results)
+        # parse the response 
+        results.elements.each("place") do |place| 
+          point_pair[:lat] = place.attributes["lat"]
+          point_pair[:lon] = place.attributes["lon"]
+          break
+        end
+      end
       if(point_pair[:lat].empty? && point_pair[:lon].empty?)
         delete_queue << index
       elsif(point_pair[:lat].empty? || point_pair[:lon].empty?)
@@ -101,32 +123,32 @@ class RoutingController < ApplicationController
   # Decide which routing backend to use
   # simple example for now: fastest car routes by osrm, all the rest by yours
   def route(waypoints)
-	if(params[:engine] === "automatic")
-	  if(params[:means] === "car" && params[:mode] === "fastest")
-		@engine = "osrm"
-		return osrmRoute(waypoints)
-	  else
-		@engine = "yours"
-		return yoursRoute(waypoints)
-	  end
-	  #    else
-	  #      @engine = "mapquest"
-	  #      return mapquestRoute(waypoints)
-	  #    end
+    if(params[:engine] === "automatic")
+      if(params[:means] === "car" && params[:mode] === "fastest")
+        @engine = "osrm"
+        return osrmRoute(waypoints)
+      else
+        @engine = "yours"
+        return yoursRoute(waypoints)
+      end
+      #    else
+      #      @engine = "mapquest"
+      #      return mapquestRoute(waypoints)
+      #    end
     elsif (params[:engine] === "osrm")
-	  @engine = "osrm"
-	  return osrmRoute(waypoints)
-	elsif (params[:engine] === "yours")
-	  @engine = "yours"
-		return yoursRoute(waypoints)
-	elsif (params[:engine] === "mapquest")
-	  @engine = "mapquest"
+      @engine = "osrm"
+      return osrmRoute(waypoints)
+    elsif (params[:engine] === "yours")
+      @engine = "yours"
+        return yoursRoute(waypoints)
+    elsif (params[:engine] === "mapquest")
+      @engine = "mapquest"
       return mapquestRoute(waypoints)
-	elsif (params[:engine] === "cloudmade")
-	  @engine = "cloudmade"
+    elsif (params[:engine] === "cloudmade")
+      @engine = "cloudmade"
       return cloudmadeRoute(waypoints)
-	else
-	end
+    else
+    end
 
   end
 
@@ -154,21 +176,21 @@ class RoutingController < ApplicationController
     elsif(params[:mode] === "shortest")
        querystring += "&fast=0"
     end
-	
-	logger.debug(querystring)
+    
+    logger.debug(querystring)
 
     response = fetch_text(querystring)
 
-	parser = XML::Parser.string(response)
-	server_response = parser.parse
+    parser = XML::Parser.string(response)
+    server_response = parser.parse
 
-	@distance = (server_response.find_first('/kml:kml/kml:Document/kml:distance','kml:http://earth.google.com/kml/2.0').content.to_f * 1000).ceil
-	if (@distance > 1000)
-	  @distance = ((@distance / 10) / 100.0).to_s + "km"
-	else
-	  @distance = @distance.to_s + "m"
-	end
-	@timeNeeded = "?"
+    @distance = (server_response.find_first('/kml:kml/kml:Document/kml:distance','kml:http://earth.google.com/kml/2.0').content.to_f * 1000).ceil
+    if (@distance > 1000)
+      @distance = ((@distance / 10) / 100.0).to_s + "km"
+    else
+      @distance = @distance.to_s + "m"
+    end
+    @timeNeeded = "?"
 
     # Omit busy server
     if(response =~ /Server is busy/i)
@@ -193,27 +215,27 @@ class RoutingController < ApplicationController
     if(params[:means] === "bicycle")
        querystring += "&routeType=bicycle"
     elsif(params[:means] === "feet")
-	  querystring += "&routeType=pedestrian"
-	elsif(params[:means] == "car")
-	  if(params[:mode] === "fastest")
-		querystring += "&routeType=fastest"
-	  elsif(params[:mode] === "shortest")
-		querystring += "&routeType=shortest"
-	  end
+      querystring += "&routeType=pedestrian"
+    elsif(params[:means] == "car")
+      if(params[:mode] === "fastest")
+        querystring += "&routeType=fastest"
+      elsif(params[:mode] === "shortest")
+        querystring += "&routeType=shortest"
+      end
     end
-	querystring += "&generalize=0&shapeFormat=raw&unit=k"
+    querystring += "&generalize=0&shapeFormat=raw&unit=k"
 
-	logger.debug(querystring)
+    logger.debug(querystring)
 
     server_response_s = fetch_text(querystring)
 
-	#Reformat from mapquest specific XML to a kml output
+    #Reformat from mapquest specific XML to a kml output
 
-	parser = XML::Parser.string(server_response_s)
-	server_response = parser.parse
+    parser = XML::Parser.string(server_response_s)
+    server_response = parser.parse
 
-	response = XML::Document.new
-	response.encoding = XML::Encoding::UTF_8
+    response = XML::Document.new
+    response.encoding = XML::Encoding::UTF_8
     kml = XML::Node.new 'kml'
     response.root = kml
     kml['xmlns'] = "http://www.opengis.net/kml/2.2"
@@ -223,24 +245,24 @@ class RoutingController < ApplicationController
     doc << placemark
     geom = XML::Node.new 'GeometryCollection'
     placemark << geom
-	line = XML::Node.new 'LineString'
+    line = XML::Node.new 'LineString'
     geom << line
-	coordinates = XML::Node.new 'coordinates'
-	coord = ""
-	server_response.find('/response/route/shape/shapePoints/latLng').each do |latLng|
-	  nodes = latLng.children
-	  coord = coord + nodes[1].content + "," + nodes[0].content + " "
-	end
-	coordinates << coord
-	line << coordinates
+    coordinates = XML::Node.new 'coordinates'
+    coord = ""
+    server_response.find('/response/route/shape/shapePoints/latLng').each do |latLng|
+      nodes = latLng.children
+      coord = coord + nodes[1].content + "," + nodes[0].content + " "
+    end
+    coordinates << coord
+    line << coordinates
 
-	@distance = (server_response.find_first('/response/route/distance').content.to_f*1000).ceil
-	if (@distance > 1000)
-	  @distance = ((@distance / 10) / 100.0).to_s + "km"
-	else
-	  @distance = @distance.to_s + "m"
-	end
-	@timeNeeded = server_response.find_first('/response/route/formattedTime').content
+    @distance = (server_response.find_first('/response/route/distance').content.to_f*1000).ceil
+    if (@distance > 1000)
+      @distance = ((@distance / 10) / 100.0).to_s + "km"
+    else
+      @distance = @distance.to_s + "m"
+    end
+    @timeNeeded = server_response.find_first('/response/route/formattedTime').content
 
     return response.to_s
   end
@@ -250,37 +272,37 @@ class RoutingController < ApplicationController
     querystring = "http://navigation.cloudmade.com/#{CLOUDMADE_ROUTING_KEY}/api/0.3/"
 
     # Static values
-	querystring += waypoints[0][:lat]
-	querystring += "," + waypoints[0][:lon]
-	querystring += "," + waypoints[1][:lat]
-	querystring += "," + waypoints[1][:lon]
+    querystring += waypoints[0][:lat]
+    querystring += "," + waypoints[0][:lon]
+    querystring += "," + waypoints[1][:lat]
+    querystring += "," + waypoints[1][:lon]
 
-	# Dynamic values
+    # Dynamic values
     if(params[:means] === "bicycle")
        querystring += "/bicycle"
     elsif(params[:means] === "feet")
-	  querystring += "/foot"
-	elsif(params[:means] == "car")
-	  querystring += "/car"
-	end
-	if(params[:mode] === "fastest")
-		querystring += "/fastest.js"
-	elsif(params[:mode] === "shortest")
-	  querystring += "/shortest.js"
+      querystring += "/foot"
+    elsif(params[:means] == "car")
+      querystring += "/car"
+    end
+    if(params[:mode] === "fastest")
+        querystring += "/fastest.js"
+    elsif(params[:mode] === "shortest")
+      querystring += "/shortest.js"
     end
 
-#	logger.debug(querystring)
+#   logger.debug(querystring)
 
     server_response_s = fetch_text(querystring)
 
-	logger.debug(server_response_s);
+    logger.debug(server_response_s);
 
-	#Reformat from cloudmade specific json to a kml output
+    #Reformat from cloudmade specific json to a kml output
 
-	server_response =  ActiveSupport::JSON.decode(server_response_s)
+    server_response =  ActiveSupport::JSON.decode(server_response_s)
 
-	response = XML::Document.new
-	response.encoding = XML::Encoding::UTF_8
+    response = XML::Document.new
+    response.encoding = XML::Encoding::UTF_8
     kml = XML::Node.new 'kml'
     response.root = kml
     kml['xmlns'] = "http://www.opengis.net/kml/2.2"
@@ -290,27 +312,27 @@ class RoutingController < ApplicationController
     doc << placemark
     geom = XML::Node.new 'GeometryCollection'
     placemark << geom
-	line = XML::Node.new 'LineString'
+    line = XML::Node.new 'LineString'
     geom << line
-	coordinates = XML::Node.new 'coordinates'
-	coord = ""
-	server_response["route_geometry"].each do |latLng|
-	  coord = coord + latLng[1].to_s + "," + latLng[0].to_s + " "
-	end
-	coordinates << coord
-	line << coordinates
+    coordinates = XML::Node.new 'coordinates'
+    coord = ""
+    server_response["route_geometry"].each do |latLng|
+      coord = coord + latLng[1].to_s + "," + latLng[0].to_s + " "
+    end
+    coordinates << coord
+    line << coordinates
 
-	@distance = server_response["route_summary"]["total_distance"]
-	if (@distance > 1000)
-	  @distance = ((@distance / 10) / 100.0).to_s + "km"
-	else
-	  @distance = @distance.to_s + "m"
-	end
-	@timeNeeded = server_response["route_summary"]["total_time"]
-	@timeNeeded = (@timeNeeded / 3600).ceil.to_s + ":" + ((@timeNeeded / 60).ceil % 60).to_s + ":" + (@timeNeeded % 60).to_s
+    @distance = server_response["route_summary"]["total_distance"]
+    if (@distance > 1000)
+      @distance = ((@distance / 10) / 100.0).to_s + "km"
+    else
+      @distance = @distance.to_s + "m"
+    end
+    @timeNeeded = server_response["route_summary"]["total_time"]
+    @timeNeeded = (@timeNeeded / 3600).ceil.to_s + ":" + ((@timeNeeded / 60).ceil % 60).to_s + ":" + (@timeNeeded % 60).to_s
 
-#	logger.debug(response.to_s)
-	return response.to_s
+#   logger.debug(response.to_s)
+    return response.to_s
   end
 
 
@@ -323,9 +345,9 @@ class RoutingController < ApplicationController
     querystring += "&" + waypoints[1][:lat]
     querystring += "&" + waypoints[1][:lon]
 
-	logger.debug(querystring)
+    logger.debug(querystring)
 
-	response = fetch_text(querystring)
+    response = fetch_text(querystring)
 
     return response
   end
@@ -335,4 +357,14 @@ class RoutingController < ApplicationController
   def fetch_text(url)
     return Net::HTTP.get(URI.parse(url))
   end
+
+  # TODO: Dupplicate function from geocoder controller
+  def escape_query(query) 
+    return URI.escape(query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]", false, 'N')) 
+  end 
+
+  # TODO: Dupplicate function from geocoder controller
+  def fetch_xml(url) 
+    return REXML::Document.new(fetch_text(url)) 
+  end 
 end

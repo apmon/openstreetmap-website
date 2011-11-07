@@ -377,6 +377,15 @@ lv:
     results: 
       more_results: Vairāk rezultātu
       no_results: Nav atrasts neviens rezultāts
+    search: 
+      title: 
+        ca_postcode: Rezultāti no <a href="http://geocoder.ca/">Geocoder.CA</a>
+        geonames: Rezultāti no <a href="http://www.geonames.org/">GeoNames</a>
+        latlon: Rezultāti no <a href="http://openstreetmap.org/">Iekšējās meklēšanas</a>
+        osm_namefinder: Rezultāti no <a href="http://gazetteer.openstreetmap.org/namefinder/">OpenStreetMap Namefinder</a>
+        osm_nominatim: Rezultāti no <a href="http://nominatim.openstreetmap.org/">OpenStreetMap Nominatim</a>
+        uk_postcode: Rezultāti no <a href="http://www.npemap.org.uk/">NPEMap / FreeThe Postcode</a>
+        us_postcode: Rezultāti no <a href="http://geocoder.us/">Geocoder.us</a>
     search_osm_nominatim: 
       prefix: 
         amenity: 
@@ -581,6 +590,7 @@ lv:
           wetland: Mitrājs
           wood: Mežs
         leisure: 
+          beach_resort: Pludmales kūrorts
           fishing: Zvejas apgabals
           garden: Dārzs
           golf_course: Golfa laukums
@@ -675,9 +685,11 @@ lv:
           tram: Tramvajs
           tram_stop: Tramvaja pietura
         shop: 
+          apparel: Apģērbu veikals
           art: Mākslas salons
           bakery: Maiznīca
           beauty: Kosmētiskais salons
+          beverages: Dzērienu veikals
           bicycle: Velosipēdu veikals
           books: Grāmatu veikals
           butcher: Miesnieks
@@ -688,12 +700,16 @@ lv:
           carpet: Paklāju veikals
           charity: Labdarības veikals
           clothes: Apģērbu veikals
+          computer: Datorveikals
           confectionery: Konditorejas veikals
+          copyshop: Kopētava
           cosmetics: Kosmētikas veikals
           department_store: Universālveikals
           drugstore: Aptieka
           dry_cleaning: Ķīmiskā tīrīšana
           electronics: Elektronikas veikals
+          estate_agent: Nekustamā īpašuma aģents
+          fashion: Modes veikals
           fish: Zivju veikals
           florist: Florists
           food: Pārtikas veikals
@@ -788,7 +804,7 @@ lv:
     inbox: iesūtne (%{count})
     intro_1: OpenStreetMap ir atvērta, rediģējama visas pasaules karte. To veido tādi paši cilvēki kā jūs.
     intro_2: OpenStreetMap ļauj skatīt, rediģēt un lietot ģeogrāfiskus datus sadarbībā ar citiem lietotājiem, no jebkuras vietas pasaulē.
-    intro_3: OpenStreetMap serveru pakalpojumus laipni nodrošina %{ucl} un %{bytemark}. Citi projekta atbalstītāji atrodami lapā %{partners}.
+    intro_3: OpenStreetMap serveru pakalpojumus laipni nodrošina %{ucl} , %{ic} un %{bytemark}. Citi projekta atbalstītāji atrodami lapā %{partners}.
     intro_3_partners: viki
     license: 
       title: OpenStreetMap dati ir licencēti ar Creative Commons Attribution-Share Alike 2.0 Generic licenci
@@ -1252,6 +1268,7 @@ lv:
       email address: "E-pasta adrese:"
       heading: Izveidot lietotāja kontu
       no_auto_account_create: Diemžēl mēs šobrīd nevaram izveidot kontu automātiski.
+      openid: "%{logo} OpenID:"
       password: "Parole:"
       title: Izveidot kontu
     no_such_user: 

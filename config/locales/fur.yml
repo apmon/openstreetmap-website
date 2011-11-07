@@ -100,6 +100,8 @@ fur:
       entry_role: Relazion %{relation_name} (come %{relation_role})
     map: 
       deleted: Eliminât
+      edit: 
+        relation: Modifiche relazion
       larger: 
         area: Viôt la aree suntune mape plui grande
         node: Viôt il grop suntune mape plui grande
@@ -244,8 +246,8 @@ fur:
       still_editing: (ancjemò in cambiament)
       view_changeset_details: Viôt detais dal grup di cambiaments
     changeset_paging_nav: 
-      next: Sucessîf &raquo;
-      previous: "&laquo; Precedent"
+      next: Successîf »
+      previous: "« Precedent"
       showing_page: Daûr a mostrâ la pagjine %{page}
     changesets: 
       area: Aree
@@ -639,7 +641,7 @@ fur:
   layouts: 
     community_blogs: Blogs de comunitât
     community_blogs_title: Blogs di bande dai membris de comunitât OpenStreetMap
-    copyright: Copyright &amp; Licence
+    copyright: Copyright & Licence
     documentation: Documentazion
     documentation_title: Documentazion dal progjet
     donate: Sosten OpenStreetMap %{link} al font pal inzornament dal hardware.
@@ -920,11 +922,11 @@ fur:
     trace_form: 
       description: "Descrizion:"
       help: Jutori
-      tags: Etichetis
+      tags: "Etichetis:"
       tags_help: separâts di virgulis
       upload_button: Cjame
       upload_gpx: "Cjame file GPX:"
-      visibility: Visibilitât
+      visibility: "Visibilitât:"
       visibility_help: ce vuelial dî?
     trace_header: 
       see_all_traces: Cjale ducj i percors
@@ -933,8 +935,8 @@ fur:
     trace_optionals: 
       tags: Etichetis
     trace_paging_nav: 
-      next: Sucessîf &raquo;
-      previous: "&laquo; Precedent"
+      next: Sucessîf »
+      previous: "« Precedent"
       showing_page: Daûr a mostrâ la pagjine %{page}
     view: 
       delete_track: Elimine chest percors
@@ -1055,6 +1057,8 @@ fur:
       remember: Visiti di me
       title: Jentre
       to make changes: Par cambiâ alc tai dâts di OpenStreetMap, tu scugnis vê un profîl.
+      with openid: "Dopre se no il tô OpenID par jentrâ:"
+      with username: "Âstu za un profîl su OpenStreetMap? Jentre cul to non utent e la tô password:"
     logout: 
       heading: Va fûr di OpenStreetMap
       logout_button: Jes

@@ -1,9 +1,13 @@
 class OauthToken < ActiveRecord::Base
   belongs_to :client_application
   belongs_to :user
+
+  scope :authorized, where("authorized_at IS NOT NULL and invalidated_at IS NULL")
+
   validates_uniqueness_of :token
   validates_presence_of :client_application, :token, :secret
-  before_validation_on_create :generate_keys
+
+  before_validation :generate_keys, :on => :create
   
   def self.find_token(token_key)
     token = OauthToken.find_by_token(token_key, :include => :client_application)

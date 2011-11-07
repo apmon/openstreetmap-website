@@ -132,7 +132,7 @@ nl:
         node: Node op grotere kaart bekijken
         relation: Relatie op grotere kaart bekijken
         way: Weg op grotere kaart bekijken
-      loading: Bezig met laden...
+      loading: Bezig met laden…
     navigation: 
       all: 
         next_changeset_tooltip: Volgende set wijzigingen
@@ -207,7 +207,7 @@ nl:
       history_for_feature: Geschiedenis voor [[feature]]
       load_data: Gegevens laden
       loaded_an_area_with_num_features: U hebt een gebied geladen dat [[num_features]] objecten bevat. Sommige browsers kunnen niet goed overweg met zoveel gegevens. Normaal gesproken werken browsers het best met minder dan honderd objecten. Als u er meer weergeeft kan de browser traag worden of niet meer reageren. Als u zeker weet dat u de gegevens wilt weergeven, klik dan op de knop hieronder.
-      loading: Bezig met laden...
+      loading: Bezig met laden…
       manually_select: Handmatig een ander gebied selecteren
       object_list: 
         api: Dit gebied via de API ophalen
@@ -273,8 +273,8 @@ nl:
       still_editing: (nog aan het bewerken)
       view_changeset_details: Details wijzigingenset weergeven
     changeset_paging_nav: 
-      next: Volgende &raquo;
-      previous: "&laquo; Vorige"
+      next: Volgende »
+      previous: "« Vorige"
       showing_page: Pagina %{page}
     changesets: 
       area: Gebied
@@ -594,7 +594,7 @@ nl:
           motorway_link: Autosnelwegverbindingsweg
           path: Pad
           pedestrian: Voetpad
-          platform: Platform
+          platform: Perron
           primary: Primaire weg
           primary_link: Primaire weg
           raceway: Racecircuit
@@ -899,7 +899,7 @@ nl:
   layouts: 
     community_blogs: Gemeenschapsblogs
     community_blogs_title: Blogs van leden van de OpenStreetMap-gemeenschap
-    copyright: Auteursrechten &amp; licentie
+    copyright: Auteursrechten & licentie
     documentation: Documentatie
     documentation_title: Projectdocumentatie
     donate: Ondersteun OpenStreetMap door te %{link} aan het Hardware Upgrade-fonds.
@@ -1356,8 +1356,8 @@ nl:
     trace_optionals: 
       tags: Labels
     trace_paging_nav: 
-      next: Volgende &raquo;
-      previous: "&laquo; Vorige"
+      next: Volgende »
+      previous: "« Vorige"
       showing_page: Pagina %{page}
     view: 
       delete_track: Deze track verwijderen

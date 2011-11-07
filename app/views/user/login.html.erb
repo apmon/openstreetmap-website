@@ -3,7 +3,7 @@
   <div id="login_login">
     <h1><%= t 'user.login.heading' %></h1>
 
-    <% form_tag({ :action => "login" }, { :id => "login_form" }) do %>
+    <%= form_tag({ :action => "login" }, { :id => "login_form" }) do %>
       <%= hidden_field_tag('referer', h(params[:referer])) %>
 
       <p><%= t 'user.login.with username' %></p>
@@ -42,10 +42,10 @@
       <table>
         <tr id="login_openid_url">
           <td class="fieldName nowrap">
-            <%= t 'user.login.openid', :logo => openid_logo %>
+            <%= raw t 'user.login.openid', :logo => openid_logo %>
           </td>
           <td>
-            <%= text_field_tag("openid_url", "", { :size => 28, :maxlength => 255, :tabindex => 3, :class => "openid_url" }) %>
+            <%= url_field_tag("openid_url", "", { :size => 28, :maxlength => 255, :tabindex => 3, :class => "openid_url" }) %>
             <span class="minorNote">(<a href="<%= t 'user.account.openid.link' %>" target="_new"><%= t 'user.account.openid.link text' %></a>)</span>
           </td>
         </tr>

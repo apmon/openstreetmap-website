@@ -13,10 +13,17 @@ class Note < ActiveRecord::Base
   validates_presence_of :closed_at if :status == "closed"
   validates_inclusion_of :status, :in => ["open", "closed", "hidden"]
   validate :validate_position
+  after_initialize :after_initialize
 
   # Sanity check the latitude and longitude and add an error if it's broken
   def validate_position
     errors.add_to_base("Note is not in the world") unless in_world?
+  end
+
+  def self.find_by_area(bbox, options)
+    self.with_scope(:find => {:conditions => OSM.sql_for_area(bbox)}) do
+      return self.find(:all, options)
+    end
   end
 
   # Fill in default values for new notes

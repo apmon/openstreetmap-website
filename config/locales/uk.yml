@@ -255,7 +255,7 @@ uk:
       edit: редагувати
       view_history: переглянути історію
       way: Лінія
-      way_title: "Ліня: %{way_name}"
+      way_title: "Лінія: %{way_name}"
     way_details: 
       also_part_of: 
         one: також є частиною лінії %{related_ways}
@@ -905,7 +905,7 @@ uk:
   layouts: 
     community_blogs: Блоги спільноти
     community_blogs_title: Блоги членів спільноти OpenStreetMap
-    copyright: Авторські права &amp; Ліцензія
+    copyright: Авторські права & Ліцензія
     documentation: Документація
     documentation_title: Документація проекту
     donate: Підтримайте OpenStreetMap %{link} у фонді оновлення обладнання.

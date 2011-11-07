@@ -32,6 +32,7 @@ class NoteController < ApplicationController
 
     # Get the sanitised boundaries
     @min_lon, @min_lat, @max_lon, @max_lat = sanitise_boundaries(bbox)
+    # bbox = sanitise_boundaries(bbox)
 
     # Get any conditions that need to be applied
     conditions = closed_condition
@@ -39,12 +40,14 @@ class NoteController < ApplicationController
     # Check that the boundaries are valid
     check_boundaries(@min_lon, @min_lat, @max_lon, @max_lat, MAX_NOTE_REQUEST_AREA)
 
+    bbox = BoundingBox.new(@min_lon, @min_lat, @max_lon, @max_lat)
+
     # Find the notes we want to return
-    @notes = Note.find_by_area(@min_lat, @min_lon, @max_lat, @max_lon,
+     @notes = Note.find_by_area(bbox,
                                :include => :comments, 
                                :conditions => conditions,
                                :order => "updated_at DESC", 
-                               :limit => result_limit)
+                                 :limit => result_limit)
 
     # Render the result
     respond_to do |format|
@@ -74,7 +77,7 @@ class NoteController < ApplicationController
     # Include in a transaction to ensure that there is always a note_comment for every note
     Note.transaction do
       # Create the note
-      @note = Note.create(:lat => lat, :lon => lon)
+      @note = Note.create!(:lat => lat, :lon => lon)
       raise OSM::APIBadUserInput.new("The note is outside this world") unless @note.in_world?
 
       #TODO: move this into a helper function

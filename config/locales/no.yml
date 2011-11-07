@@ -1,6 +1,7 @@
 # Messages for Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Event
 # Author: Gustavf
 # Author: Hansfn
 # Author: Jon Harald Søby
@@ -122,6 +123,11 @@
       entry_role: Relasjon %{relation_name} (som %{relation_role})
     map: 
       deleted: Slettet
+      edit: 
+        area: Rediger område
+        node: Rediger node
+        relation: Rediger relasjon
+        way: Rediger rute
       larger: 
         area: Vis område på større kart
         node: Vis node på større kart
@@ -900,7 +906,7 @@
   layouts: 
     community_blogs: Fellesskapsblogger
     community_blogs_title: Blogger fra medlemmene i OpenStreetMap-felleskapet
-    copyright: Opphavsrett &amp; lisens
+    copyright: Opphavsrett & lisens
     documentation: Dokumentasjon
     documentation_title: Dokumentasjon for prosjektet
     donate: Støtt OpenStreetMap ved %{link} til Hardware Upgrade Fund (et fond for maskinvareoppgraderinger).
@@ -926,7 +932,8 @@
       zero: Din innboks inneholder ingen uleste meldinger
     intro_1: OpenStreetMap er et fritt redigerbart kart over hele jorda. Det er lagd av folk som deg.
     intro_2: OpenStreetMap gjør det mulig å vise, redigere og bruke geografiske data på en samarbeidende måte fra hvor som helst på jorda.
-    intro_3: OpenStreetMaps tjenerplass støttes av %{ucl} og %{bytemark}. Andre støttespillere av prosjektet er oppført i %{partners}.
+    intro_3: OpenStreetMaps sponses av %{ucl}, %{ic} og %{bytemark}. Andre sponsorer av prosjektet er oppført i %{partners}.
+    intro_3_ic: Imperial College London
     intro_3_partners: wiki
     license: 
       title: Data fra OpenStreetMap er lisensiert under lisensen Creative Commons Navngivelse-Del på like vilkår 2.0 Generisk
@@ -1343,13 +1350,13 @@
       trackable: SPORBAR
       view_map: Vis kart
     trace_form: 
-      description: Beskrivelse
+      description: "Beskrivelse:"
       help: Hjelp
       tags: Merkelapper
       tags_help: kommaseparert
       upload_button: Last opp
-      upload_gpx: Last opp GPX-fil
-      visibility: Synlighet
+      upload_gpx: "Last opp GPX-fil:"
+      visibility: "Synlighet:"
       visibility_help: hva betyr dette?
     trace_header: 
       see_all_traces: Se alle spor

@@ -67,6 +67,14 @@ map.addLayer(routingLayer);
 
 $("#engine").html("<%=j t("routing.basic.engine.leading_string") %> <%=j t("routing.basic.engine.#{@engine}") %>");
 $("#engine").show();
+
+<% if @distance -%>
+// Display info about the distance and estimated time of a calculated route
+$("#distance").html("<%=j t("routing.basic.result.distance") %>: <%=j @distance %><br><%=j t("routing.basic.result.time") %>: <%=j @timeNeeded %>");
+$("#distance").show();
+<% else -%>
+$("#distance").hide();
+<% end -%>
 <% end -%>
 
 // DEBUG: Visualize response from controller

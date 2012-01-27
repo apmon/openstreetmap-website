@@ -259,6 +259,7 @@ $("#routing_commit").click(function () {
 
     // Hide routing engine info
     $("#engine").hide();
+    $("#distance").hide();
 });
 <% elsif ROUTING_STATUS == "maintenance" -%>
 $("#sidebar_content").html("<%=j render :partial => "maintenance" %>");

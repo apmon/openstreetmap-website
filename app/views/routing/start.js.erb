@@ -311,7 +311,7 @@ $("#sidebar_content").html("<%=j render :partial => "enabled" %>");
 $("#wp1").click(function () { setMarker("1"); });
 $("#wp1_display").change(function () {$.getJSON('<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp1_display").val()) + '&format=json&accept-language=<%= request.user_preferred_languages %>', function(data) {addMarkerJson(1,data); });});
 $("#wp2").click(function () { setMarker("2"); });
-$("#wp2_display").change(function () {$.getJSON('<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp2_display").val()) + '&format=jsonaccept-language=<%= request.user_preferred_languages %>', function(data) {addMarkerJson(2,data); });});
+$("#wp2_display").change(function () {$.getJSON('<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp2_display").val()) + '&format=json&accept-language=<%= request.user_preferred_languages %>', function(data) {addMarkerJson(2,data); });});
 
 $("#routing_commit").click(function () {
     var layer = map.getLayer('route_outline');

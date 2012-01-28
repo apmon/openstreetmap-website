@@ -27,6 +27,7 @@ var markers = [];   // Contains a marker for each waypoint
 var icon_path;
 var markerLayer;
 var markerControl;
+var dragControl;
 var activeWaypoint; // Current waypoint to set marker to. First marker = 1
 <% waypointCount = 2 %>
 var waypointCount = <%= waypointCount %>;
@@ -87,6 +88,9 @@ function clearRoute(){
     if (layer !== null){
         layer.destroy();
     }
+    // Hide routing engine info
+    $("#engine").hide();
+    $("#distance").hide();
 }
 
 
@@ -219,6 +223,27 @@ function setMarker(wp_number) {
 
         markerControl = new OpenLayers.Control.DrawFeature(markerLayer, OpenLayers.Handler.Point);
         map.addControl(markerControl);
+
+        dragControl=new OpenLayers.Control.DragFeature(markerLayer, {    
+             'onComplete':function(feature, pixel) {
+                 for (var i = 0; i < markers.length; i++) {
+                     if (feature == markers[i]) {
+                            clearRoute();
+                            // Transform projections
+                            var proj_map = new OpenLayers.Projection("EPSG:4326");
+                            var proj_screen = new OpenLayers.Projection("EPSG:900913");
+                            var geom = markers[i].geometry.clone().transform(proj_screen, proj_map);
+
+                            // Set hidden and displayed text fields
+                            $("#wp" + (i + 1) + "_lat").val(geom.y);
+                            $("#wp" + (i + 1) + "_lon").val(geom.x);
+                            $("#wp" + (i + 1) + "_display").val(geom.y.toFixed(5) + " " + geom.x.toFixed(5));
+                     }
+                 }
+             }
+        });
+        map.addControl(dragControl);
+        dragControl.activate();
 
     }
 

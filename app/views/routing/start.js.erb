@@ -150,6 +150,8 @@ function stopRouting() {
 }
 
 
+
+
 // Initialize routing tab 
 function initRouting() {
     enterRoutingTab();
@@ -180,22 +182,69 @@ function initRouting() {
     }
 }
 
+function setMarkerFields(wp_number, display_name) {
+    // Transform projections
+    var proj_map = new OpenLayers.Projection("EPSG:4326");
+    var proj_screen = new OpenLayers.Projection("EPSG:900913");
+    var geom = markers[wp_number - 1].geometry.clone().transform(proj_screen, proj_map);
+    
+    // Set hidden and displayed text fields
+    $("#wp" + wp_number + "_lat").val(geom.y);
+    $("#wp" + wp_number + "_lon").val(geom.x);
+    if (arguments.length == 2) {
+        $("#wp" + wp_number + "_display").val(display_name);
+    } else {
+        $("#wp" + wp_number + "_display").val(geom.y.toFixed(5) + " " + geom.x.toFixed(5));
+    }
+}
+
 function updateMarker(feature, pixel) {
     for (var i = 0; i < markers.length; i++) {
         if (feature == markers[i]) {
-           hideError();
-           clearRoute();
-           // Transform projections
-           var proj_map = new OpenLayers.Projection("EPSG:4326");
-           var proj_screen = new OpenLayers.Projection("EPSG:900913");
-           var geom = markers[i].geometry.clone().transform(proj_screen, proj_map);
-
-           // Set hidden and displayed text fields
-           $("#wp" + (i + 1) + "_lat").val(geom.y);
-           $("#wp" + (i + 1) + "_lon").val(geom.x);
-           $("#wp" + (i + 1) + "_display").val(geom.y.toFixed(5) + " " + geom.x.toFixed(5));
+            hideError();
+            clearRoute();
+            setMarkerFields(i + 1);
         }
     }
+}
+
+function createMarker900913(wp_number, x, y) {
+    hideError();
+    clearRoute();
+    clearWaypoint(wp_number);
+    switch (wp_number) {
+    case 1: icon_path = "<%= asset_path("routing/departure.png") %>"; break;
+            <% 1.upto(waypointCount - 2) do |n| -%>
+    case <%= n %>: icon_path = "<%= asset_path("routing/via_#{"%02d" % n}.png") %>"; break;
+            <% end -%>
+    case waypointCount: icon_path = "<%= asset_path("routing/destination.png") %>"; break;
+    }
+
+    var point = new OpenLayers.Geometry.Point(x, y);
+
+    var waypoint_marker = new OpenLayers.Feature.Vector(point, null, null);
+    var symbolizer = markerLayer.styleMap.createSymbolizer(waypoint_marker);
+    waypoint_marker.style = symbolizer;
+    waypoint_marker.style.externalGraphic = icon_path;
+    waypoint_marker.style.graphicXOffset  = -10.5;
+    waypoint_marker.style.graphicYOffset  = -25;
+    waypoint_marker.style.graphicWidth    =  21;
+    waypoint_marker.style.graphicHeight   =  25;
+    waypoint_marker.style.graphicOpacity  =   1;
+    waypoint_marker.style.graphicZIndex   =   1;
+    
+    markers[wp_number-1] = waypoint_marker;
+    markerLayer.addFeatures(waypoint_marker);
+}
+
+function addMarkerXY(wp_number, x, y) {
+    var offset = $("#map").offset();
+    if ((x < offset.left) || (y < offset.top)) {
+        return;
+    }
+    var lonlat = map.getLonLatFromViewPortPx(new OpenLayers.Pixel(x - offset.left, y - offset.top));
+    createMarker900913(wp_number, lonlat.lon, lonlat.lat);
+    setMarkerFields(wp_number);    
 }
 
 function addMarkerJson(wp_number, json) {
@@ -204,37 +253,13 @@ function addMarkerJson(wp_number, json) {
     clearWaypoint(wp_number);
     if (json.length >= 1) {
 
-       // Set path to iconfile 
-       switch (wp_number) {
-            case 1: icon_path = "<%= asset_path("routing/departure.png") %>"; break;
-            <% 1.upto(waypointCount - 2) do |n| -%>
-            case <%= n %>: icon_path = "<%= asset_path("routing/via_#{"%02d" % n}.png") %>"; break;
-            <% end -%>
-            case waypointCount: icon_path = "<%= asset_path("routing/destination.png") %>"; break;
-       }  
-
-       // Transform projections
-       var proj_map = new OpenLayers.Projection("EPSG:4326");
-       var proj_screen = new OpenLayers.Projection("EPSG:900913");
-       var point = new OpenLayers.Geometry.Point(json[0].lon, json[0].lat);
-       var geom = point.transform(proj_map, proj_screen);
-       var waypoint_marker = new OpenLayers.Feature.Vector(geom, null, null);
-       var symbolizer = markerLayer.styleMap.createSymbolizer(waypoint_marker);
-       waypoint_marker.style = symbolizer;
-       waypoint_marker.style.externalGraphic = icon_path;
-       waypoint_marker.style.graphicXOffset  = -10.5;
-       waypoint_marker.style.graphicYOffset  = -25;
-       waypoint_marker.style.graphicWidth    =  21;
-       waypoint_marker.style.graphicHeight   =  25;
-       waypoint_marker.style.graphicOpacity  =   1;
-       waypoint_marker.style.graphicZIndex   =   1;
-    
-       markers[wp_number-1] = waypoint_marker;
-       markerLayer.addFeatures(waypoint_marker);
-       
-       $("#wp" + wp_number + "_display").val(json[0].display_name);
-       $("#wp" + wp_number + "_lat").val(json[0].lat);
-       $("#wp" + wp_number + "_lon").val(json[0].lon);
+        // Transform projections
+        var proj_map = new OpenLayers.Projection("EPSG:4326");
+        var proj_screen = new OpenLayers.Projection("EPSG:900913");
+        var point = new OpenLayers.Geometry.Point(json[0].lon, json[0].lat);
+        var geom = point.transform(proj_map, proj_screen);
+        createMarker900913(wp_number, geom.x, geom.y);
+        setMarkerFields(wp_number, json[0].display_name);
     }
 }
 
@@ -259,15 +284,7 @@ function endMarker(event) {
     markers[activeWaypoint-1] = waypoint_marker;
     markerLayer.addFeatures(waypoint_marker);
 
-    // Transform projections
-    var proj_map = new OpenLayers.Projection("EPSG:4326");
-    var proj_screen = new OpenLayers.Projection("EPSG:900913");
-    var geom = waypoint_marker.geometry.clone().transform(proj_screen, proj_map);
-
-    // Set hidden and displayed text fields
-    $("#wp" + activeWaypoint + "_lat").val(geom.y);
-    $("#wp" + activeWaypoint + "_lon").val(geom.x);
-    $("#wp" + activeWaypoint + "_display").val(geom.y.toFixed(5) + " " + geom.x.toFixed(5));
+    setMarkerFields(activeWaypoint);
 }
 
 
@@ -287,8 +304,6 @@ function setMarker(wp_number) {
     case waypointCount: icon_path = "<%= asset_path("routing/destination.png") %>"; break;
     }
 
-
-
     // Listen for the marker to be added to the map
     markerLayer.events.on({
         "featureadded": endMarker
@@ -304,14 +319,32 @@ function setMarker(wp_number) {
     return false;
 }
 
+    
+
 initRouting();
 
 $("#sidebar_content").html("<%=j render :partial => "enabled" %>");
 
 $("#wp1").click(function () { setMarker("1"); });
-$("#wp1_display").change(function () {$.getJSON('<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp1_display").val()) + '&format=json&accept-language=<%= request.user_preferred_languages %>', function(data) {addMarkerJson(1,data); });});
+$("#wp1_display").change(function () {
+    var querystring = '<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp1_display").val())
+        + '&format=json&accept-language=<%= request.user_preferred_languages %>';
+    $.getJSON(querystring, function(json) {addMarkerJson(1,json); });
+});
+$("#wp1").draggable({containment: 'document', helper: 'clone', appendTo: 'body', stop: function(event, ui) {
+    addMarkerXY(1, ui.offset.left + 11, ui.offset.top + 20);}});
+$("#wp1_delete").click(function() { hideError(); clearRoute(); clearWaypoint(1); });
+
 $("#wp2").click(function () { setMarker("2"); });
-$("#wp2_display").change(function () {$.getJSON('<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp2_display").val()) + '&format=json&accept-language=<%= request.user_preferred_languages %>', function(data) {addMarkerJson(2,data); });});
+$("#wp2_display").change(function () {
+    var querystring = '<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp2_display").val())
+        + '&format=json&accept-language=<%= request.user_preferred_languages %>';
+    $.getJSON(querystring, function(json) {addMarkerJson(2,json); });
+});
+$("#wp2").draggable({containment: 'document', helper: 'clone', appendTo: 'body', stop: function(event, ui) {
+    addMarkerXY(2, ui.offset.left + 11, ui.offset.top + 20);}});
+$("#wp2_delete").click(function() { hideError(); clearRoute(); clearWaypoint(2); });
+
 
 $("#routing_commit").click(function () {
     var layer = map.getLayer('route_outline');

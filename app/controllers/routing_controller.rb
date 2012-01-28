@@ -216,7 +216,12 @@ class RoutingController < ApplicationController
     
     logger.debug(querystring)
 
-    response = fetch_text(querystring)
+    begin
+      response = fetch_text(querystring) 
+    rescue Timeout::Error => e
+      @response = "error:no_route_found"
+      return
+    end
 
     parser = XML::Parser.string(response)
     server_response = parser.parse
@@ -264,7 +269,12 @@ class RoutingController < ApplicationController
 
     logger.debug(querystring)
 
-    server_response_s = fetch_text(querystring)
+    begin
+      server_response_s = fetch_text(querystring) 
+    rescue Timeout::Error => e
+      @response = "error:no_route_found"
+      return
+    end
 
     #Reformat from mapquest specific XML to a kml output
 
@@ -328,7 +338,13 @@ class RoutingController < ApplicationController
       querystring += "/shortest.js"
     end
 
-    return json2kml(fetch_text(querystring))
+    begin
+      server_response = fetch_text(querystring) 
+    rescue Timeout::Error => e
+      @response = "error:no_route_found"
+      return
+    end
+    return json2kml(server_response)
   end
 
 
@@ -342,8 +358,13 @@ class RoutingController < ApplicationController
     querystring += "," + waypoints[1][:lon]
 
     logger.debug(querystring)
-
-    return json2kml(fetch_text(querystring))
+    begin
+      server_response = fetch_text(querystring) 
+    rescue Timeout::Error => e
+      @response = "error:no_route_found"
+      return
+    end
+    return json2kml(server_response)
   end
 
 

@@ -392,14 +392,21 @@ en:
       all:
         title: "OpenStreetMap diary entries"
         description: "Recent diary entries from users of OpenStreetMap"
+    comments:
+      has_commented_on: "%{display_name} has commented on the following diary entries"
+      post: Post
+      when: When
+      comment: Comment
+      ago: %{ago} ago
+      newer_comments: "Newer Comments"
+      older_comments: "Older Comments"
   export:
     start:
       area_to_export: "Area to Export"
       manually_select: "Manually select a different area"
       format_to_export: "Format to Export"
       osm_xml_data: "OpenStreetMap XML Data"
-      mapnik_image: "Mapnik Image"
-      osmarender_image: "Osmarender Image"
+      map_image: "Map Image (shows standard layer)"
       embeddable_html: "Embeddable HTML"
       licence: "Licence"
       export_details: 'OpenStreetMap data is licensed under the <a href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons Attribution-ShareAlike 2.0 license</a>.'
@@ -1021,7 +1028,7 @@ en:
     foundation_title: The OpenStreetMap Foundation
     sotm2011: 'Come to the 2011 OpenStreetMap Conference, The State of the Map, September 9-11th in Denver!'
     license:
-      alt: CC by-sa 2.0
+      alt: CC BY-SA 2.0
       title: OpenStreetMap data is licensed under the Creative Commons Attribution-Share Alike 2.0 Generic License
     make_a_donation:
       title: Support OpenStreetMap with a monetary donation
@@ -1042,7 +1049,7 @@ en:
       <p>
          OpenStreetMap is <i>open data</i>, licensed under the <a
          href="http://creativecommons.org/licenses/by-sa/2.0/">Creative
-         Commons Attribution-ShareAlike 2.0</a> licence (CC-BY-SA).
+         Commons Attribution-ShareAlike 2.0</a> licence (CC BY-SA).
       </p>
       <p>
         You are free to copy, distribute, transmit and adapt our maps
@@ -1058,14 +1065,14 @@ en:
       <p>
         If you are using OpenStreetMap map images, we request that
         your credit reads at least &ldquo;&copy; OpenStreetMap
-        contributors, CC-BY-SA&rdquo;. If you are using map data only,
+        contributors, CC BY-SA&rdquo;. If you are using map data only,
         we request &ldquo;Map data &copy; OpenStreetMap contributors,
-        CC-BY-SA&rdquo;.
+        CC BY-SA&rdquo;.
       </p>
       <p>
         Where possible, OpenStreetMap should be hyperlinked to <a
         href="http://www.openstreetmap.org/">http://www.openstreetmap.org/</a>
-        and CC-BY-SA to <a
+        and CC BY-SA to <a
         href="http://creativecommons.org/licenses/by-sa/2.0/">http://creativecommons.org/licenses/by-sa/2.0/</a>. If
         you are using a medium where links are not possible (e.g. a
         printed work), we suggest you direct your readers to
@@ -1096,7 +1103,7 @@ en:
 
       <h3>Our contributors</h3>
       <p>
-        Our CC-BY-SA licence requires you to &ldquo;give the Original
+        Our CC BY-SA licence requires you to &ldquo;give the Original
         Author credit reasonable to the medium or means You are
         utilising&rdquo;. Individual OSM mappers do not request a
         credit over and above that to &ldquo;OpenStreetMap
@@ -1123,7 +1130,7 @@ en:
           on Australian Bureau of Statistics data.</li>
           <li><strong>Austria</strong>: Contains data from
           <a href="http://data.wien.gv.at/">Stadt Wien</a> under
-          <a href="http://creativecommons.org/licenses/by/3.0/at/deed.de">CC-BY</a>.</li>
+          <a href="http://creativecommons.org/licenses/by/3.0/at/deed.de">CC BY</a>.</li>
           <li><strong>Canada</strong>: Contains data from
           GeoBase&reg;, GeoGratis (&copy; Department of Natural
           Resources Canada), CanVec (&copy; Department of Natural
@@ -1135,7 +1142,12 @@ en:
           Land Information New Zealand. Crown Copyright reserved.</li>
           <li><strong>Poland</strong>: Contains data from <a
           href="http://ump.waw.pl/">UMP-pcPL maps</a>. Copyright
-          UMP-pcPL contributors.</li>
+          UMP-pcPL contributors.
+          <a href="http://wiki.openstreetmap.org/wiki/UMP2OSM_Importing">
+          More about OSM&apos;s use of UMP data</a></li>
+          <li><strong>South Africa</strong>: Contains data sourced from
+          <a href="http://www.ngi.gov.za/">Chief Directorate:
+          National Geo-Spatial Information</a>, State copyright reserved.</li>
           <li><strong>United Kingdom</strong>: Contains Ordnance
           Survey data &copy; Crown copyright and database right
           2010.</li>
@@ -1595,7 +1607,7 @@ en:
       email or username: "Email Address or Username:"
       password: "Password:"
       openid: "%{logo} OpenID:"
-      remember: "Remember me:"
+      remember: "Remember me"
       lost password link: "Lost your password?"
       login_button: "Login"
       register now: Register now
@@ -1604,6 +1616,7 @@ en:
       new to osm: New to OpenStreetMap?
       to make changes: To make changes to the OpenStreetMap data, you must have an account.
       create account minute: Create an account. It only takes a minute.
+      no account: Don't have an account?
       account not active: "Sorry, your account is not active yet.<br />Please use the link in the account confirmation email to activate your account, or <a href=\"%{reconfirm}\">request a new confirmation email</a>."
       account is suspended: Sorry, your account has been suspended due to suspicious activity.<br />Please contact the <a href="%{webmaster}">webmaster</a> if you wish to discuss this.
       auth failure: "Sorry, could not log in with those details."
@@ -1710,6 +1723,7 @@ en:
       my edits: my edits
       my traces: my traces
       my settings: my settings
+      my comments: my comments
       oauth settings: oauth settings
       blocks on me: blocks on me
       blocks by me: blocks by me
@@ -1751,6 +1765,7 @@ en:
           moderator: "Revoke moderator access"
       block_history: "view blocks received"
       moderator_history: "view blocks given"
+      comments: "comments"
       create_block: "block this user"
       activate_user: "activate this user"
       deactivate_user: "deactivate this user"
@@ -1979,8 +1994,7 @@ en:
   javascripts:
     map:
       base:
-        mapnik: Mapnik
-        osmarender: Osmarender
+        standard: Standard
         cycle_map: Cycle Map
         transport_map: Transport Map
         mapquest: MapQuest Open

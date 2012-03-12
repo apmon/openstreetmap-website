@@ -38,6 +38,8 @@ class UserController < ApplicationController
       else
         render :action => 'terms'
       end
+    elsif params[:user] and Acl.no_account_creation(request.remote_ip, params[:user][:email].split("@").last)
+      render :action => 'blocked'
     else
       session[:referer] = params[:referer]
 
@@ -79,9 +81,7 @@ class UserController < ApplicationController
   def save
     @title = t 'user.new.title'
 
-    if Acl.address(request.remote_ip).where(:k => "no_account_creation").exists?
-      render :action => 'new'
-    elsif params[:decline]
+    if params[:decline]
       if @user
         @user.terms_seen = true
 
@@ -112,6 +112,8 @@ class UserController < ApplicationController
       else
         redirect_to :action => :account, :display_name => @user.display_name
       end
+    elsif Acl.no_account_creation(request.remote_ip, params[:user][:email].split("@").last)
+      render :action => 'blocked'
     else
       @user = User.new(params[:user])
 
@@ -269,6 +271,8 @@ class UserController < ApplicationController
                        :openid_url => params[:openid])
 
       flash.now[:notice] = t 'user.new.openid association'
+    elsif Acl.no_account_creation(request.remote_ip)
+      render :action => 'blocked'
     end
   end
 
@@ -620,7 +624,7 @@ private
     cookies.permanent["_osm_username"] = user.display_name
 
     session[:user] = user.id
-    session_expires_after 1.month if session[:remember_me]
+    session_expires_after 28.days if session[:remember_me]
 
     target = session[:referer] || url_for(:controller => :site, :action => :index)
 
@@ -658,6 +662,8 @@ private
   def update_user(user)
     if user.save
       set_locale
+
+      cookies.permanent["_osm_username"] = user.display_name
 
       if user.new_email.blank?
         flash.now[:notice] = t 'user.account.flash update success'

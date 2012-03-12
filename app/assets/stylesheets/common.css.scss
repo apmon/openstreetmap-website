@@ -49,7 +49,7 @@ h2 {
 #left {
   position: absolute;
   top: 0px;
-  width: 185px;
+  width: 200px;
   font-size: 11px;
   line-height: 12px;
 }
@@ -57,8 +57,8 @@ h2 {
 /* Rules for the OpenStreetMap logo in the top left corner */
 
 #logo {
-  width: 170px;
-  min-width: 170px;
+  width: 180px;
+  min-width: 180px;
   padding: 5px;
   text-align: center;
   margin: 25px 0 5px 0;
@@ -180,7 +180,7 @@ h2 {
 .optionalbox {
   padding: 5px;
   margin: 4px 0;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #ddd;
 }
 
 .optionalbox h1 {
@@ -210,7 +210,7 @@ h2 {
 }
 
 #search_field input[type="text"] {
-  width: 136px;
+  width: 156px;
 }
 
 #search_field input[type="submit"] {
@@ -1070,7 +1070,9 @@ input[type="email"],
 input[type="url"],
 input[type="password"],
 textarea {
-  border: 1px solid #888;
+  border-width: 1px;
+  border-style: inset;
+  border-color:#aaa #aaa #ccc #ccc;
 }
 
 /* Rules for user images */

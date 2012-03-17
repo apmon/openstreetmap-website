@@ -351,11 +351,9 @@ class RoutingController < ApplicationController
   # Get a route calculated via OSRM routing server
   def osrmRoute(waypoints)
     querystring = "#{OSRM_URL}"
-    querystring += "/&output=json&"
-    querystring += "&start=" + waypoints[0][:lat]
-    querystring += "," + waypoints[0][:lon]
-    querystring += "&dest=" + waypoints[1][:lat]
-    querystring += "," + waypoints[1][:lon]
+    querystring += "viaroute?loc=" + waypoints[0][:lat] + "," + waypoints[0][:lon]
+    querystring += "&loc=" + waypoints[1][:lat] + "," + waypoints[1][:lon]
+    querystring += "&instructions=false" 
 
     logger.debug(querystring)
     begin

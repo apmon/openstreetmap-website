@@ -64,6 +64,7 @@ var routingLayer = new OpenLayers.Layer.Vector("<%=j t('routing.map.routing_laye
 routingLayer.id = "route_outline";
 routingLayer.addFeatures(kml.read(kmlRoute));
 map.addLayer(routingLayer);
+map.zoomToExtent(routingLayer.getDataExtent());
 
 $("#engine").html("<%=j t("routing.basic.engine.leading_string") %> <%=j t("routing.basic.engine.#{@engine}") %>");
 $("#engine").show();

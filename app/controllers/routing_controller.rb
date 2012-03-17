@@ -14,27 +14,27 @@ class RoutingController < ApplicationController
   # 
   def find_route
     # get status of routing service
-    if (ROUTING_STATUS === "maintenance")
+    if(ROUTING_STATUS === "maintenance")
       # Routing service is in maintenance status. Routes are not calculated at the moment
       @response = "error:maintenance"
       return
-    elsif (ROUTING_STATUS === "enabled")
+    elsif(ROUTING_STATUS === "enabled")
       # Get inputs from request and create a waypoint array from it
       waypoints = Array.new
       params.each do |key, value|
-        if (key.to_s[/^wp(\d+)_lat/])
+        if(key.to_s[/^wp(\d+)_lat/])
           if waypoints[($1.to_i)-1].nil?
             waypoints[($1.to_i)-1] = { :lat => value }
           else
             waypoints[($1.to_i)-1][:lat] = value
           end
-        elsif (key.to_s[/^wp(\d+)_lon/])
+        elsif(key.to_s[/^wp(\d+)_lon/])
           if waypoints[($1.to_i)-1].nil?
             waypoints[($1.to_i)-1] = { :lon => value }
           else
             waypoints[($1.to_i)-1][:lon] = value
           end
-        elsif (key.to_s[/^wp(\d+)_display/])
+        elsif(key.to_s[/^wp(\d+)_display/])
           if waypoints[($1.to_i)-1].nil?
             waypoints[($1.to_i)-1] = { :disp => value }
           else

@@ -328,7 +328,7 @@ $("#sidebar_content").html("<%=j render :partial => "enabled" %>");
 $("#wp1").click(function () { setMarker("1"); });
 $("#wp1_display").change(function () {
     var querystring = '<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp1_display").val())
-        + '&format=json&accept-language=<%= request.user_preferred_languages %>';
+        + '&format=json&accept-language=<%= request.user_preferred_languages.join(',') %>';
     $.getJSON(querystring, function(json) {addMarkerJson(1,json); });
 });
 $("#wp1").draggable({containment: 'document', helper: 'clone', appendTo: 'body', stop: function(event, ui) {
@@ -338,7 +338,7 @@ $("#wp1_delete").click(function() { hideError(); clearRoute(); clearWaypoint(1);
 $("#wp2").click(function () { setMarker("2"); });
 $("#wp2_display").change(function () {
     var querystring = '<%= NOMINATIM_URL %>search?q=' + encodeURIComponent($("#wp2_display").val())
-        + '&format=json&accept-language=<%= request.user_preferred_languages %>';
+        + '&format=json&accept-language=<%= request.user_preferred_languages.join(',') %>';
     $.getJSON(querystring, function(json) {addMarkerJson(2,json); });
 });
 $("#wp2").draggable({containment: 'document', helper: 'clone', appendTo: 'body', stop: function(event, ui) {

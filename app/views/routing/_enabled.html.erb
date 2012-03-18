@@ -45,17 +45,19 @@
    <p class="routing_heading"><%= t'routing.basic.means.heading' %></p>
 
    <p class="routing_details">
-      <%= radio_button_tag("means", "car", true) %> <%= t'routing.basic.means.car'     %> <br/>
-      <%= radio_button_tag("means", "bicycle") %>   <%= t'routing.basic.means.bicycle' %> <br/>
-      <%= radio_button_tag("means", "truck") %>     <%= t'routing.basic.means.truck'   %> <br/>
-      <%= radio_button_tag("means", "feet") %>      <%= t'routing.basic.means.feet'    %>
+     <%= radio_button_tag("means", "car", true, {:class => "routing_means_radio"}) %>
+     <%= label_tag(:means_car, image_tag("car.png", :alt => t('routing.basic.means.car'), :class => "routing_means_img_select", :onclick => "selectRoutingMeans(this)")) %>
+     <%= radio_button_tag("means", "bicycle", false, {:class => "routing_means_radio"}) %>
+     <%= label_tag(:means_bicycle, image_tag("bicycle.png", :alt => t('routing.basic.means.bicycle'), :class => "routing_means_img_nonselect", :onclick => "selectRoutingMeans(this)")) %>
+     <%= radio_button_tag("means", "feet", false, {:class => "routing_means_radio"}) %>
+     <%= label_tag(:means_feet,image_tag("pedestrian.png", :alt => t('routing.basic.means.feet'), :class => "routing_means_img_nonselect", :onclick => "selectRoutingMeans(this)")) %>
    </p>
   
    <p class="routing_heading"><%= t'routing.basic.routing_mode.heading' %></p>
 
    <p class="routing_details">
       <br/>
-      <%= radio_button_tag("mode", "fastest", true) %>  <%= t'routing.basic.routing_mode.fastest'  %> <br/>
+      <%= radio_button_tag("mode", "fastest", true) %>  <%= t'routing.basic.routing_mode.fastest'  %>&nbsp;&nbsp;
       <%= radio_button_tag("mode", "shortest") %>       <%= t'routing.basic.routing_mode.shortest' %> 
    </p>
 

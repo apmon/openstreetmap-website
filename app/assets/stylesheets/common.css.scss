@@ -608,6 +608,18 @@ h2 {
   padding-left:  4px;
 }
 
+.routing_means_radio {
+  display: none;
+}
+
+.routing_means_img_select {
+  border: 4px solid #000000;
+}
+
+.routing_means_img_nonselect {
+  border: 4px solid #ffffff;
+}
+
 /* Rules for the main content area */
 
 #content {

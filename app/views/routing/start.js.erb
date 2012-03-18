@@ -320,6 +320,11 @@ function setMarker(wp_number) {
     return false;
 }
 
+function selectRoutingMeans(element) {
+    $(".routing_means_img_select").removeClass("routing_means_img_select").addClass("routing_means_img_nonselect");
+    element.className = "routing_means_img_select";
+}
+
     
 
 initRouting();

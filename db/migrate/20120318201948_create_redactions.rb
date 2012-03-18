@@ -1,3 +1,5 @@
+require 'migrate'
+
 class CreateRedactions < ActiveRecord::Migration
   def up
     create_table :redactions do |t|

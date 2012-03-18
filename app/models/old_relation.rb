@@ -6,6 +6,7 @@ class OldRelation < ActiveRecord::Base
   self.primary_keys = "relation_id", "version"
 
   belongs_to :changeset
+  belongs_to :redaction
 
   has_many :old_members, :class_name => 'OldRelationMember', :foreign_key => [:relation_id, :version], :order => :sequence_id
   has_many :old_tags, :class_name => 'OldRelationTag', :foreign_key => [:relation_id, :version]

@@ -6,6 +6,7 @@ class OldWay < ActiveRecord::Base
   self.primary_keys = "way_id", "version"
 
   belongs_to :changeset
+  belongs_to :redaction
 
   has_many :old_nodes, :class_name => 'OldWayNode', :foreign_key => [:way_id, :version]
   has_many :old_tags, :class_name => 'OldWayTag', :foreign_key => [:way_id, :version]

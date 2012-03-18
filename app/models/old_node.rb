@@ -13,7 +13,8 @@ class OldNode < ActiveRecord::Base
   validates_associated :changeset
 
   belongs_to :changeset
- 
+  belongs_to :redaction
+
   def validate_position
     errors.add(:base, "Node is not in the world") unless in_world?
   end

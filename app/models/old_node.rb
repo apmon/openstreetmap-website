@@ -1,6 +1,7 @@
 class OldNode < ActiveRecord::Base
   include GeoRecord
   include ConsistencyValidations
+  include Redactable
 
   self.table_name = "nodes"
   self.primary_keys = "node_id", "version"

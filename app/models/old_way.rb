@@ -1,6 +1,7 @@
 class OldWay < ActiveRecord::Base
   include ConsistencyValidations
-  
+  include Redactable
+
   self.table_name = "ways"
   self.primary_keys = "way_id", "version"
 

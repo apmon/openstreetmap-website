@@ -1,5 +1,6 @@
 class OldRelation < ActiveRecord::Base
   include ConsistencyValidations
+  include Redactable
   
   self.table_name = "relations"
   self.primary_keys = "relation_id", "version"

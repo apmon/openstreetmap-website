@@ -107,4 +107,11 @@ class OldNode < ActiveRecord::Base
   def containing_relation_members 
     return [] 
   end 
+
+  # check whether this element is the latest version - that is,
+  # has the same version as its "current" counterpart.
+  def is_latest_version?
+    current_node = Node.find(self.node_id)
+    current_node.version == self.version
+  end
 end

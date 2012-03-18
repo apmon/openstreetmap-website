@@ -158,4 +158,11 @@ class OldWay < ActiveRecord::Base
   def containing_relation_members
     return []
   end
+
+  # check whether this element is the latest version - that is,
+  # has the same version as its "current" counterpart.
+  def is_latest_version?
+    current_way = Way.find(self.way_id)
+    current_way.version == self.version
+  end
 end

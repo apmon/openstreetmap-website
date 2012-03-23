@@ -189,12 +189,12 @@ class OldNodeControllerTest < ActionController::TestCase
   def test_version_redacted
     node = nodes(:redacted_node_redacted_version)
 
-    get :version, :id => node.id, :version => node.version
+    get :version, :id => node.node_id, :version => node.version
     assert_response :forbidden, "Redacted node shouldn't be visible via the version API."
 
     # not even to a logged-in user
     basic_authorization(users(:public_user).email, "test")
-    get :version, :id => node.id, :version => node.version
+    get :version, :id => node.node_id, :version => node.version
     assert_response :forbidden, "Redacted node shouldn't be visible via the version API, even when logged in."
   end
 
@@ -203,16 +203,16 @@ class OldNodeControllerTest < ActionController::TestCase
   def test_history_redacted
     node = nodes(:redacted_node_redacted_version)
 
-    get :history, :id => node.id
+    get :history, :id => node.node_id
     assert_response :success, "Redaction shouldn't have stopped history working."
-    assert_select "osm node[id=#{node.id}][version=#{node.version}]", 0, "redacted node #{node.id} version #{node.version} shouldn't be present in the history."
+    assert_select "osm node[id=#{node.node_id}][version=#{node.version}]", 0, "redacted node #{node.node_id} version #{node.version} shouldn't be present in the history."
 
     # not even to a logged-in user
     basic_authorization(users(:public_user).email, "test")
-    get :version, :id => node.id, :version => node.version
-    get :history, :id => node.id
+    get :version, :id => node.node_id, :version => node.version
+    get :history, :id => node.node_id
     assert_response :success, "Redaction shouldn't have stopped history working."
-    assert_select "osm node[id=#{node.id}][version=#{node.version}]", 0, "redacted node #{node.id} version #{node.version} shouldn't be present in the history, even when logged in."
+    assert_select "osm node[id=#{node.node_id}][version=#{node.version}]", 0, "redacted node #{node.node_id} version #{node.version} shouldn't be present in the history, even when logged in."
   end
 
   ##
@@ -226,21 +226,21 @@ class OldNodeControllerTest < ActionController::TestCase
     assert_response :success, "should be OK to redact old version as moderator."
 
     # check moderator can still see the redacted data
-    get :version, :id => node.id, :version => node.version
+    get :version, :id => node.node_id, :version => node.version
     assert_response :success, "After redaction, node should not be gone for moderator."
     
     # and when accessed via history
-    get :history, :id => node.id
+    get :history, :id => node.node_id
     assert_response :success, "Redaction shouldn't have stopped history working."
-    assert_select "osm node[id=#{node.id}][version=#{node.version}]", 1, "node #{node.id} version #{node.version} should still be present in the history for moderators."
+    assert_select "osm node[id=#{node.node_id}][version=#{node.version}]", 1, "node #{node.node_id} version #{node.version} should still be present in the history for moderators."
   end
 
   def do_redact_node(node, redaction)
-    get :version, :id => node.id, :version => node.version
-    assert_response :success, "should be able to get version #{node.version} of node #{node.id}."
+    get :version, :id => node.node_id, :version => node.version
+    assert_response :success, "should be able to get version #{node.version} of node #{node.node_id}."
     
     # now redact it
-    post :redact, :id => node.id, :version => node.version, :redaction => redaction.id
+    post :redact, :id => node.node_id, :version => node.version, :redaction => redaction.id
   end
 
   def check_current_version(node_id)

@@ -7,12 +7,14 @@ class OldNodeController < ApplicationController
   around_filter :api_call_handle_error, :api_call_timeout
 
   def history
-    node = Node.find(params[:id])
+    node = Node.find(params[:id].to_i)
     
     doc = OSM::API.new.get_xml_doc
     
     node.old_nodes.each do |old_node|
-      doc.root << old_node.to_xml_node
+      unless old_node.redacted?
+        doc.root << old_node.to_xml_node
+      end
     end
     
     render :text => doc.to_s, :content_type => "text/xml"
@@ -20,12 +22,17 @@ class OldNodeController < ApplicationController
   
   def version
     if old_node = OldNode.where(:node_id => params[:id], :version => params[:version]).first
-      response.last_modified = old_node.timestamp
+      if old_node.redacted?
+        render :nothing => true, :status => :forbidden
+      else
 
-      doc = OSM::API.new.get_xml_doc
-      doc.root << old_node.to_xml_node
-
-      render :text => doc.to_s, :content_type => "text/xml"
+        response.last_modified = old_node.timestamp
+        
+        doc = OSM::API.new.get_xml_doc
+        doc.root << old_node.to_xml_node
+        
+        render :text => doc.to_s, :content_type => "text/xml"
+      end
     else
       render :nothing => true, :status => :not_found
     end

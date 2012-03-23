@@ -30,4 +30,9 @@ class OldNodeController < ApplicationController
       render :nothing => true, :status => :not_found
     end
   end
+
+  def redact
+    # stub, for the moment
+    render :nothing => true, :status => :not_found
+  end
 end

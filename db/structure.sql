@@ -9,13 +9,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET escape_string_warning = off;
 
---
--- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: -
---
-
-CREATE PROCEDURAL LANGUAGE plpgsql;
-
-
 SET search_path = public, pg_catalog;
 
 --
@@ -1254,15 +1247,6 @@ CREATE FUNCTION gbt_var_decompress(internal) RETURNS internal
 
 
 --
--- Name: maptile_for_point(bigint, bigint, integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION maptile_for_point(bigint, bigint, integer) RETURNS integer
-    LANGUAGE c STRICT
-    AS '/home/matt/Programming/rails_port/db/functions/libpgosm.so', 'maptile_for_point';
-
-
---
 -- Name: gist_bit_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
 --
 
@@ -1820,8 +1804,8 @@ CREATE TABLE client_applications (
     key character varying(50),
     secret character varying(50),
     user_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     allow_read_prefs boolean DEFAULT false NOT NULL,
     allow_write_prefs boolean DEFAULT false NOT NULL,
     allow_write_diary boolean DEFAULT false NOT NULL,
@@ -2307,8 +2291,8 @@ CREATE TABLE oauth_nonces (
     id integer NOT NULL,
     nonce character varying(255),
     "timestamp" integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2344,8 +2328,8 @@ CREATE TABLE oauth_tokens (
     secret character varying(50),
     authorized_at timestamp without time zone,
     invalidated_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     allow_read_prefs boolean DEFAULT false NOT NULL,
     allow_write_prefs boolean DEFAULT false NOT NULL,
     allow_write_diary boolean DEFAULT false NOT NULL,
@@ -2503,8 +2487,8 @@ CREATE TABLE user_blocks (
     ends_at timestamp without time zone NOT NULL,
     needs_view boolean DEFAULT false NOT NULL,
     revoker_id bigint,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2545,8 +2529,8 @@ CREATE TABLE user_preferences (
 CREATE TABLE user_roles (
     id integer NOT NULL,
     user_id bigint NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     role user_role_enum NOT NULL,
     granter_id bigint NOT NULL
 );
@@ -2628,9 +2612,9 @@ CREATE TABLE users (
     status user_status_enum DEFAULT 'pending'::user_status_enum NOT NULL,
     terms_agreed timestamp without time zone,
     consider_pd boolean DEFAULT false NOT NULL,
+    openid_url character varying(255),
     preferred_editor character varying(255),
     terms_seen boolean DEFAULT false NOT NULL,
-    openid_url character varying(255),
     image_fingerprint character varying(255)
 );
 
@@ -3205,20 +3189,6 @@ CREATE INDEX current_relation_members_member_idx ON current_relation_members USI
 
 
 --
--- Name: current_relation_tags_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX current_relation_tags_id_idx ON current_relation_tags USING btree (relation_id);
-
-
---
--- Name: current_relation_tags_v_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX current_relation_tags_v_idx ON current_relation_tags USING btree (v);
-
-
---
 -- Name: current_relations_timestamp_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3230,20 +3200,6 @@ CREATE INDEX current_relations_timestamp_idx ON current_relations USING btree ("
 --
 
 CREATE INDEX current_way_nodes_node_idx ON current_way_nodes USING btree (node_id);
-
-
---
--- Name: current_way_tags_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX current_way_tags_id_idx ON current_way_tags USING btree (way_id);
-
-
---
--- Name: current_way_tags_v_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX current_way_tags_v_idx ON current_way_tags USING btree (v);
 
 
 --
@@ -3394,13 +3350,6 @@ CREATE INDEX nodes_timestamp_idx ON nodes USING btree ("timestamp");
 
 
 --
--- Name: nodes_uid_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX nodes_uid_idx ON nodes USING btree (node_id);
-
-
---
 -- Name: points_gpxid_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3419,13 +3368,6 @@ CREATE INDEX points_tile_idx ON gps_points USING btree (tile);
 --
 
 CREATE INDEX relation_members_member_idx ON relation_members USING btree (member_type, member_id);
-
-
---
--- Name: relation_tags_id_version_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX relation_tags_id_version_idx ON relation_tags USING btree (relation_id, version);
 
 
 --
@@ -3524,13 +3466,6 @@ CREATE INDEX users_email_lower_idx ON users USING btree (lower((email)::text));
 --
 
 CREATE INDEX way_nodes_node_idx ON way_nodes USING btree (node_id);
-
-
---
--- Name: way_tags_id_version_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX way_tags_id_version_idx ON way_tags USING btree (way_id, version);
 
 
 --

@@ -19,7 +19,7 @@ class OldNodeController < ApplicationController
     doc = OSM::API.new.get_xml_doc
     
     node.old_nodes.each do |old_node|
-      unless old_node.redacted? and (@user.nil? or not @user.moderator?)
+      unless old_node.redacted? and (@user.nil? or not @user.moderator?) and not params[:show_redactions] == "true"
         doc.root << old_node.to_xml_node
       end
     end
@@ -33,7 +33,7 @@ class OldNodeController < ApplicationController
       # call, perhaps try lazy auth.
       setup_user_auth
       
-      if old_node.redacted? and (@user.nil? or not @user.moderator?)
+      if old_node.redacted? and (@user.nil? or not @user.moderator?) and not params[:show_redactions] == "true"
         render :nothing => true, :status => :forbidden
       else
 

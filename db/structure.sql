@@ -4,200 +4,47 @@
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
-SET standard_conforming_strings = off;
+SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-SET escape_string_warning = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: btree_gist; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS btree_gist WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION btree_gist; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION btree_gist IS 'support for indexing common datatypes in GiST';
+
 
 SET search_path = public, pg_catalog;
 
 --
--- Name: gbtreekey16; Type: SHELL TYPE; Schema: public; Owner: -
+-- Name: format_enum; Type: TYPE; Schema: public; Owner: -
 --
 
-CREATE TYPE gbtreekey16;
-
-
---
--- Name: gbtreekey16_in(cstring); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey16_in(cstring) RETURNS gbtreekey16
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_in';
-
-
---
--- Name: gbtreekey16_out(gbtreekey16); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey16_out(gbtreekey16) RETURNS cstring
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_out';
-
-
---
--- Name: gbtreekey16; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey16 (
-    INTERNALLENGTH = 16,
-    INPUT = gbtreekey16_in,
-    OUTPUT = gbtreekey16_out,
-    ALIGNMENT = int4,
-    STORAGE = plain
-);
-
-
---
--- Name: gbtreekey32; Type: SHELL TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey32;
-
-
---
--- Name: gbtreekey32_in(cstring); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey32_in(cstring) RETURNS gbtreekey32
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_in';
-
-
---
--- Name: gbtreekey32_out(gbtreekey32); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey32_out(gbtreekey32) RETURNS cstring
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_out';
-
-
---
--- Name: gbtreekey32; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey32 (
-    INTERNALLENGTH = 32,
-    INPUT = gbtreekey32_in,
-    OUTPUT = gbtreekey32_out,
-    ALIGNMENT = int4,
-    STORAGE = plain
-);
-
-
---
--- Name: gbtreekey4; Type: SHELL TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey4;
-
-
---
--- Name: gbtreekey4_in(cstring); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey4_in(cstring) RETURNS gbtreekey4
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_in';
-
-
---
--- Name: gbtreekey4_out(gbtreekey4); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey4_out(gbtreekey4) RETURNS cstring
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_out';
-
-
---
--- Name: gbtreekey4; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey4 (
-    INTERNALLENGTH = 4,
-    INPUT = gbtreekey4_in,
-    OUTPUT = gbtreekey4_out,
-    ALIGNMENT = int4,
-    STORAGE = plain
-);
-
-
---
--- Name: gbtreekey8; Type: SHELL TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey8;
-
-
---
--- Name: gbtreekey8_in(cstring); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey8_in(cstring) RETURNS gbtreekey8
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_in';
-
-
---
--- Name: gbtreekey8_out(gbtreekey8); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey8_out(gbtreekey8) RETURNS cstring
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_out';
-
-
---
--- Name: gbtreekey8; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey8 (
-    INTERNALLENGTH = 8,
-    INPUT = gbtreekey8_in,
-    OUTPUT = gbtreekey8_out,
-    ALIGNMENT = int4,
-    STORAGE = plain
-);
-
-
---
--- Name: gbtreekey_var; Type: SHELL TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey_var;
-
-
---
--- Name: gbtreekey_var_in(cstring); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey_var_in(cstring) RETURNS gbtreekey_var
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_in';
-
-
---
--- Name: gbtreekey_var_out(gbtreekey_var); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbtreekey_var_out(gbtreekey_var) RETURNS cstring
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbtreekey_out';
-
-
---
--- Name: gbtreekey_var; Type: TYPE; Schema: public; Owner: -
---
-
-CREATE TYPE gbtreekey_var (
-    INTERNALLENGTH = variable,
-    INPUT = gbtreekey_var_in,
-    OUTPUT = gbtreekey_var_out,
-    ALIGNMENT = int4,
-    STORAGE = extended
+CREATE TYPE format_enum AS ENUM (
+    'html',
+    'markdown'
 );
 
 
@@ -210,6 +57,30 @@ CREATE TYPE gpx_visibility_enum AS ENUM (
     'public',
     'trackable',
     'identifiable'
+);
+
+
+--
+-- Name: note_event_enum; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE note_event_enum AS ENUM (
+    'opened',
+    'closed',
+    'reopened',
+    'commented',
+    'hidden'
+);
+
+
+--
+-- Name: note_status_enum; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE note_status_enum AS ENUM (
+    'open',
+    'closed',
+    'hidden'
 );
 
 
@@ -247,1467 +118,6 @@ CREATE TYPE user_status_enum AS ENUM (
 );
 
 
---
--- Name: gbt_bit_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bit_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bit_compress';
-
-
---
--- Name: gbt_bit_consistent(internal, bit, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bit_consistent(internal, bit, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bit_consistent';
-
-
---
--- Name: gbt_bit_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bit_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bit_penalty';
-
-
---
--- Name: gbt_bit_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bit_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bit_picksplit';
-
-
---
--- Name: gbt_bit_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bit_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bit_same';
-
-
---
--- Name: gbt_bit_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bit_union(bytea, internal) RETURNS gbtreekey_var
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bit_union';
-
-
---
--- Name: gbt_bpchar_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bpchar_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bpchar_compress';
-
-
---
--- Name: gbt_bpchar_consistent(internal, character, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bpchar_consistent(internal, character, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bpchar_consistent';
-
-
---
--- Name: gbt_bytea_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bytea_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bytea_compress';
-
-
---
--- Name: gbt_bytea_consistent(internal, bytea, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bytea_consistent(internal, bytea, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bytea_consistent';
-
-
---
--- Name: gbt_bytea_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bytea_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bytea_penalty';
-
-
---
--- Name: gbt_bytea_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bytea_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bytea_picksplit';
-
-
---
--- Name: gbt_bytea_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bytea_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bytea_same';
-
-
---
--- Name: gbt_bytea_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_bytea_union(bytea, internal) RETURNS gbtreekey_var
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_bytea_union';
-
-
---
--- Name: gbt_cash_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_cash_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_cash_compress';
-
-
---
--- Name: gbt_cash_consistent(internal, money, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_cash_consistent(internal, money, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_cash_consistent';
-
-
---
--- Name: gbt_cash_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_cash_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_cash_penalty';
-
-
---
--- Name: gbt_cash_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_cash_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_cash_picksplit';
-
-
---
--- Name: gbt_cash_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_cash_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_cash_same';
-
-
---
--- Name: gbt_cash_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_cash_union(bytea, internal) RETURNS gbtreekey8
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_cash_union';
-
-
---
--- Name: gbt_date_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_date_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_date_compress';
-
-
---
--- Name: gbt_date_consistent(internal, date, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_date_consistent(internal, date, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_date_consistent';
-
-
---
--- Name: gbt_date_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_date_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_date_penalty';
-
-
---
--- Name: gbt_date_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_date_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_date_picksplit';
-
-
---
--- Name: gbt_date_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_date_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_date_same';
-
-
---
--- Name: gbt_date_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_date_union(bytea, internal) RETURNS gbtreekey8
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_date_union';
-
-
---
--- Name: gbt_decompress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_decompress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_decompress';
-
-
---
--- Name: gbt_float4_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float4_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float4_compress';
-
-
---
--- Name: gbt_float4_consistent(internal, real, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float4_consistent(internal, real, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float4_consistent';
-
-
---
--- Name: gbt_float4_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float4_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float4_penalty';
-
-
---
--- Name: gbt_float4_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float4_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float4_picksplit';
-
-
---
--- Name: gbt_float4_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float4_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float4_same';
-
-
---
--- Name: gbt_float4_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float4_union(bytea, internal) RETURNS gbtreekey8
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float4_union';
-
-
---
--- Name: gbt_float8_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float8_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float8_compress';
-
-
---
--- Name: gbt_float8_consistent(internal, double precision, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float8_consistent(internal, double precision, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float8_consistent';
-
-
---
--- Name: gbt_float8_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float8_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float8_penalty';
-
-
---
--- Name: gbt_float8_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float8_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float8_picksplit';
-
-
---
--- Name: gbt_float8_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float8_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float8_same';
-
-
---
--- Name: gbt_float8_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_float8_union(bytea, internal) RETURNS gbtreekey16
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_float8_union';
-
-
---
--- Name: gbt_inet_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_inet_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_inet_compress';
-
-
---
--- Name: gbt_inet_consistent(internal, inet, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_inet_consistent(internal, inet, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_inet_consistent';
-
-
---
--- Name: gbt_inet_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_inet_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_inet_penalty';
-
-
---
--- Name: gbt_inet_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_inet_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_inet_picksplit';
-
-
---
--- Name: gbt_inet_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_inet_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_inet_same';
-
-
---
--- Name: gbt_inet_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_inet_union(bytea, internal) RETURNS gbtreekey16
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_inet_union';
-
-
---
--- Name: gbt_int2_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int2_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int2_compress';
-
-
---
--- Name: gbt_int2_consistent(internal, smallint, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int2_consistent(internal, smallint, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int2_consistent';
-
-
---
--- Name: gbt_int2_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int2_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int2_penalty';
-
-
---
--- Name: gbt_int2_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int2_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int2_picksplit';
-
-
---
--- Name: gbt_int2_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int2_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int2_same';
-
-
---
--- Name: gbt_int2_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int2_union(bytea, internal) RETURNS gbtreekey4
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int2_union';
-
-
---
--- Name: gbt_int4_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int4_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int4_compress';
-
-
---
--- Name: gbt_int4_consistent(internal, integer, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int4_consistent(internal, integer, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int4_consistent';
-
-
---
--- Name: gbt_int4_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int4_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int4_penalty';
-
-
---
--- Name: gbt_int4_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int4_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int4_picksplit';
-
-
---
--- Name: gbt_int4_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int4_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int4_same';
-
-
---
--- Name: gbt_int4_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int4_union(bytea, internal) RETURNS gbtreekey8
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int4_union';
-
-
---
--- Name: gbt_int8_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int8_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int8_compress';
-
-
---
--- Name: gbt_int8_consistent(internal, bigint, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int8_consistent(internal, bigint, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int8_consistent';
-
-
---
--- Name: gbt_int8_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int8_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int8_penalty';
-
-
---
--- Name: gbt_int8_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int8_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int8_picksplit';
-
-
---
--- Name: gbt_int8_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int8_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int8_same';
-
-
---
--- Name: gbt_int8_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_int8_union(bytea, internal) RETURNS gbtreekey16
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_int8_union';
-
-
---
--- Name: gbt_intv_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_intv_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_intv_compress';
-
-
---
--- Name: gbt_intv_consistent(internal, interval, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_intv_consistent(internal, interval, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_intv_consistent';
-
-
---
--- Name: gbt_intv_decompress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_intv_decompress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_intv_decompress';
-
-
---
--- Name: gbt_intv_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_intv_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_intv_penalty';
-
-
---
--- Name: gbt_intv_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_intv_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_intv_picksplit';
-
-
---
--- Name: gbt_intv_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_intv_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_intv_same';
-
-
---
--- Name: gbt_intv_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_intv_union(bytea, internal) RETURNS gbtreekey32
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_intv_union';
-
-
---
--- Name: gbt_macad_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_macad_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_macad_compress';
-
-
---
--- Name: gbt_macad_consistent(internal, macaddr, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_macad_consistent(internal, macaddr, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_macad_consistent';
-
-
---
--- Name: gbt_macad_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_macad_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_macad_penalty';
-
-
---
--- Name: gbt_macad_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_macad_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_macad_picksplit';
-
-
---
--- Name: gbt_macad_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_macad_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_macad_same';
-
-
---
--- Name: gbt_macad_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_macad_union(bytea, internal) RETURNS gbtreekey16
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_macad_union';
-
-
---
--- Name: gbt_numeric_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_numeric_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_numeric_compress';
-
-
---
--- Name: gbt_numeric_consistent(internal, numeric, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_numeric_consistent(internal, numeric, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_numeric_consistent';
-
-
---
--- Name: gbt_numeric_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_numeric_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_numeric_penalty';
-
-
---
--- Name: gbt_numeric_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_numeric_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_numeric_picksplit';
-
-
---
--- Name: gbt_numeric_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_numeric_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_numeric_same';
-
-
---
--- Name: gbt_numeric_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_numeric_union(bytea, internal) RETURNS gbtreekey_var
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_numeric_union';
-
-
---
--- Name: gbt_oid_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_oid_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_oid_compress';
-
-
---
--- Name: gbt_oid_consistent(internal, oid, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_oid_consistent(internal, oid, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_oid_consistent';
-
-
---
--- Name: gbt_oid_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_oid_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_oid_penalty';
-
-
---
--- Name: gbt_oid_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_oid_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_oid_picksplit';
-
-
---
--- Name: gbt_oid_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_oid_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_oid_same';
-
-
---
--- Name: gbt_oid_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_oid_union(bytea, internal) RETURNS gbtreekey8
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_oid_union';
-
-
---
--- Name: gbt_text_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_text_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_text_compress';
-
-
---
--- Name: gbt_text_consistent(internal, text, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_text_consistent(internal, text, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_text_consistent';
-
-
---
--- Name: gbt_text_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_text_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_text_penalty';
-
-
---
--- Name: gbt_text_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_text_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_text_picksplit';
-
-
---
--- Name: gbt_text_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_text_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_text_same';
-
-
---
--- Name: gbt_text_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_text_union(bytea, internal) RETURNS gbtreekey_var
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_text_union';
-
-
---
--- Name: gbt_time_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_time_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_time_compress';
-
-
---
--- Name: gbt_time_consistent(internal, time without time zone, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_time_consistent(internal, time without time zone, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_time_consistent';
-
-
---
--- Name: gbt_time_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_time_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_time_penalty';
-
-
---
--- Name: gbt_time_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_time_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_time_picksplit';
-
-
---
--- Name: gbt_time_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_time_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_time_same';
-
-
---
--- Name: gbt_time_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_time_union(bytea, internal) RETURNS gbtreekey16
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_time_union';
-
-
---
--- Name: gbt_timetz_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_timetz_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_timetz_compress';
-
-
---
--- Name: gbt_timetz_consistent(internal, time with time zone, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_timetz_consistent(internal, time with time zone, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_timetz_consistent';
-
-
---
--- Name: gbt_ts_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_ts_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_ts_compress';
-
-
---
--- Name: gbt_ts_consistent(internal, timestamp without time zone, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_ts_consistent(internal, timestamp without time zone, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_ts_consistent';
-
-
---
--- Name: gbt_ts_penalty(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_ts_penalty(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_ts_penalty';
-
-
---
--- Name: gbt_ts_picksplit(internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_ts_picksplit(internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_ts_picksplit';
-
-
---
--- Name: gbt_ts_same(internal, internal, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_ts_same(internal, internal, internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_ts_same';
-
-
---
--- Name: gbt_ts_union(bytea, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_ts_union(bytea, internal) RETURNS gbtreekey16
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_ts_union';
-
-
---
--- Name: gbt_tstz_compress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_tstz_compress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_tstz_compress';
-
-
---
--- Name: gbt_tstz_consistent(internal, timestamp with time zone, smallint, oid, internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_tstz_consistent(internal, timestamp with time zone, smallint, oid, internal) RETURNS boolean
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_tstz_consistent';
-
-
---
--- Name: gbt_var_decompress(internal); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION gbt_var_decompress(internal) RETURNS internal
-    LANGUAGE c IMMUTABLE STRICT
-    AS '$libdir/btree_gist', 'gbt_var_decompress';
-
-
---
--- Name: gist_bit_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_bit_ops
-    DEFAULT FOR TYPE bit USING gist AS
-    STORAGE gbtreekey_var ,
-    OPERATOR 1 <(bit,bit) ,
-    OPERATOR 2 <=(bit,bit) ,
-    OPERATOR 3 =(bit,bit) ,
-    OPERATOR 4 >=(bit,bit) ,
-    OPERATOR 5 >(bit,bit) ,
-    FUNCTION 1 gbt_bit_consistent(internal,bit,smallint,oid,internal) ,
-    FUNCTION 2 gbt_bit_union(bytea,internal) ,
-    FUNCTION 3 gbt_bit_compress(internal) ,
-    FUNCTION 4 gbt_var_decompress(internal) ,
-    FUNCTION 5 gbt_bit_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_bit_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_bit_same(internal,internal,internal);
-
-
---
--- Name: gist_bpchar_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_bpchar_ops
-    DEFAULT FOR TYPE character USING gist AS
-    STORAGE gbtreekey_var ,
-    OPERATOR 1 <(character,character) ,
-    OPERATOR 2 <=(character,character) ,
-    OPERATOR 3 =(character,character) ,
-    OPERATOR 4 >=(character,character) ,
-    OPERATOR 5 >(character,character) ,
-    FUNCTION 1 gbt_bpchar_consistent(internal,character,smallint,oid,internal) ,
-    FUNCTION 2 gbt_text_union(bytea,internal) ,
-    FUNCTION 3 gbt_bpchar_compress(internal) ,
-    FUNCTION 4 gbt_var_decompress(internal) ,
-    FUNCTION 5 gbt_text_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_text_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_text_same(internal,internal,internal);
-
-
---
--- Name: gist_bytea_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_bytea_ops
-    DEFAULT FOR TYPE bytea USING gist AS
-    STORAGE gbtreekey_var ,
-    OPERATOR 1 <(bytea,bytea) ,
-    OPERATOR 2 <=(bytea,bytea) ,
-    OPERATOR 3 =(bytea,bytea) ,
-    OPERATOR 4 >=(bytea,bytea) ,
-    OPERATOR 5 >(bytea,bytea) ,
-    FUNCTION 1 gbt_bytea_consistent(internal,bytea,smallint,oid,internal) ,
-    FUNCTION 2 gbt_bytea_union(bytea,internal) ,
-    FUNCTION 3 gbt_bytea_compress(internal) ,
-    FUNCTION 4 gbt_var_decompress(internal) ,
-    FUNCTION 5 gbt_bytea_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_bytea_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_bytea_same(internal,internal,internal);
-
-
---
--- Name: gist_cash_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_cash_ops
-    DEFAULT FOR TYPE money USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(money,money) ,
-    OPERATOR 2 <=(money,money) ,
-    OPERATOR 3 =(money,money) ,
-    OPERATOR 4 >=(money,money) ,
-    OPERATOR 5 >(money,money) ,
-    FUNCTION 1 gbt_cash_consistent(internal,money,smallint,oid,internal) ,
-    FUNCTION 2 gbt_cash_union(bytea,internal) ,
-    FUNCTION 3 gbt_cash_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_cash_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_cash_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_cash_same(internal,internal,internal);
-
-
---
--- Name: gist_cidr_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_cidr_ops
-    DEFAULT FOR TYPE cidr USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(inet,inet) ,
-    OPERATOR 2 <=(inet,inet) ,
-    OPERATOR 3 =(inet,inet) ,
-    OPERATOR 4 >=(inet,inet) ,
-    OPERATOR 5 >(inet,inet) ,
-    FUNCTION 1 gbt_inet_consistent(internal,inet,smallint,oid,internal) ,
-    FUNCTION 2 gbt_inet_union(bytea,internal) ,
-    FUNCTION 3 gbt_inet_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_inet_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_inet_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_inet_same(internal,internal,internal);
-
-
---
--- Name: gist_date_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_date_ops
-    DEFAULT FOR TYPE date USING gist AS
-    STORAGE gbtreekey8 ,
-    OPERATOR 1 <(date,date) ,
-    OPERATOR 2 <=(date,date) ,
-    OPERATOR 3 =(date,date) ,
-    OPERATOR 4 >=(date,date) ,
-    OPERATOR 5 >(date,date) ,
-    FUNCTION 1 gbt_date_consistent(internal,date,smallint,oid,internal) ,
-    FUNCTION 2 gbt_date_union(bytea,internal) ,
-    FUNCTION 3 gbt_date_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_date_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_date_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_date_same(internal,internal,internal);
-
-
---
--- Name: gist_float4_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_float4_ops
-    DEFAULT FOR TYPE real USING gist AS
-    STORAGE gbtreekey8 ,
-    OPERATOR 1 <(real,real) ,
-    OPERATOR 2 <=(real,real) ,
-    OPERATOR 3 =(real,real) ,
-    OPERATOR 4 >=(real,real) ,
-    OPERATOR 5 >(real,real) ,
-    FUNCTION 1 gbt_float4_consistent(internal,real,smallint,oid,internal) ,
-    FUNCTION 2 gbt_float4_union(bytea,internal) ,
-    FUNCTION 3 gbt_float4_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_float4_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_float4_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_float4_same(internal,internal,internal);
-
-
---
--- Name: gist_float8_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_float8_ops
-    DEFAULT FOR TYPE double precision USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(double precision,double precision) ,
-    OPERATOR 2 <=(double precision,double precision) ,
-    OPERATOR 3 =(double precision,double precision) ,
-    OPERATOR 4 >=(double precision,double precision) ,
-    OPERATOR 5 >(double precision,double precision) ,
-    FUNCTION 1 gbt_float8_consistent(internal,double precision,smallint,oid,internal) ,
-    FUNCTION 2 gbt_float8_union(bytea,internal) ,
-    FUNCTION 3 gbt_float8_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_float8_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_float8_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_float8_same(internal,internal,internal);
-
-
---
--- Name: gist_inet_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_inet_ops
-    DEFAULT FOR TYPE inet USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(inet,inet) ,
-    OPERATOR 2 <=(inet,inet) ,
-    OPERATOR 3 =(inet,inet) ,
-    OPERATOR 4 >=(inet,inet) ,
-    OPERATOR 5 >(inet,inet) ,
-    FUNCTION 1 gbt_inet_consistent(internal,inet,smallint,oid,internal) ,
-    FUNCTION 2 gbt_inet_union(bytea,internal) ,
-    FUNCTION 3 gbt_inet_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_inet_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_inet_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_inet_same(internal,internal,internal);
-
-
---
--- Name: gist_int2_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_int2_ops
-    DEFAULT FOR TYPE smallint USING gist AS
-    STORAGE gbtreekey4 ,
-    OPERATOR 1 <(smallint,smallint) ,
-    OPERATOR 2 <=(smallint,smallint) ,
-    OPERATOR 3 =(smallint,smallint) ,
-    OPERATOR 4 >=(smallint,smallint) ,
-    OPERATOR 5 >(smallint,smallint) ,
-    FUNCTION 1 gbt_int2_consistent(internal,smallint,smallint,oid,internal) ,
-    FUNCTION 2 gbt_int2_union(bytea,internal) ,
-    FUNCTION 3 gbt_int2_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_int2_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_int2_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_int2_same(internal,internal,internal);
-
-
---
--- Name: gist_int4_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_int4_ops
-    DEFAULT FOR TYPE integer USING gist AS
-    STORAGE gbtreekey8 ,
-    OPERATOR 1 <(integer,integer) ,
-    OPERATOR 2 <=(integer,integer) ,
-    OPERATOR 3 =(integer,integer) ,
-    OPERATOR 4 >=(integer,integer) ,
-    OPERATOR 5 >(integer,integer) ,
-    FUNCTION 1 gbt_int4_consistent(internal,integer,smallint,oid,internal) ,
-    FUNCTION 2 gbt_int4_union(bytea,internal) ,
-    FUNCTION 3 gbt_int4_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_int4_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_int4_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_int4_same(internal,internal,internal);
-
-
---
--- Name: gist_int8_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_int8_ops
-    DEFAULT FOR TYPE bigint USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(bigint,bigint) ,
-    OPERATOR 2 <=(bigint,bigint) ,
-    OPERATOR 3 =(bigint,bigint) ,
-    OPERATOR 4 >=(bigint,bigint) ,
-    OPERATOR 5 >(bigint,bigint) ,
-    FUNCTION 1 gbt_int8_consistent(internal,bigint,smallint,oid,internal) ,
-    FUNCTION 2 gbt_int8_union(bytea,internal) ,
-    FUNCTION 3 gbt_int8_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_int8_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_int8_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_int8_same(internal,internal,internal);
-
-
---
--- Name: gist_interval_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_interval_ops
-    DEFAULT FOR TYPE interval USING gist AS
-    STORAGE gbtreekey32 ,
-    OPERATOR 1 <(interval,interval) ,
-    OPERATOR 2 <=(interval,interval) ,
-    OPERATOR 3 =(interval,interval) ,
-    OPERATOR 4 >=(interval,interval) ,
-    OPERATOR 5 >(interval,interval) ,
-    FUNCTION 1 gbt_intv_consistent(internal,interval,smallint,oid,internal) ,
-    FUNCTION 2 gbt_intv_union(bytea,internal) ,
-    FUNCTION 3 gbt_intv_compress(internal) ,
-    FUNCTION 4 gbt_intv_decompress(internal) ,
-    FUNCTION 5 gbt_intv_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_intv_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_intv_same(internal,internal,internal);
-
-
---
--- Name: gist_macaddr_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_macaddr_ops
-    DEFAULT FOR TYPE macaddr USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(macaddr,macaddr) ,
-    OPERATOR 2 <=(macaddr,macaddr) ,
-    OPERATOR 3 =(macaddr,macaddr) ,
-    OPERATOR 4 >=(macaddr,macaddr) ,
-    OPERATOR 5 >(macaddr,macaddr) ,
-    FUNCTION 1 gbt_macad_consistent(internal,macaddr,smallint,oid,internal) ,
-    FUNCTION 2 gbt_macad_union(bytea,internal) ,
-    FUNCTION 3 gbt_macad_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_macad_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_macad_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_macad_same(internal,internal,internal);
-
-
---
--- Name: gist_numeric_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_numeric_ops
-    DEFAULT FOR TYPE numeric USING gist AS
-    STORAGE gbtreekey_var ,
-    OPERATOR 1 <(numeric,numeric) ,
-    OPERATOR 2 <=(numeric,numeric) ,
-    OPERATOR 3 =(numeric,numeric) ,
-    OPERATOR 4 >=(numeric,numeric) ,
-    OPERATOR 5 >(numeric,numeric) ,
-    FUNCTION 1 gbt_numeric_consistent(internal,numeric,smallint,oid,internal) ,
-    FUNCTION 2 gbt_numeric_union(bytea,internal) ,
-    FUNCTION 3 gbt_numeric_compress(internal) ,
-    FUNCTION 4 gbt_var_decompress(internal) ,
-    FUNCTION 5 gbt_numeric_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_numeric_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_numeric_same(internal,internal,internal);
-
-
---
--- Name: gist_oid_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_oid_ops
-    DEFAULT FOR TYPE oid USING gist AS
-    STORAGE gbtreekey8 ,
-    OPERATOR 1 <(oid,oid) ,
-    OPERATOR 2 <=(oid,oid) ,
-    OPERATOR 3 =(oid,oid) ,
-    OPERATOR 4 >=(oid,oid) ,
-    OPERATOR 5 >(oid,oid) ,
-    FUNCTION 1 gbt_oid_consistent(internal,oid,smallint,oid,internal) ,
-    FUNCTION 2 gbt_oid_union(bytea,internal) ,
-    FUNCTION 3 gbt_oid_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_oid_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_oid_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_oid_same(internal,internal,internal);
-
-
---
--- Name: gist_text_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_text_ops
-    DEFAULT FOR TYPE text USING gist AS
-    STORAGE gbtreekey_var ,
-    OPERATOR 1 <(text,text) ,
-    OPERATOR 2 <=(text,text) ,
-    OPERATOR 3 =(text,text) ,
-    OPERATOR 4 >=(text,text) ,
-    OPERATOR 5 >(text,text) ,
-    FUNCTION 1 gbt_text_consistent(internal,text,smallint,oid,internal) ,
-    FUNCTION 2 gbt_text_union(bytea,internal) ,
-    FUNCTION 3 gbt_text_compress(internal) ,
-    FUNCTION 4 gbt_var_decompress(internal) ,
-    FUNCTION 5 gbt_text_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_text_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_text_same(internal,internal,internal);
-
-
---
--- Name: gist_time_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_time_ops
-    DEFAULT FOR TYPE time without time zone USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(time without time zone,time without time zone) ,
-    OPERATOR 2 <=(time without time zone,time without time zone) ,
-    OPERATOR 3 =(time without time zone,time without time zone) ,
-    OPERATOR 4 >=(time without time zone,time without time zone) ,
-    OPERATOR 5 >(time without time zone,time without time zone) ,
-    FUNCTION 1 gbt_time_consistent(internal,time without time zone,smallint,oid,internal) ,
-    FUNCTION 2 gbt_time_union(bytea,internal) ,
-    FUNCTION 3 gbt_time_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_time_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_time_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_time_same(internal,internal,internal);
-
-
---
--- Name: gist_timestamp_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_timestamp_ops
-    DEFAULT FOR TYPE timestamp without time zone USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(timestamp without time zone,timestamp without time zone) ,
-    OPERATOR 2 <=(timestamp without time zone,timestamp without time zone) ,
-    OPERATOR 3 =(timestamp without time zone,timestamp without time zone) ,
-    OPERATOR 4 >=(timestamp without time zone,timestamp without time zone) ,
-    OPERATOR 5 >(timestamp without time zone,timestamp without time zone) ,
-    FUNCTION 1 gbt_ts_consistent(internal,timestamp without time zone,smallint,oid,internal) ,
-    FUNCTION 2 gbt_ts_union(bytea,internal) ,
-    FUNCTION 3 gbt_ts_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_ts_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_ts_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_ts_same(internal,internal,internal);
-
-
---
--- Name: gist_timestamptz_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_timestamptz_ops
-    DEFAULT FOR TYPE timestamp with time zone USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(timestamp with time zone,timestamp with time zone) ,
-    OPERATOR 2 <=(timestamp with time zone,timestamp with time zone) ,
-    OPERATOR 3 =(timestamp with time zone,timestamp with time zone) ,
-    OPERATOR 4 >=(timestamp with time zone,timestamp with time zone) ,
-    OPERATOR 5 >(timestamp with time zone,timestamp with time zone) ,
-    FUNCTION 1 gbt_tstz_consistent(internal,timestamp with time zone,smallint,oid,internal) ,
-    FUNCTION 2 gbt_ts_union(bytea,internal) ,
-    FUNCTION 3 gbt_tstz_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_ts_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_ts_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_ts_same(internal,internal,internal);
-
-
---
--- Name: gist_timetz_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_timetz_ops
-    DEFAULT FOR TYPE time with time zone USING gist AS
-    STORAGE gbtreekey16 ,
-    OPERATOR 1 <(time with time zone,time with time zone) ,
-    OPERATOR 2 <=(time with time zone,time with time zone) ,
-    OPERATOR 3 =(time with time zone,time with time zone) ,
-    OPERATOR 4 >=(time with time zone,time with time zone) ,
-    OPERATOR 5 >(time with time zone,time with time zone) ,
-    FUNCTION 1 gbt_timetz_consistent(internal,time with time zone,smallint,oid,internal) ,
-    FUNCTION 2 gbt_time_union(bytea,internal) ,
-    FUNCTION 3 gbt_timetz_compress(internal) ,
-    FUNCTION 4 gbt_decompress(internal) ,
-    FUNCTION 5 gbt_time_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_time_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_time_same(internal,internal,internal);
-
-
---
--- Name: gist_vbit_ops; Type: OPERATOR CLASS; Schema: public; Owner: -
---
-
-CREATE OPERATOR CLASS gist_vbit_ops
-    DEFAULT FOR TYPE bit varying USING gist AS
-    STORAGE gbtreekey_var ,
-    OPERATOR 1 <(bit varying,bit varying) ,
-    OPERATOR 2 <=(bit varying,bit varying) ,
-    OPERATOR 3 =(bit varying,bit varying) ,
-    OPERATOR 4 >=(bit varying,bit varying) ,
-    OPERATOR 5 >(bit varying,bit varying) ,
-    FUNCTION 1 gbt_bit_consistent(internal,bit,smallint,oid,internal) ,
-    FUNCTION 2 gbt_bit_union(bytea,internal) ,
-    FUNCTION 3 gbt_bit_compress(internal) ,
-    FUNCTION 4 gbt_var_decompress(internal) ,
-    FUNCTION 5 gbt_bit_penalty(internal,internal,internal) ,
-    FUNCTION 6 gbt_bit_picksplit(internal,internal) ,
-    FUNCTION 7 gbt_bit_same(internal,internal,internal);
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -1732,8 +142,8 @@ CREATE TABLE acls (
 CREATE SEQUENCE acls_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1779,8 +189,8 @@ CREATE TABLE changesets (
 CREATE SEQUENCE changesets_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1804,8 +214,8 @@ CREATE TABLE client_applications (
     key character varying(50),
     secret character varying(50),
     user_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     allow_read_prefs boolean DEFAULT false NOT NULL,
     allow_write_prefs boolean DEFAULT false NOT NULL,
     allow_write_diary boolean DEFAULT false NOT NULL,
@@ -1822,8 +232,8 @@ CREATE TABLE client_applications (
 CREATE SEQUENCE client_applications_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1855,8 +265,8 @@ CREATE TABLE countries (
 CREATE SEQUENCE countries_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1901,8 +311,8 @@ CREATE TABLE current_nodes (
 CREATE SEQUENCE current_nodes_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1957,8 +367,8 @@ CREATE TABLE current_relations (
 CREATE SEQUENCE current_relations_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2011,8 +421,8 @@ CREATE TABLE current_ways (
 CREATE SEQUENCE current_ways_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2034,7 +444,8 @@ CREATE TABLE diary_comments (
     body text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    body_format format_enum DEFAULT 'html'::format_enum NOT NULL
 );
 
 
@@ -2045,8 +456,8 @@ CREATE TABLE diary_comments (
 CREATE SEQUENCE diary_comments_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2071,7 +482,8 @@ CREATE TABLE diary_entries (
     latitude double precision,
     longitude double precision,
     language_code character varying(255) DEFAULT 'en'::character varying NOT NULL,
-    visible boolean DEFAULT true NOT NULL
+    visible boolean DEFAULT true NOT NULL,
+    body_format format_enum DEFAULT 'html'::format_enum NOT NULL
 );
 
 
@@ -2082,8 +494,8 @@ CREATE TABLE diary_entries (
 CREATE SEQUENCE diary_entries_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2112,8 +524,8 @@ CREATE TABLE friends (
 CREATE SEQUENCE friends_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2157,8 +569,8 @@ CREATE TABLE gpx_file_tags (
 CREATE SEQUENCE gpx_file_tags_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2195,8 +607,8 @@ CREATE TABLE gpx_files (
 CREATE SEQUENCE gpx_files_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2231,7 +643,8 @@ CREATE TABLE messages (
     message_read boolean DEFAULT false NOT NULL,
     to_user_id bigint NOT NULL,
     to_user_visible boolean DEFAULT true NOT NULL,
-    from_user_visible boolean DEFAULT true NOT NULL
+    from_user_visible boolean DEFAULT true NOT NULL,
+    body_format format_enum DEFAULT 'html'::format_enum NOT NULL
 );
 
 
@@ -2242,8 +655,8 @@ CREATE TABLE messages (
 CREATE SEQUENCE messages_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2284,6 +697,78 @@ CREATE TABLE nodes (
 
 
 --
+-- Name: note_comments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE note_comments (
+    id integer NOT NULL,
+    note_id bigint NOT NULL,
+    visible boolean NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    author_name character varying(255),
+    author_ip character varying(255),
+    author_id bigint,
+    body text,
+    event note_event_enum
+);
+
+
+--
+-- Name: note_comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE note_comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: note_comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE note_comments_id_seq OWNED BY note_comments.id;
+
+
+--
+-- Name: notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE notes (
+    id integer NOT NULL,
+    latitude integer NOT NULL,
+    longitude integer NOT NULL,
+    tile bigint NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    nearby_place character varying(255),
+    status note_status_enum NOT NULL,
+    closed_at timestamp without time zone
+);
+
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE notes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
+
+
+--
 -- Name: oauth_nonces; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2291,8 +776,8 @@ CREATE TABLE oauth_nonces (
     id integer NOT NULL,
     nonce character varying(255),
     "timestamp" integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -2303,8 +788,8 @@ CREATE TABLE oauth_nonces (
 CREATE SEQUENCE oauth_nonces_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2328,8 +813,8 @@ CREATE TABLE oauth_tokens (
     secret character varying(50),
     authorized_at timestamp without time zone,
     invalidated_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     allow_read_prefs boolean DEFAULT false NOT NULL,
     allow_write_prefs boolean DEFAULT false NOT NULL,
     allow_write_diary boolean DEFAULT false NOT NULL,
@@ -2350,8 +835,8 @@ CREATE TABLE oauth_tokens (
 CREATE SEQUENCE oauth_tokens_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2382,8 +867,8 @@ CREATE TABLE redactions (
 CREATE SEQUENCE redactions_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2463,8 +948,8 @@ CREATE TABLE sessions (
 CREATE SEQUENCE sessions_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2487,8 +972,9 @@ CREATE TABLE user_blocks (
     ends_at timestamp without time zone NOT NULL,
     needs_view boolean DEFAULT false NOT NULL,
     revoker_id bigint,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    reason_format format_enum DEFAULT 'html'::format_enum NOT NULL
 );
 
 
@@ -2499,8 +985,8 @@ CREATE TABLE user_blocks (
 CREATE SEQUENCE user_blocks_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2529,8 +1015,8 @@ CREATE TABLE user_preferences (
 CREATE TABLE user_roles (
     id integer NOT NULL,
     user_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     role user_role_enum NOT NULL,
     granter_id bigint NOT NULL
 );
@@ -2543,8 +1029,8 @@ CREATE TABLE user_roles (
 CREATE SEQUENCE user_roles_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2575,8 +1061,8 @@ CREATE TABLE user_tokens (
 CREATE SEQUENCE user_tokens_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2615,7 +1101,8 @@ CREATE TABLE users (
     openid_url character varying(255),
     preferred_editor character varying(255),
     terms_seen boolean DEFAULT false NOT NULL,
-    image_fingerprint character varying(255)
+    image_fingerprint character varying(255),
+    description_format format_enum DEFAULT 'html'::format_enum NOT NULL
 );
 
 
@@ -2626,8 +1113,8 @@ CREATE TABLE users (
 CREATE SEQUENCE users_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2680,147 +1167,161 @@ CREATE TABLE ways (
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE acls ALTER COLUMN id SET DEFAULT nextval('acls_id_seq'::regclass);
+ALTER TABLE ONLY acls ALTER COLUMN id SET DEFAULT nextval('acls_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE changesets ALTER COLUMN id SET DEFAULT nextval('changesets_id_seq'::regclass);
+ALTER TABLE ONLY changesets ALTER COLUMN id SET DEFAULT nextval('changesets_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE client_applications ALTER COLUMN id SET DEFAULT nextval('client_applications_id_seq'::regclass);
+ALTER TABLE ONLY client_applications ALTER COLUMN id SET DEFAULT nextval('client_applications_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE countries ALTER COLUMN id SET DEFAULT nextval('countries_id_seq'::regclass);
+ALTER TABLE ONLY countries ALTER COLUMN id SET DEFAULT nextval('countries_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE current_nodes ALTER COLUMN id SET DEFAULT nextval('current_nodes_id_seq'::regclass);
+ALTER TABLE ONLY current_nodes ALTER COLUMN id SET DEFAULT nextval('current_nodes_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE current_relations ALTER COLUMN id SET DEFAULT nextval('current_relations_id_seq'::regclass);
+ALTER TABLE ONLY current_relations ALTER COLUMN id SET DEFAULT nextval('current_relations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE current_ways ALTER COLUMN id SET DEFAULT nextval('current_ways_id_seq'::regclass);
+ALTER TABLE ONLY current_ways ALTER COLUMN id SET DEFAULT nextval('current_ways_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE diary_comments ALTER COLUMN id SET DEFAULT nextval('diary_comments_id_seq'::regclass);
+ALTER TABLE ONLY diary_comments ALTER COLUMN id SET DEFAULT nextval('diary_comments_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE diary_entries ALTER COLUMN id SET DEFAULT nextval('diary_entries_id_seq'::regclass);
+ALTER TABLE ONLY diary_entries ALTER COLUMN id SET DEFAULT nextval('diary_entries_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE friends ALTER COLUMN id SET DEFAULT nextval('friends_id_seq'::regclass);
+ALTER TABLE ONLY friends ALTER COLUMN id SET DEFAULT nextval('friends_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE gpx_file_tags ALTER COLUMN id SET DEFAULT nextval('gpx_file_tags_id_seq'::regclass);
+ALTER TABLE ONLY gpx_file_tags ALTER COLUMN id SET DEFAULT nextval('gpx_file_tags_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE gpx_files ALTER COLUMN id SET DEFAULT nextval('gpx_files_id_seq'::regclass);
+ALTER TABLE ONLY gpx_files ALTER COLUMN id SET DEFAULT nextval('gpx_files_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE messages ALTER COLUMN id SET DEFAULT nextval('messages_id_seq'::regclass);
+ALTER TABLE ONLY messages ALTER COLUMN id SET DEFAULT nextval('messages_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE oauth_nonces ALTER COLUMN id SET DEFAULT nextval('oauth_nonces_id_seq'::regclass);
+ALTER TABLE ONLY note_comments ALTER COLUMN id SET DEFAULT nextval('note_comments_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE oauth_tokens ALTER COLUMN id SET DEFAULT nextval('oauth_tokens_id_seq'::regclass);
+ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE redactions ALTER COLUMN id SET DEFAULT nextval('redactions_id_seq'::regclass);
+ALTER TABLE ONLY oauth_nonces ALTER COLUMN id SET DEFAULT nextval('oauth_nonces_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE sessions ALTER COLUMN id SET DEFAULT nextval('sessions_id_seq'::regclass);
+ALTER TABLE ONLY oauth_tokens ALTER COLUMN id SET DEFAULT nextval('oauth_tokens_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE user_blocks ALTER COLUMN id SET DEFAULT nextval('user_blocks_id_seq'::regclass);
+ALTER TABLE ONLY redactions ALTER COLUMN id SET DEFAULT nextval('redactions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE user_roles ALTER COLUMN id SET DEFAULT nextval('user_roles_id_seq'::regclass);
+ALTER TABLE ONLY sessions ALTER COLUMN id SET DEFAULT nextval('sessions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE user_tokens ALTER COLUMN id SET DEFAULT nextval('user_tokens_id_seq'::regclass);
+ALTER TABLE ONLY user_blocks ALTER COLUMN id SET DEFAULT nextval('user_blocks_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY user_roles ALTER COLUMN id SET DEFAULT nextval('user_roles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_tokens ALTER COLUMN id SET DEFAULT nextval('user_tokens_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
@@ -2992,6 +1493,22 @@ ALTER TABLE ONLY nodes
 
 
 --
+-- Name: note_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY note_comments
+    ADD CONSTRAINT note_comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY notes
+    ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: oauth_nonces_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3129,7 +1646,7 @@ CREATE INDEX changeset_tags_id_idx ON changeset_tags USING btree (changeset_id);
 -- Name: changesets_bbox_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX changesets_bbox_idx ON changesets USING btree (min_lat, max_lat, min_lon, max_lon);
+CREATE INDEX changesets_bbox_idx ON changesets USING gist (min_lat, max_lat, min_lon, max_lon);
 
 
 --
@@ -3347,6 +1864,34 @@ CREATE INDEX nodes_tile_idx ON nodes USING btree (tile);
 --
 
 CREATE INDEX nodes_timestamp_idx ON nodes USING btree ("timestamp");
+
+
+--
+-- Name: note_comments_note_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX note_comments_note_id_idx ON note_comments USING btree (note_id);
+
+
+--
+-- Name: notes_created_at_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX notes_created_at_idx ON notes USING btree (created_at);
+
+
+--
+-- Name: notes_tile_status_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX notes_tile_status_idx ON notes USING btree (tile, status);
+
+
+--
+-- Name: notes_updated_at_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX notes_updated_at_idx ON notes USING btree (updated_at);
 
 
 --
@@ -3691,6 +2236,22 @@ ALTER TABLE ONLY nodes
 
 
 --
+-- Name: note_comments_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY note_comments
+    ADD CONSTRAINT note_comments_author_id_fkey FOREIGN KEY (author_id) REFERENCES users(id);
+
+
+--
+-- Name: note_comments_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY note_comments
+    ADD CONSTRAINT note_comments_note_id_fkey FOREIGN KEY (note_id) REFERENCES notes(id);
+
+
+--
 -- Name: oauth_tokens_client_application_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3866,6 +2427,10 @@ INSERT INTO schema_migrations (version) VALUES ('20101114011429');
 
 INSERT INTO schema_migrations (version) VALUES ('20110322001319');
 
+INSERT INTO schema_migrations (version) VALUES ('20110508145337');
+
+INSERT INTO schema_migrations (version) VALUES ('20110521142405');
+
 INSERT INTO schema_migrations (version) VALUES ('20110925112722');
 
 INSERT INTO schema_migrations (version) VALUES ('20111116184519');
@@ -3877,6 +2442,8 @@ INSERT INTO schema_migrations (version) VALUES ('20120123184321');
 INSERT INTO schema_migrations (version) VALUES ('20120208122334');
 
 INSERT INTO schema_migrations (version) VALUES ('20120208194454');
+
+INSERT INTO schema_migrations (version) VALUES ('20120214210114');
 
 INSERT INTO schema_migrations (version) VALUES ('20120219161649');
 
@@ -3951,6 +2518,16 @@ INSERT INTO schema_migrations (version) VALUES ('50');
 INSERT INTO schema_migrations (version) VALUES ('51');
 
 INSERT INTO schema_migrations (version) VALUES ('52');
+
+INSERT INTO schema_migrations (version) VALUES ('53');
+
+INSERT INTO schema_migrations (version) VALUES ('54');
+
+INSERT INTO schema_migrations (version) VALUES ('55');
+
+INSERT INTO schema_migrations (version) VALUES ('56');
+
+INSERT INTO schema_migrations (version) VALUES ('57');
 
 INSERT INTO schema_migrations (version) VALUES ('6');
 

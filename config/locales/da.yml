@@ -359,10 +359,6 @@ da:
       body: Beklager, fandt ikke et blogindlæg eller en kommentar med id'en %{id}. Kontroller stavningen, eller måske er den henvisning du klikkede på forkert.
       heading: "Intet indlæg med id'et: %{id}"
       title: Intet blogindlæg fundet
-    no_such_user: 
-      body: Beklager, der findes ingen bruger med dette navn %{user}. Kontrollér venligst din stavning. Det kan også skyldes et forkert link.
-      heading: Brugeren %{user} eksisterer ikke
-      title: Ingen bruger fundet
     view: 
       leave_a_comment: Tilføj en kommentar
       login: Log på
@@ -549,36 +545,7 @@ da:
         boundary: 
           administrative: Administrativ grænse
         building: 
-          apartments: Lejlighedsblok
-          block: Bygningsblok
-          bunker: Bunker
-          chapel: Kapel
-          church: Kirke
-          city_hall: Rådhus
-          commercial: Erhvervsbygning
-          dormitory: Kollegium
-          entrance: Bygningsindgang
-          faculty: Fakultetsbygning
-          farm: Landbrugsbygning
-          flats: Lejligheder
-          garage: Garage
-          hall: Hal
-          hospital: Sygehusbygning
-          hotel: Hotel
-          house: Hus
-          industrial: Industribygning
-          office: Kontorbygning
-          public: Offentlig bygning
-          residential: Beboelsesbygning
-          retail: Detailhandelbygning
-          school: Skolebygning
-          shop: Forretning
-          stadium: Stadion
-          store: Butik
-          terrace: Terrasse
-          tower: Tårn
-          train_station: Jernbanestation
-          university: Universitetsbygning
+          "yes": Bygning
         highway: 
           bridleway: Ridesti
           bus_guideway: Styret busspor
@@ -586,11 +553,9 @@ da:
           byway: Stikvej
           construction: Vej under konstruktion
           cycleway: Cykelsti
-          distance_marker: Afstandsmarkør
           emergency_access_point: Nødudgangspunkt
           footway: Gangsti
           ford: Vadested
-          gate: Låge
           living_street: Vej med legende børn
           minor: Mindre vej
           motorway: Motorvej
@@ -655,11 +620,9 @@ da:
           meadow: Eng
           military: Militært område
           mine: Mine
-          mountain: Bjerg
           nature_reserve: Naturreservat
           park: Park
           piste: Piste
-          plaza: Torv
           quarry: Stenbrud/grusgrav
           railway: Jernbane
           recreation_ground: Idrætsplads
@@ -697,7 +660,6 @@ da:
           cave_entrance: Huleindgang
           channel: Kanal
           cliff: Forbjerg
-          coastline: Kystlinje
           crater: Krater
           feature: Landskabsdetalje
           fell: Fjeld
@@ -777,7 +739,6 @@ da:
           yard: Jernbaneterræn
         shop: 
           alcohol: Spiritusforretning
-          apparel: Tøjbutik
           art: Kunstbutik
           bakery: Bager
           beauty: Skønhedssalon
@@ -786,7 +747,6 @@ da:
           books: Boghandel
           butcher: Slagter
           car: Bilforhandler
-          car_dealer: Bilforhandler
           car_parts: Bilreservedele
           car_repair: Bilværksted
           carpet: Tæppebutik
@@ -801,7 +761,6 @@ da:
           department_store: Varehus
           discount: Tilbudsbutik
           doityourself: Gør-det-selv
-          drugstore: Apotek
           dry_cleaning: Renseri
           electronics: Elektronikforretning
           estate_agent: Ejendomsmægler
@@ -928,10 +887,6 @@ da:
       other: Din indbakke indeholder %{count} ulæste beskeder
       zero: Din indbakke indeholder ingen ulæste beskeder
     intro_1: OpenStreetMap er et frit, redigerbart kort over hele verden. Det er lavet af folk som dig.
-    intro_2: OpenStreetMap gør det muligt at se, redigere og bruge geografiske data i samarbejde med resten af verden hvor som helst på jorden.
-    intro_3: OpenStreetMaps hosting støttes venligst af %{ucl} og %{bytemark}. Andre partnere af projektet er skrevet op i %{partners}'en.
-    intro_3_ic: Imperial College London
-    intro_3_partners: wiki
     license: 
       title: OpenStreetMap data er licenseret under en Creative Commons Navngivelse-Del på samme vilkår 2.0 Generisk Licens
     log_in: log på
@@ -962,7 +917,7 @@ da:
       english_link: den engelske originaltekst
       text: I tilfælde af en konflikt mellem denne oversatte side og %{english_original_link} har den engelske tekst forrang
       title: Om denne oversættelse
-    legal_babble: "<h2>Ophavsret og licens</h2>\n<p>OpenStreetMap er <i>åben data</i>, licenseret under <a\nhref=\"http://creativecommons.org/licenses/by-sa/2.0/\">Creative\nCommons Attribution-ShareAlike 2.0</a>-licensen (CC-BY-SA).</p>\n\n<p>Du kan frit kopiere, distribuere, overføre og tilpasse vores kort\nog data, så længe du angiver OpenStreetMap og dets\nbidragydere som kilde. Hvis du ændrer eller bygger på vores kort\neller data, må du kun distribuere resultatet under den samme licens. Den\nfulde <a\nhref=\"http://creativecommons.org/licenses/by-sa/2.0/legalcode\">juridiske tekst</a>\nforklarer dine rettigheder og pligter.</p>\n\n<h3>Kildeangivelse og OpenStreetMap</h3>\n<p>Hvis du bruger OpenStreetMaps kortbilleder, anmoder vi om at\ndin kildeangivelse mindst består af &ldquo;&copy; OpenStreetMap-bidragydere,\nCC-BY-SA&rdquo;. Hvis du kun bruger kortdata, anmoder vi om &ldquo;Kortdata\n&copy; OpenStreetMap-bidragydere, CC-BY-SA&rdquo;.</p>\n\n<p>Så vidt muligt bør OpenStreetMap være et hyperlink til\n<a href=\"http://www.openstreetmap.org/\">http://www.openstreetmap.org/</a>\nog CC-BY-SA til \n<a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">http://creativecommons.org/licenses/by-sa/2.0/</a>.\nHvis du bruger et medium hvor hyperlinks ikke er mulige (f.eks. en tryksag), foreslår\nvi at du sender dine læsere til www.openstreetmap.org (måske ved at ændre\n'OpenStreetMap' til denne fulde adresse) og til www.creativecommons.org.</p>\n\n<h3>Læs mere</h3>\n<p>Læs mere om brug af vores data på den\n<a href=\"http://wiki.openstreetmap.org/wiki/Legal_FAQ\">Juridiske FAQ</a>.</p>\n\n<p>OSM-bidragydere bliver mindet om aldrig at tilføje data fra nogen\nophavsretligt beskyttede kilder (f.eks.. Google Maps eller trykte kort) uden\neksplicit tilladelse fra ophavsret-indehaverne.</p>\n\n<p>Selvom OpenStreetMap er åbne data, kan vi ikke levere en\ngratis kort-API til tredjeparts-udviklere.\n\nSe vores <a href=\"http://wiki.openstreetmap.org/wiki/API_usage_policy\">politik for API-brug</a>,\n<a href=\"http://wiki.openstreetmap.org/wiki/Tile_usage_policy\">politik for brug af kortbilleder</a>\nog <a href=\"http://wiki.openstreetmap.org/wiki/Nominatim#Usage_Policy\">politik for brug af Nominatim</a>.</p>\n\n<h3>Vores bidragydere</h3>\n\n<p>\nVores CC-BY-SA licens kræver at du &ldquo;giver den oprindelige\nforfatter kredit i rimeligt omfang i forhold til mediet eller de midler\ndu anvender&rdquo;. Individuelle OSM-kortlæggere anmoder ikke om\nkildeangivelse ud over \"OpenStreetMap-bidragydere\", men hvor data\nfra et national kortlægningsagentur eller anden stor kilde er medtaget i\nOpenStreetMap, kan det være rimeligt at kreditere dem ved direkte\nkildeangivelse eller ved at linke til den på denne side.\n</p>\n\n<ul id=\"contributors\">\n<li><strong>Australien</strong>: indeholder forstadsdata baseret\npå data fra Australian Bureau of Statistics.</li>\n<li><strong>Canada</strong>: indeholder data fra\nGeoBase&reg;, GeoGratis (&copy; Department of Natural\n   Resources Canada), CanVec (&copy; Department of Natural\n   Resources Canada) og StatCan (Geography Division,\n   Statistics Canada).</li>\n<li><strong>New Zealand</strong>: indeholder data fra Land Information New Zealand. Crown Copyright reserveret.</li>\n<li><strong>Polen</strong>: indeholder data fra <a\n   href=\"http://ump.waw.pl/\">UMP-pcPL</a>-kort. Ophavsret\n   UMP-pcPL-bidragydere.</li>\n<li><strong>Storbritannien</strong>: indeholder Ordnance\n   Survey data &copy; Crown copyright and database right\n   2010.</li>\n</ul>\n\n<p>\nOptagelse af data i OpenStreetMap indebærer ikke at den oprindelige\ndataudbyder siger god for OpenStreetMap, giver nogen garanti eller\naccepterer nogen form for erstatningspligt.\n</p>"
+    legal_babble: "<h2>Ophavsret og licens</h2>\n<p>OpenStreetMap er <i>åben data</i>, licenseret under <a\nhref=\"http://creativecommons.org/licenses/by-sa/2.0/\">Creative\nCommons Attribution-ShareAlike 2.0</a>-licensen (CC BY-SA).</p>\n\n<p>Du kan frit kopiere, distribuere, overføre og tilpasse vores kort\nog data, så længe du angiver OpenStreetMap og dets\nbidragydere som kilde. Hvis du ændrer eller bygger på vores kort\neller data, må du kun distribuere resultatet under den samme licens. Den\nfulde <a\nhref=\"http://creativecommons.org/licenses/by-sa/2.0/legalcode\">juridiske tekst</a>\nforklarer dine rettigheder og pligter.</p>\n\n<h3>Kildeangivelse og OpenStreetMap</h3>\n<p>Hvis du bruger OpenStreetMaps kortbilleder, anmoder vi om at\ndin kildeangivelse mindst består af &ldquo;&copy; OpenStreetMap-bidragydere,\nCC BY-SA&rdquo;. Hvis du kun bruger kortdata, anmoder vi om &ldquo;Kortdata\n&copy; OpenStreetMap-bidragydere, CC BY-SA&rdquo;.</p>\n\n<p>Så vidt muligt bør OpenStreetMap være et hyperlink til\n<a href=\"http://www.openstreetmap.org/\">http://www.openstreetmap.org/</a>\nog CC BY-SA til \n<a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">http://creativecommons.org/licenses/by-sa/2.0/</a>.\nHvis du bruger et medium hvor hyperlinks ikke er mulige (f.eks. en tryksag), foreslår\nvi at du sender dine læsere til www.openstreetmap.org (måske ved at ændre\n'OpenStreetMap' til denne fulde adresse) og til www.creativecommons.org.</p>\n\n<h3>Læs mere</h3>\n<p>Læs mere om brug af vores data på den\n<a href=\"http://wiki.openstreetmap.org/wiki/Legal_FAQ\">Juridiske FAQ</a>.</p>\n\n<p>OSM-bidragydere bliver mindet om aldrig at tilføje data fra nogen\nophavsretligt beskyttede kilder (f.eks.. Google Maps eller trykte kort) uden\neksplicit tilladelse fra ophavsret-indehaverne.</p>\n\n<p>Selvom OpenStreetMap er åbne data, kan vi ikke levere en\ngratis kort-API til tredjeparts-udviklere.\n\nSe vores <a href=\"http://wiki.openstreetmap.org/wiki/API_usage_policy\">politik for API-brug</a>,\n<a href=\"http://wiki.openstreetmap.org/wiki/Tile_usage_policy\">politik for brug af kortbilleder</a>\nog <a href=\"http://wiki.openstreetmap.org/wiki/Nominatim#Usage_Policy\">politik for brug af Nominatim</a>.</p>\n\n<h3>Vores bidragydere</h3>\n\n<p>\nVores CC BY-SA licens kræver at du &ldquo;giver den oprindelige\nforfatter kredit i rimeligt omfang i forhold til mediet eller de midler\ndu anvender&rdquo;. Individuelle OSM-kortlæggere anmoder ikke om\nkildeangivelse ud over \"OpenStreetMap-bidragydere\", men hvor data\nfra et national kortlægningsagentur eller anden stor kilde er medtaget i\nOpenStreetMap, kan det være rimeligt at kreditere dem ved direkte\nkildeangivelse eller ved at linke til den på denne side.\n</p>\n\n<ul id=\"contributors\">\n<li><strong>Australien</strong>: indeholder forstadsdata baseret\npå data fra Australian Bureau of Statistics.</li>\n<li><strong>Canada</strong>: indeholder data fra\nGeoBase&reg;, GeoGratis (&copy; Department of Natural\n   Resources Canada), CanVec (&copy; Department of Natural\n   Resources Canada) og StatCan (Geography Division,\n   Statistics Canada).</li>\n<li><strong>New Zealand</strong>: indeholder data fra Land Information New Zealand. Crown Copyright reserveret.</li>\n<li><strong>Polen</strong>: indeholder data fra <a\n   href=\"http://ump.waw.pl/\">UMP-pcPL</a>-kort. Ophavsret\n   UMP-pcPL-bidragydere.</li>\n<li><strong>Storbritannien</strong>: indeholder Ordnance\n   Survey data &copy; Crown copyright and database right\n   2010.</li>\n</ul>\n\n<p>\nOptagelse af data i OpenStreetMap indebærer ikke at den oprindelige\ndataudbyder siger god for OpenStreetMap, giver nogen garanti eller\naccepterer nogen form for erstatningspligt.\n</p>"
     native: 
       mapping_link: begynde kortlægningen
       native_link: den danske udgave
@@ -1001,10 +956,6 @@ da:
       body: Beklager, der er ingen besked med det id.
       heading: Ingen besked fundet
       title: Ingen besked fundet
-    no_such_user: 
-      body: Beklager, der er ingen bruger med det navn.
-      heading: Ingen sådan bruger
-      title: Ingen sådan bruger
     outbox: 
       date: Dato
       inbox: indbakke
@@ -1151,7 +1102,6 @@ da:
     index: 
       js_1: Du bruger enten en browser som ikke understøtter Javascript, eller du har deaktiveret Javascript.
       js_2: OpenStreetMap bruger JavaScript til det interaktive kort.
-      js_3: Du kan prøve <a href="http://tah.openstreetmap.org/Browse/">de statiske Tiles@Home kortsider</a> hvis du ikke kan aktivere Javascript.
       license: 
         license_name: Creative Commons Attribution-Share Alike 2.0
         notice: Licenseret under %{license_name}-licensen af %{project_name} og dets bidragydere.
@@ -1270,10 +1220,6 @@ da:
       your_traces: Dine GPS-spor
     make_public: 
       made_public: Spor gjort offentlig
-    no_such_user: 
-      body: Beklager, der er ingen bruger med navnet %{user}. Kontroller stavningen, eller måske er linket du fulgte forkert.
-      heading: Brugeren %{user} eksisterer ikke
-      title: Ingen bruger fundet
     offline: 
       heading: GPX-lagring ikke tilgængelig
       message: Systemet der håndterer upload og lagring af GPX-filer er på nuværende tidspunkt ikke tilgængelig
@@ -1594,8 +1540,6 @@ da:
       back: Vis alle blokke
       show: Vis denne blok
       submit: Opdater blokering
-    filter: 
-      not_a_moderator: Du skal være en moderator for at udføre den handling.
     helper: 
       time_future: Slutter om %{time}.
       time_past: Sluttede %{time} siden.

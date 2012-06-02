@@ -195,6 +195,13 @@ en:
     paging_nav:
       showing_page: "Showing page"
       of: "of"
+    redacted:
+      redaction: "Redaction %{id}"
+      message_html: "Version %{version} of this %{type} cannot be shown as it has been redacted. Please see %{redaction_link} for details."
+      type:
+        node: "node"
+        way: "way"
+        relation: "relation"
     relation_details:
       members: "Members:"
       part_of: "Part of:"
@@ -221,7 +228,7 @@ en:
       view_data: "View data for current map view"
       manually_select: "Manually select a different area"
     start_rjs:
-      data_layer_name: "Data"
+      data_layer_name: "Browse Map Data"
       data_frame_title: "Data"
       zoom_or_select: "Zoom in or select an area of the map to view"
       drag_a_box: "Drag a box on the map to select an area"
@@ -360,10 +367,6 @@ en:
       title: "No such diary entry"
       heading: "No entry with the id: %{id}"
       body: "Sorry, there is no diary entry or comment with the id %{id}. Please check your spelling, or maybe the link you clicked is wrong."
-    no_such_user:
-      title: "No such user"
-      heading: "The user %{user} does not exist"
-      body: "Sorry, there is no user with the name %{user}. Please check your spelling, or maybe the link you clicked is wrong."
     diary_entry:
       posted_by: "Posted by %{link_user} on %{created} in %{language_link}"
       comment_link: Comment on this entry
@@ -397,7 +400,7 @@ en:
       post: Post
       when: When
       comment: Comment
-      ago: %{ago} ago
+      ago: "%{ago} ago"
       newer_comments: "Newer Comments"
       older_comments: "Older Comments"
   export:
@@ -1161,8 +1164,10 @@ en:
           <li><strong>Australia</strong>: Contains suburb data based
           on Australian Bureau of Statistics data.</li>
           <li><strong>Austria</strong>: Contains data from
-          <a href="http://data.wien.gv.at/">Stadt Wien</a> under
-          <a href="http://creativecommons.org/licenses/by/3.0/at/deed.de">CC BY</a>.</li>
+          <a href="http://data.wien.gv.at/">Stadt Wien</a> (under
+          <a href="http://creativecommons.org/licenses/by/3.0/at/deed.de">CC BY</a>),
+          <a href="http://www.vorarlberg.at/vorarlberg/bauen_wohnen/bauen/vermessung_geoinformation/weitereinformationen/services/wmsdienste.htm">Land Vorarlberg</a> and
+          Land Tirol (under <a href="http://www.tirol.gv.at/applikationen/e-government/data/nutzungsbedingungen/">CC-BY AT with amendments</a>).</li>
           <li><strong>Canada</strong>: Contains data from
           GeoBase&reg;, GeoGratis (&copy; Department of Natural
           Resources Canada), CanVec (&copy; Department of Natural
@@ -1170,6 +1175,8 @@ en:
           Statistics Canada).</li>
           <li><strong>France</strong>: Contains data sourced from
           Direction Générale des Impôts.</li>
+          <li><strong>Netherlands</strong>: Contains &copy; AND data, 2007
+          (<a href="http://www.and.com">www.and.com</a>)</li>
           <li><strong>New Zealand</strong>: Contains data sourced from
           Land Information New Zealand. Crown Copyright reserved.</li>
           <li><strong>Poland</strong>: Contains data from <a
@@ -1310,10 +1317,6 @@ en:
       back_to_inbox: "Back to inbox"
       message_sent: "Message sent"
       limit_exceeded: "You have sent a lot of messages recently. Please wait a while before trying to send any more."
-    no_such_user:
-      title: "No such user"
-      heading: "No such user"
-      body: "Sorry there is no user with that name."
     no_such_message:
       title: "No such message"
       heading: "No such message"
@@ -1345,7 +1348,7 @@ en:
       reading_your_sent_messages: "Reading your sent messages"
       to: "To"
       back_to_outbox: "Back to outbox"
-      wrong_user: "You are logged in as `%{user}' but the message you have asked to read to was not sent by or to that user. Please login as the correct user in order to read it."
+      wrong_user: "You are logged in as `%{user}' but the message you have asked to read was not sent by or to that user. Please login as the correct user in order to read it."
     sent_message_summary:
       delete_button: "Delete"
     mark:
@@ -1357,7 +1360,6 @@ en:
     index:
       js_1: "You are either using a browser that does not support JavaScript, or you have disabled JavaScript."
       js_2: "OpenStreetMap uses JavaScript for its slippy map."
-      js_3: 'You may want to try the <a href="http://tah.openstreetmap.org/Browse/">Tiles@Home static tile browser</a> if you are unable to enable JavaScript.'
       permalink: Permalink
       shortlink: Shortlink
       license:
@@ -1473,7 +1475,7 @@ en:
       text: Text
       image: Image
       alt: Alt text
-      url: url
+      url: URL
   trace:
     visibility:
       private: "Private (only shared as anonymous, unordered points)"
@@ -1501,10 +1503,6 @@ en:
       visibility: "Visibility:"
       visibility_help: "what does this mean?"
       visibility_help_url: "http://wiki.openstreetmap.org/wiki/Visibility_of_GPS_traces"
-    no_such_user:
-      title: "No such user"
-      heading: "The user %{user} does not exist"
-      body: "Sorry, there is no user with the name %{user}. Please check your spelling, or maybe the link you clicked is wrong."
     trace_form:
       upload_gpx: "Upload GPX File:"
       description: "Description:"
@@ -1579,6 +1577,8 @@ en:
   application:
     require_cookies:
       cookies_needed: "You appear to have cookies disabled - please enable cookies in your browser before continuing."
+    require_moderator:
+      not_a_moderator: "You need to be a moderator to perform that action."
     setup_user_auth:
       blocked: "Your access to the API has been blocked. Please log-in to the web interface to find out more."
       need_to_see_terms: "Your access to the API is temporarily suspended. Please log-in to the web interface to view the Contributor Terms. You do not need to agree, but you must view them."
@@ -1610,6 +1610,8 @@ en:
       authorize_url: "Authorise URL:"
       support_notice: "We support HMAC-SHA1 (recommended) as well as plain text in SSL mode."
       edit: "Edit Details"
+      delete: "Delete Client"
+      confirm: "Are you sure?"
       requests: "Requesting the following permissions from the user:"
       allow_read_prefs:  "read their user preferences."
       allow_write_prefs: "modify their user preferences."
@@ -1978,7 +1980,6 @@ en:
       back: "View all blocks"
       needs_view: "Does the user need to log in before this block will be cleared?"
     filter:
-      not_a_moderator: "You need to be a moderator to perform that action."
       block_expired: "The block has already expired and cannot be edited."
       block_period: "The blocking period must be one of the values selectable in the drop-down list."
     create:
@@ -2056,3 +2057,34 @@ en:
       history_tooltip: View edits for this area
       history_disabled_tooltip: Zoom in to view edits for this area
       history_zoom_alert: You must zoom in to view edits for this area
+  redaction:
+    edit:
+      description: "Description"
+      heading: "Edit redaction"
+      submit: "Save redaction"
+      title: "Edit redaction"
+    index:
+      empty: "No redactions to show."
+      heading: "List of redactions"
+      title: "List of redactions"
+    new:
+      description: "Description"
+      heading: "Enter information for new redaction"
+      submit: "Create redaction"
+      title: "Creating new redaction"
+    show:
+      description: "Description:"
+      heading: "Showing redaction \"%{title}\""
+      title: "Showing redaction"
+      user: "Creator:"
+      edit: "Edit this redaction"
+      destroy: "Remove this redaction"
+      confirm: "Are you sure?"
+    create:
+      flash: "Redaction created."
+    update:
+      flash: "Changes saved."
+    destroy:
+      not_empty: "Redaction is not empty. Please un-redact all versions belonging to this redaction before destroying it."
+      flash: "Redaction destroyed."
+      error: "There was an error destroying this redaction."

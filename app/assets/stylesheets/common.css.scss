@@ -100,16 +100,19 @@ h2 {
  * undergoing maintenance.
  */
 
-#alert {
-  width: 170px;
-  margin: 5px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  background: #d00;
-  line-height: 1.2em;
-  font-size: 14px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
+.sidebar-alert {
+  padding: 4px 5px 4px 5px;
+  border-top: 1px solid #ccc;
+  margin-top: 4px;
+  margin-bottom: -4px;
+  background: #e00;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 17px;
+
+  p {
+    margin: 5px;
+  }
 }
 
 /*
@@ -118,16 +121,18 @@ h2 {
  * donation drives.
  */
 
-.notice {
-  width: 170px;
-  margin: 5px;
-  padding: 5px;
-  border: 1px solid #ccc;
+.sidebar-notice {
+  padding: 4px 5px 4px 5px;
+  border-top: 1px solid #ccc;
+  margin-top: 4px;
+  margin-bottom: -4px;
   background: #ea0;
-  line-height: 20px;
-  font-size: 14px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
+  font-size: 13px;
+  line-height: 17px;
+
+  p {
+    margin: 5px;
+  }
 }
 
 /* Rules for the menu displayed in the left sidebar */
@@ -298,7 +303,15 @@ h2 {
 #tabnav a:visited.disabled,
 #tabnav a:link:hover.disabled,
 #tabnav a:visited:hover.disabled {
-  color: #888;
+  color: #ccc;
+  cursor: default;
+}
+
+#tabnav a:link.disabled:hover,
+#tabnav a:visited.disabled:hover,
+#tabnav a:link:hover.disabled:hover,
+#tabnav a:visited:hover.disabled:hover {
+  text-decoration: none;
 }
 
 /* Rules for greeting bar in the top right corner */
@@ -353,23 +366,34 @@ h2 {
 
 /* Rules for edit menu */
 
+.menuicon {
+  padding: 5px;
+
+  &:hover {
+    background: #eee;
+    text-decoration: none !important;
+  }
+}
+
 .menu {
   display: none;
   z-index: 10000;
   position: absolute;
   background-color: #ffffff;
-  border: 1px solid black;
+  border: 1px solid #cccccc;
+  border-top: 0px;
 }
 
 .menu ul {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .menu li {
+  padding: 2px 5px;
+  margin: 0px;
   list-style-type: none;
+  border-top: 1px solid #eee;
   white-space: nowrap;
 }
 
@@ -1176,7 +1200,6 @@ abbr.geo {
     display: inline-block;
     vertical-align: top;
     background-color: #ddd;
-    margin-left: 15px;
     padding: 5px 10px 10px 10px;
     font-size: 12px;
 
@@ -1186,7 +1209,6 @@ abbr.geo {
 
     th {
       vertical-align: top;
-      padding: 0px 15px 0px 0px !important;
     }
 
     td {
@@ -1197,12 +1219,10 @@ abbr.geo {
 
     input.richtext_doedit {
       margin-top: 5px !important;
-      margin-right: 10px !important;
     }
 
     input.richtext_dopreview {
       margin-top: 5px !important;
-      margin-left: 10px !important;
     }
   }
 }

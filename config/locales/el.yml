@@ -8,6 +8,7 @@
 # Author: Kiriakos
 # Author: Logictheo
 # Author: Omnipaedista
+# Author: Protnet
 # Author: Zserdx
 el: 
   activerecord: 
@@ -299,6 +300,10 @@ el:
     timeout: 
       sorry: Λυπάμαι, ο κατάλογος των ομάδων αλλαγών που ζήτησες χρειάστηκε πολύ χρόνο για να ανακτηθεί.
   diary_entry: 
+    comments: 
+      ago: "%{ago} πριν"
+      newer_comments: Νεότερα Σχόλια
+      older_comments: Παλαιότερα Σχόλια
     diary_comment: 
       comment_from: Σχόλιο από τον %{link_user} στις %{comment_created_at}
       confirm: Επιβεβαίωση
@@ -356,10 +361,6 @@ el:
       body: Συγγνώμη, δεν υπάρχει καταχώρηση ημερολογίου ή σχόλιο με τη ταυτότητα %{id}. Είναι πιθανό να υπάρχουν ορθογραφικά λάθη ή να είναι λάθος ο σύνδεσμος μέσο του οπίου φτάσατε σε αυτήν την σελίδα.
       heading: "Καμία καταχώρηση με τη ταυτότητα: %{id}"
       title: Δεν υπάρχει τέτοια εγγραφή ημερολογίου
-    no_such_user: 
-      body: Λυπούμαστε, δεν υπάρχει χρήστης με το όνομα %{user}. Είναι πιθανό να υπάρχουν ορθογραφικά λάθη ή να είναι λάθος ο σύνδεσμος μέσο του οπίου φτάσατε σε αυτήν την σελίδα.
-      heading: Ο χρήστης %{user} δεν υπάρχει
-      title: Άγνωστος χρήστης
     view: 
       leave_a_comment: Αφήστε ένα σχόλιο
       login: Σύνδεση
@@ -458,6 +459,7 @@ el:
           auditorium: Αμφιθέατρο
           bank: Τράπεζα
           bar: Μπαρ
+          bbq: Ψησταριά
           bench: Πάγκος
           bicycle_parking: Στάθμευση Ποδηλάτων
           bicycle_rental: Ενοικίαση Ποδηλάτων
@@ -469,6 +471,7 @@ el:
           car_sharing: Κοινή χρήση αυτοκινήτων
           car_wash: Πλύσιμο Αυτοκινήτων
           casino: Καζίνο
+          charging_station: Σταθμός Φόρτισης
           cinema: Κινηματογράφος
           clinic: Κλινική
           club: Club
@@ -518,6 +521,7 @@ el:
           reception_area: Χώρος Υποδοχής
           recycling: Σημείο Ανακύκλωσης
           restaurant: Εστιατόριο
+          retirement_home: Γηροκομείο
           sauna: Σάουνα
           school: Σχολείο
           shelter: Καταφύγιο
@@ -525,6 +529,7 @@ el:
           shopping: Αγορές
           studio: Στούντιο
           supermarket: Σουπερμάρκετ
+          swimming_pool: Πισίνα
           taxi: Ταξί
           telephone: Δημόσιο Τηλέφωνο
           theatre: Θέατρο
@@ -538,39 +543,19 @@ el:
           youth_centre: Κέντρο Νεολαίας
         boundary: 
           administrative: Διοικητικό Όριο
+          national_park: Εθνικό πάρκο
+          protected_area: Προστατευόμενη Περιοχή
+        bridge: 
+          "yes": Γέφυρα
         building: 
-          block: Οικοδομικό Τετράγωνο
-          bunker: Οχυρό
-          chapel: Παρεκκλήσι
-          church: Εκκλησία
-          city_hall: Δημαρχείο
-          dormitory: Κοιτώνας
-          entrance: Είσοδος Κτιρίου
-          flats: Διαμερίσματα
-          garage: Γκαράζ
-          hospital: Κτήριο Νοσοκομείου
-          hotel: Ξενοδοχείο
-          house: Σπίτι
-          industrial: Βιομηχανικό Κτήριο
-          office: Κτήριο Γραφείων
-          public: Δημόσιο κτήριο
-          residential: Πολυκατοικία
-          school: Σχολικό Κτήριο
-          shop: Κατάστημα
-          stadium: Στάδιο
-          store: Κατάστημα
-          tower: Πύργος
-          train_station: Σιδηροδρομικός Σταθμός
-          university: Κτήριο Πανεπιστημίου
+          "yes": Κτίριο
         highway: 
           bridleway: Μονοπάτι για άλογα
           bus_stop: Στάση Λεωφορείου
           construction: Δρόμος υπό κατασκευή
-          distance_marker: Δείκτης Απόστασης
           emergency_access_point: Σημείο Πρόσβασης Έκτακτης Ανάγκης
           footway: Μονοπάτι
           ford: Κοιτόστρωση
-          gate: Πύλη
           motorway: Αυτοκινητόδρομος
           motorway_junction: Διασταύρωση Αυτοκινητόδρομου
           motorway_link: Αυτοκινητόδρομος
@@ -585,6 +570,7 @@ el:
           secondary: Δευτερεύουσα Οδός
           secondary_link: Δευτερεύουσα Οδός
           services: Υπηρεσίες Αυτοκινητοδρόμου
+          speed_camera: Κάμερα ταχύτητας
           steps: Σκαλοπάτια
           track: Χωματόδρομος
           trail: Διαδρομή
@@ -596,6 +582,7 @@ el:
           building: Κτίριο
           castle: Κάστρο
           church: Εκκλησία
+          fort: Οχυρό
           house: Σπίτι
           icon: Εικονίδιο
           memorial: Μνημείο
@@ -620,9 +607,9 @@ el:
           meadow: Λιβάδι
           military: Στρατιωτική Περιοχή
           mine: Ορυχείο
-          mountain: Βουνό
+          nature_reserve: Φυσικό Καταφύγιο
+          orchard: Περιβόλι
           park: Πάρκο
-          plaza: Πλατεία
           quarry: Λατομείο
           railway: Σιδηρόδρομος
           recreation_ground: Χώρος Αναψυχής
@@ -633,17 +620,22 @@ el:
           wood: Μη προσεγμένο δάσος
         leisure: 
           beach_resort: Παραθαλάσσιο θέρετρο
+          bird_hide: Καταφύγιο Πουλιών
           fishing: Αλιευτική Περιοχή
           garden: Κήπος
           golf_course: Γήπεδο Γκολφ
           ice_rink: Παγοδρόμιο
+          marina: Μαρίνα
           miniature_golf: Μίνι Γκολφ
           park: Πάρκο
           playground: Παιδική Χαρά
           recreation_ground: Χώρος Αναψυχής
+          sauna: Σάουνα
           sports_centre: Αθλητικό Κέντρο
           stadium: Στάδιο
           swimming_pool: Πισίνα
+        military: 
+          barracks: Στρατώνας
         natural: 
           bay: Κόλπος
           beach: Παραλία
@@ -651,10 +643,10 @@ el:
           cave_entrance: Είσοδος Σπηλιάς
           channel: Κανάλι
           cliff: Γκρεμός
-          coastline: Ακτογραμμή
           crater: Κρατήρας
           feature: Χαρακτηριστικό
           fjord: Φιόρδ
+          forest: Δάσος
           geyser: Θερμοπίδακας
           glacier: Παγετώνας
           hill: Λόφος
@@ -677,6 +669,12 @@ el:
           wetland: Υγρότοπος
           wetlands: Υγρότοποι
           wood: Δάσος
+        office: 
+          accountant: Λογιστής
+          architect: Αρχιτέκτονας
+          company: Εταιρεία
+          lawyer: Δικηγόρος
+          travel_agent: Ταξιδιωτικό Πρακτορείο
         place: 
           airport: Αεροδρόμιο
           city: Πόλη
@@ -718,7 +716,6 @@ el:
           bicycle: Κατάστημα Ποδηλάτων
           books: Βιβλιοπωλείο
           butcher: Κρεοπωλείο
-          car_dealer: Μεταπωλητής Αυτοκινήτων
           car_parts: Εξαρτήματα Αυτοκινήτου
           car_repair: Επισκευή Αυτοκινήτων
           carpet: Κατάστημα Χαλιών
@@ -731,7 +728,6 @@ el:
           cosmetics: Κατάστημα Καλλυντικών
           department_store: Πολυκατάστημα
           doityourself: Ιδιοκατασκευές
-          drugstore: Φαρμακείο
           dry_cleaning: Στεγνό Καθάρισμα
           electronics: Κατάστημα Ηλεκτρονικών
           estate_agent: Κτηματομεσίτης
@@ -762,6 +758,7 @@ el:
           travel_agency: Ταξιδιωτικό Πρακτορείο
         tourism: 
           camp_site: Χώρος Κατασκήνωσης
+          chalet: Σαλέ
           guest_house: Ξενώνας
           hostel: Ξενώνας
           hotel: Ξενοδοχείο
@@ -771,6 +768,8 @@ el:
           theme_park: Θεματικό Πάρκο
           valley: Κοιλάδα
           zoo: Ζωολογικός κήπος
+        tunnel: 
+          "yes": Σήραγγα
         waterway: 
           boatyard: Ναυπηγείο
           canal: Κανάλι
@@ -789,6 +788,7 @@ el:
       history_tooltip: Προβολή αλλαγών για αυτή την περιοχή
       history_zoom_alert: Πρέπει να μεγεθύνεις για να δεις τις αλλαγές για αυτή την περιοχή
   layouts: 
+    community: Κοινότητα
     community_blogs: Ιστολόγια της Κοινότητας
     community_blogs_title: Blogs από τα μέλη της κοινότητας του OpenStreetMap
     copyright: Πνευματικά δικαιώματα & Άδεια χρήσης
@@ -816,10 +816,11 @@ el:
       other: Τα εισερχόμενα σας περιέχουν %{count} αδιάβαστα μηνύματα
       zero: Τα εισερχόμενα σας δεν περιέχουν κανένα αδιάβαστο μήνυμα
     intro_1: Ο OpenStreetMap είναι δωρεάν, επεξεργάσιμος χάρτης ολόκληρου του κόσμου. Είναι κατασκευασμένος από ανθρώπους σαν κι εσάς.
-    intro_2: Το OpenStreetMap σάς επιτρέπει να προβάλετε, να επεξεργαστείτε και να χρησιμοποιήσετε τα γεωγραφικά δεδομένα με ένα συνεργατικό τρόπο από οπουδήποτε στη Γη.
-    intro_3: Η φιλοξενία του OpenStreetMap υποστηρίζεται από το %{ucl}, %{ic} και %{bytemark}. Άλλοι υποστηρικτές του εγχειρήματος αναφέρονται στο %{partners}.
-    intro_3_ic: Κολέγιο Imperial του Λονδίνου
-    intro_3_partners: βίκι
+    intro_2_create_account: Δημιουργήστε ένα λογαριασμό χρήστη
+    intro_2_download: λήψη
+    intro_2_html: Τα δεδομένα είναι ελεύθερα για %{download} και %{use} κάτω από την %{license}. %{create_account} για να αναβαθμίσετε τον χάρτη.
+    intro_2_license: ανοικτή του άδεια
+    intro_2_use: χρήση
     license: 
       title: Τα δεδομένα του OpenStreetMap τελούν υπό την Creative Commons Attribution-Share Alike 2.0 Γενική Άδεια
     log_in: είσοδος
@@ -833,6 +834,10 @@ el:
       title: Υποστήριξε το OpenStreetMap με δωρεά χρημάτων
     osm_offline: Η βάση δεδομένων του OpenStreetMap είναι προσωρινά εκτός λειτουργίας λόγω εργασιών συντήρησης της βάσης δεδομένων.
     osm_read_only: Η βάση δεδομένων του OpenStreetMap είναι προσωρινά σε λειτουργία "μόνο για ανάγνωση" λόγω εργασιών συντήρησης της βάσης δεδομένων.
+    partners_html: Η φιλοξενία υποστηρίζεται από το %{ucl}, %{ic} και %{bytemark}, και άλλους %{partners}.
+    partners_ic: Κολέγιο Imperial του Λονδίνου
+    partners_partners: συνεργάτες
+    partners_ucl: UCL VR Centre
     sign_up: εγγραφή
     sign_up_tooltip: Δημιουργήστε λογαριασμό για επεξεργασία
     tag_line: Ο Ελεύθ. Παγκ. Χάρτης Βίκι
@@ -887,10 +892,6 @@ el:
       body: Λυπάμαι δεν υπάρχει μήνυμα με αυτό το αναγνωριστικό.
       heading: Κανένα τέτοιο μήνυμα
       title: Κανένα τέτοιο μήνυμα
-    no_such_user: 
-      body: Συγνώμη, δεν υπάρχει κανένας χρήστης με αυτό το όνομα.
-      heading: Άγνωστος χρήστης
-      title: Άγνωστος χρήστης
     outbox: 
       date: Ημ/νία
       inbox: εισερχόμενα
@@ -950,7 +951,9 @@ el:
       your_gpx_file: Μοιάζει με δικό σας αρχείο GPX
     lost_password_html: 
       greeting: Γεια,
+      hopefully_you: Κάποιος (πιθανότατα εσείς) έχει ζητήσει επαναφορά του κωδικού πρόσβασης του λογαριασμού στο openstreetmap.org που αντιστοιχεί σε αυτή τη διεύθυνση email.
     lost_password_plain: 
+      click_the_link: Εάν πρόκειται για σας, κάντε κλικ στον παρακάτω σύνδεσμο για να επαναφέρετε τον κωδικό πρόσβασής σας.
       greeting: Γεια,
     message_notification: 
       footer1: Μπορείτε επίσης να διαβάσετε το μήνυμα στο %{readurl}
@@ -1000,6 +1003,15 @@ el:
   printable_name: 
     with_id: "%{id}"
     with_name: "%{name} (%{id})"
+  redaction: 
+    edit: 
+      description: Περιγραφή
+    new: 
+      description: Περιγραφή
+    show: 
+      confirm: Είσαι σίγουρος?
+      description: "Περιγραφή:"
+      user: "Δημιουργός:"
   site: 
     edit: 
       anon_edits_link_text: Μάθετε γιατί συμβαίνει αυτό.
@@ -1033,6 +1045,7 @@ el:
             1: λιβάδι
           construction: Δρόμοι υπό κατασκευή
           farm: Αγρόκτημα
+          footway: Μονοπάτι
           forest: Δάσος
           golf: Γήπεδο γκολφ
           industrial: Βιομηχανική περιοχή
@@ -1060,10 +1073,14 @@ el:
           summit: 
             1: κορυφή
           tourist: Τουριστικό αξιοθέατο
+          track: Χωματόδρομος
           tram: 
             1: τραμ
           tunnel: Διακεκομμένο περίβλημα = σήραγγα
+          unsurfaced: Δρόμος χωρίς άσφαλτο
           wood: Φυσικό Δάσος
+    markdown_help: 
+      url: Διεύθυνση URL
     search: 
       search: Αναζήτηση
       search_help: "παραδείγματα: «Alkmaar», «Regent Street, Cambridge», «CB2 5AQ», ή «ταχυδρομεία κοντά στο Lünen» <a href='http://wiki.openstreetmap.org/wiki/Search'>περισσότερα παραδείγματα...</a>"
@@ -1100,10 +1117,6 @@ el:
       public_traces_from: Δημόσια ίχνη GPS από τον %{user}
       tagged_with: σεσημασμένα με %{tags}
       your_traces: Τα δικά σου ίχνη GPS
-    no_such_user: 
-      body: Λυπούμαστε, δεν υπάρχει κανένας χρήστης με το όνομα %{user}. Παρακαλούμε ελέγξτε την ορθογραφία, ή ίσως ο σύνδεσμος ήταν λάθος.
-      heading: Ο χρήστης %{user} δεν υπάρχει
-      title: Άγνωστος χρήστης
     trace: 
       ago: "%{time_in_words_ago} πριν"
       by: από
@@ -1111,6 +1124,7 @@ el:
       edit: επεξεργασία
       edit_map: Επεξεργασία Χάρτη
       map: χάρτης
+      more: περισσότερα
       pending: ΕΚΚΡΕΜΕΙ
       private: ΙΔΙΩΤΙΚΟ
       public: ΔΗΜΟΣΙΟ
@@ -1319,6 +1333,7 @@ el:
       block_history: εμφάνιση φραγών που λήφθηκαν
       blocks by me: φραγές από εμένα
       blocks on me: φραγές σε εμένα
+      comments: σχόλια
       confirm: Επιβεβαίωση
       confirm_user: επιβεβαίωση αυτού το χρήστη
       create_block: φραγή αυτού του χρήστη
@@ -1341,6 +1356,7 @@ el:
       m away: "%{count}μ μακριά"
       mapper since: "Χαρτογράφος από:"
       moderator_history: εμφάνιση φραγών που δόθηκαν
+      my comments: τα σχόλιά μου
       my diary: το ημερολόγιό μου
       my edits: οι επεξεργασίες μου
       my settings: οι ρυθμίσεις μου

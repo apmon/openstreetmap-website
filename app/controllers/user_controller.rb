@@ -7,8 +7,8 @@ class UserController < ApplicationController
   before_filter :authorize_web, :except => [:api_details, :api_gpx_files]
   before_filter :set_locale, :except => [:api_details, :api_gpx_files]
   before_filter :require_user, :only => [:account, :go_public, :make_friend, :remove_friend]
-  before_filter :check_database_readable, :except => [:api_details, :api_gpx_files]
-  before_filter :check_database_writable, :only => [:login, :new, :account, :go_public, :make_friend, :remove_friend]
+  before_filter :check_database_readable, :except => [:login, :api_details, :api_gpx_files]
+  before_filter :check_database_writable, :only => [:new, :account, :confirm, :confirm_email, :lost_password, :reset_password, :go_public, :make_friend, :remove_friend]
   before_filter :check_api_readable, :only => [:api_details, :api_gpx_files]
   before_filter :require_allow_read_prefs, :only => [:api_details]
   before_filter :require_allow_read_gpx, :only => [:api_gpx_files]
@@ -423,9 +423,7 @@ class UserController < ApplicationController
        (@this_user.visible? or (@user and @user.administrator?))
       @title = @this_user.display_name
     else
-      @title = t 'user.no_such_user.title'
-      @not_found_user = params[:display_name]
-      render :action => 'no_such_user', :status => :not_found
+      render_unknown_user params[:display_name]
     end
   end
 

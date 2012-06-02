@@ -8,7 +8,17 @@ module RichText
     end
   end
 
+  class SimpleFormat
+    include ActionView::Helpers::TextHelper
+
+    def sanitize(text)
+      Sanitize.clean(text, Sanitize::Config::OSM).html_safe
+    end
+  end
+
   class Base < String
+    include ActionView::Helpers::TagHelper
+
     def spam_score
       link_count = 0
       link_size = 0
@@ -26,10 +36,14 @@ module RichText
         link_proportion = 0
       end
 
-      return [link_proportion - 0.2, 0.0].max * 200 + link_count * 20
+      return [link_proportion - 0.2, 0.0].max * 200 + link_count * 40
     end
 
   protected
+
+    def simple_format(text)
+      SimpleFormat.new.simple_format(text)
+    end
 
     def linkify(text)
       if text.html_safe?
@@ -41,15 +55,12 @@ module RichText
   end
 
   class HTML < Base
-    include ActionView::Helpers::TextHelper
-    include ActionView::Helpers::TagHelper
-
     def to_html
       linkify(sanitize(simple_format(self)))
     end
 
     def to_text
-      self
+      self.to_s
     end
 
   private
@@ -65,7 +76,7 @@ module RichText
     end
 
     def to_text
-      self
+      self.to_s
     end
 
   private
@@ -95,14 +106,12 @@ module RichText
   end
 
   class Text < Base
-    include ActionView::Helpers::TextHelper
-
     def to_html
       linkify(simple_format(ERB::Util.html_escape(self)))
     end
 
     def to_text
-      self
+      self.to_s
     end
   end
 end

@@ -33,15 +33,15 @@
         exportclass = 'geolink llz layers'
         routingclass = ''
         traceclass = ''
-        viewclass += ' active' if params['controller'] == 'site' and params['action'] == 'index' 
-        editclass += ' active' if params['controller'] == 'site' and params['action'] == 'edit' 
-        historyclass += ' active' if params['controller'] == 'changeset' and params['action'] == 'list' 
+        viewclass += ' active' if params['controller'] == 'site' and params['action'] == 'index'
+        editclass += ' active' if params['controller'] == 'site' and params['action'] == 'edit'
+        historyclass += ' active' if params['controller'] == 'changeset' and params['action'] == 'list'
         exportclass += ' active' if params['controller'] == 'site' and params['action'] == 'export'
         routingclass = 'active' if params['controller'] == 'site' and params['action'] == 'routing'
         traceclass += ' active' if params['controller'] == 'trace'
         %>
         <li><%= link_to t('layouts.view'), {:controller => 'site', :action => 'index'}, {:id => 'viewanchor', :title => t('layouts.view_tooltip'), :class => viewclass} %></li>
-        <li><%= link_to h(t('layouts.edit')) + '&nbsp;&#x25be;'.html_safe, {:controller => 'site', :action => 'edit'}, {:id => 'editanchor', :title => t('javascripts.site.edit_tooltip'), :class => editclass} %></li>
+        <li><%= link_to h(t('layouts.edit')) + content_tag(:span, "▾", :class => "menuicon"), {:controller => 'site', :action => 'edit'}, {:id => 'editanchor', :title => t('javascripts.site.edit_tooltip'), :class => editclass} %></li>
         <li><%= link_to t('layouts.history'), {:controller => 'changeset', :action => 'list' }, {:id => 'historyanchor', :title => t('javascripts.site.history_tooltip'), :class => historyclass} %></li>
         <li><%= link_to t('layouts.export'), {:controller => 'site', :action => 'export'}, {:id => 'exportanchor', :title => t('layouts.export_tooltip'), :class => exportclass} %></li>
         <li><%= link_to t('layouts.routing'), {:controller => 'site', :action => 'routing'}, {:id => 'routinganchor', :title => t('layouts.routing_tooltip'), :class => routingclass} %></li>
@@ -54,11 +54,12 @@
         <% Editors::ALL_EDITORS.each do |editor| %>
           <li><%= link_to t('layouts.edit_with', :editor => t("editor.#{editor}.description")), {:controller => 'site', :action => 'edit', :editor => editor}, {:id => editor + 'anchor', :class => "geolink llz object"} %></li>
         <% end %>
+        <%= yield :editmenu %>
       </ul>
     </div>
 
     <script type="text/javascript">
-      createMenu("editanchor", "editmenu", 1000, "left");
+      createMenu("editanchor", "editmenu", "left");
     </script>
 
     <div id="left">
@@ -89,24 +90,23 @@
       <% end %>
 
       <% if STATUS == :database_offline or STATUS == :api_offline %>
-      <div id="alert">
-        <%= t 'layouts.osm_offline' %>
+      <div class="sidebar-alert">
+        <p><%= t 'layouts.osm_offline' %></p>
       </div>
       <% elsif STATUS == :database_readonly or STATUS == :api_readonly %>
-      <div id="alert">
-        <%= t 'layouts.osm_read_only' %>
+      <div class="sidebar-alert">
+        <p><%= t 'layouts.osm_read_only' %></p>
       </div>
       <% end %>
 
       <% if false %>
-      <div id="donate" class="notice">
-        <%= raw t 'layouts.donate', :link => "<a href=\"http://donate.openstreetmap.org/\">#{t('layouts.donate_link_text')}</a>" %>
+      <div class="sidebar-notice">
+        <p><%= raw t 'layouts.donate', :link => "<a href=\"http://donate.openstreetmap.org/\">#{t('layouts.donate_link_text')}</a>" %></p>
       </div>
       <% end %>
 
       <div id="left_menu" class="left_menu">
         <ul>
-          <%= yield :left_menu %>
           <li><%= t'layouts.help' %>
               <ul>
               <li><%= link_to(t('layouts.help_centre'), t('layouts.help_url'), :title => t('layouts.help_title')) %></li>
@@ -127,6 +127,8 @@
               }) %></li>
               </ul>
           </li>
+          <li><%= link_to t('layouts.gps_traces'), {:controller => 'trace', :action => 'list', :display_name => nil, :tag => nil, :page => nil}, {:id => 'traceanchor', :title => t('layouts.gps_traces_tooltip') } %></li>
+          <%= yield :left_menu %>
         </ul>
       </div>
 

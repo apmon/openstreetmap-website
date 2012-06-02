@@ -102,6 +102,9 @@ lb:
     paging_nav: 
       of: vu(n)
       showing_page: Säit gëtt gewisen
+    redacted: 
+      type: 
+        way: Wee
     relation: 
       download: "%{download_xml_link} oder %{view_history_link}"
       download_xml: XML eroflueden
@@ -125,7 +128,7 @@ lb:
       manually_select: En anere Beräich manuell eraussichen
     start_rjs: 
       data_frame_title: Donnéeën
-      data_layer_name: Donnéeën
+      data_layer_name: Donnéeë vun de Kaarten duerchkucken
       details: Detailer
       edited_by_user_at_timestamp: Vum [[user]] de(n) [[timestamp]] geännert
       load_data: Donnéeë lueden
@@ -189,6 +192,11 @@ lb:
     list: 
       description: Rezent Ännerungen
   diary_entry: 
+    comments: 
+      comment: Bemierkung
+      newer_comments: Méi nei Bemierkungen
+      older_comments: Méi al Bemierkungen
+      when: Wéini
     diary_comment: 
       confirm: Confirméieren
       hide_link: Dës Bemierkung verstoppen
@@ -203,9 +211,6 @@ lb:
     location: 
       edit: Änneren
       view: Weisen
-    no_such_user: 
-      heading: De Benotzer %{user} gëtt et net
-      title: Esou e Benotzer gëtt et net
     view: 
       leave_a_comment: Eng Bemierkung maachen
       save_button: Späicheren
@@ -301,24 +306,13 @@ lb:
           university: Universitéit
           vending_machine: Verkaafsautomat
           veterinary: Déiereklinik
+        bridge: 
+          viaduct: Viadukt
+          "yes": Bréck
         building: 
-          bunker: Bunker
-          chapel: Kapell
-          church: Kierch
-          city_hall: Stadhaus
-          flats: Appartementer
-          hotel: Hotel
-          house: Haus
-          office: Bürosgebai
-          school: Schoulgebai
-          stadium: Stadion
-          store: Geschäft
-          terrace: Terrasse
-          tower: Tuerm
-          train_station: Gare (Eisebunn)
+          "yes": Gebai
         highway: 
           footway: Fousswee
-          gate: Paard
           motorway: Autobunn
           path: Pad
           pedestrian: Fousswee
@@ -344,7 +338,6 @@ lb:
           farm: Bauerenhaff
           forest: Bësch
           military: Militairegebitt
-          mountain: Bierg
           park: Park
           railway: Eisebunn
           vineyard: Wéngert
@@ -355,6 +348,7 @@ lb:
           marina: Yachthafen
           miniature_golf: Minigolf
           nature_reserve: Naturschutzgebitt
+          park: Park
           playground: Spillplaz
           stadium: Stadion
           swimming_pool: Schwëmm
@@ -393,13 +387,13 @@ lb:
         railway: 
           abandoned: Fréier Eisebunn
           disused: Fréier Eisebunn
+          miniature: Miniatur-Eisebunn
           station: Gare (Eisebunn)
           subway: Metro-Statioun
           tram: Tram
         shop: 
           bakery: Bäckerei
           books: Bichergeschäft
-          car_dealer: Autoshändler
           car_repair: Garage
           chemist: Apdikt
           clothes: Kleedergeschäft
@@ -449,13 +443,13 @@ lb:
     foundation: Fondatioun
     help: Hëllef
     home: Doheem
-    intro_3_partners: Wiki
     logo: 
       alt_text: OpenStreetMap Logo
     logout_tooltip: Ausloggen
     make_a_donation: 
       text: En Don maachen
       title: Ënnerstëtzt OpenStreetMap mat engem Don
+    partners_partners: Partner
     user_diaries: Benotzer Bloggen
     view_tooltip: Kaart weisen
     welcome_user: Wëllkomm, %{user_link}
@@ -488,10 +482,6 @@ lb:
     no_such_message: 
       heading: Keen esou ee Message
       title: Keen esou ee Message
-    no_such_user: 
-      body: Pardon, et gëtt kee Benotzer mat deem Numm.
-      heading: Esou e Benotzer gëtt et net
-      title: Esou e Benotzer gëtt et net
     outbox: 
       date: Datum
       subject: Sujet
@@ -537,7 +527,18 @@ lb:
       submit: Registréieren
     show: 
       allow_write_api: Kaart änneren
+      confirm: Sidd Dir sécher?
       edit: Detailer änneren
+  redaction: 
+    edit: 
+      description: Beschreiwung
+    new: 
+      description: Beschreiwung
+    show: 
+      confirm: Sidd Dir sécher?
+      description: "Beschreiwung:"
+    update: 
+      flash: Ännerunge gespäichert.
   site: 
     edit: 
       user_page_link: Benotzersäit
@@ -567,6 +568,10 @@ lb:
           tram: 
             1: Tram
           wood: Bësch
+    markdown_help: 
+      image: Bild
+      link: Link
+      text: Text
     search: 
       search: Sichen
       submit_text: Lass
@@ -592,9 +597,6 @@ lb:
       uploaded_at: "Eropgelueden:"
       visibility: "Visibilitéit:"
       visibility_help: wat heescht dat?
-    no_such_user: 
-      heading: De Benotzer %{user} gëtt et net
-      title: Esou e Benotzer gëtt et net
     trace: 
       ago: viru(n) %{time_in_words_ago}
       by: vum

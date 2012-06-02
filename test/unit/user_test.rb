@@ -52,7 +52,7 @@ class UserTest < ActiveSupport::TestCase
     ok.each do |name|
       user = users(:normal_user)
       user.email = name
-      assert user.valid?(:save), user.errors.full_messages
+      assert user.valid?(:save), user.errors.full_messages.join(",")
     end
     
     bad.each do |name|
@@ -155,7 +155,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_visible
-    assert_equal 10, User.visible.count
+    assert_equal 14, User.visible.count
     assert_raise ActiveRecord::RecordNotFound do
       User.visible.find(users(:suspended_user).id)
     end
@@ -165,7 +165,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_active
-    assert_equal 9, User.active.count
+    assert_equal 13, User.active.count
     assert_raise ActiveRecord::RecordNotFound do
       User.active.find(users(:inactive_user).id)
     end
@@ -178,7 +178,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_public
-    assert_equal 11, User.public.count
+    assert_equal 15, User.public.count
     assert_raise ActiveRecord::RecordNotFound do
       User.public.find(users(:normal_user).id)
     end

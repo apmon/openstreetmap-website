@@ -244,10 +244,10 @@ class RoutingController < ApplicationController
 
    # Get a route calculated via open MapQuest directory service
   def mapquestRoute(waypoints)
-    querystring = "http://open.mapquestapi.com/directions/v0/route"
+    querystring = "http://open.mapquestapi.com/directions/v1/route"
 
     # Static values
-    querystring += "?format=xml"
+    querystring += "?outFormat=xml"
     querystring += "&from=" + waypoints[0][:lat]
     querystring += "," + waypoints[0][:lon]
     querystring += "&to=" + waypoints[1][:lat]
@@ -326,17 +326,20 @@ class RoutingController < ApplicationController
 
     # Dynamic values
     if(params[:means] === "bicycle")
-       querystring += "/bicycle"
+       querystring += "/bicycle.js"
     elsif(params[:means] === "feet")
-      querystring += "/foot"
+      querystring += "/foot.js"
     elsif(params[:means] == "car")
       querystring += "/car"
-    end
-    if(params[:mode] === "fastest")
+      if(params[:mode] === "fastest")
         querystring += "/fastest.js"
-    elsif(params[:mode] === "shortest")
-      querystring += "/shortest.js"
+      elsif(params[:mode] === "shortest")
+        querystring += "/shortest.js"
+      end
     end
+    
+
+    logger.debug(querystring)
 
     begin
       server_response = fetch_text(querystring) 
@@ -353,7 +356,7 @@ class RoutingController < ApplicationController
     querystring = "#{OSRM_URL}"
     querystring += "viaroute?loc=" + waypoints[0][:lat] + "," + waypoints[0][:lon]
     querystring += "&loc=" + waypoints[1][:lat] + "," + waypoints[1][:lon]
-    querystring += "&instructions=false" 
+    querystring += "&instructions=false&no=cmp" 
 
     logger.debug(querystring)
     begin

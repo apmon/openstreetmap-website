@@ -387,7 +387,7 @@ class GeocoderController < ApplicationController
 private
 
   def fetch_text(url)
-    return Net::HTTP.get(URI.parse(url))
+    return Net::HTTP.get(URI.parse(url),{'Referer' => 'http://#{server_url}', 'User-Agent'=> "Ruby on Rails/OSM website"})
   end
 
   def fetch_xml(url)

@@ -67,7 +67,7 @@ class GeocoderController < ApplicationController
     @results = Array.new
 
     # ask geocoder.us (they have a non-commercial use api)
-    response = fetch_text("http://rpc.geocoder.us/service/csv?zip=#{escape_query(query)}")
+    response = HttpHelper::fetch_text("http://rpc.geocoder.us/service/csv?zip=#{HttpHelper::escape_query(query)}")
 
     # parse the response
     unless response.match(/couldn't find this zip/)
@@ -92,7 +92,7 @@ class GeocoderController < ApplicationController
     @results = Array.new
 
     # ask npemap.org.uk to do a combined npemap + freethepostcode search
-    response = fetch_text("http://www.npemap.org.uk/cgi/geocoder.fcgi?format=text&postcode=#{escape_query(query)}")
+    response = HttpHelper::fetch_text("http://www.npemap.org.uk/cgi/geocoder.fcgi?format=text&postcode=#{HttpHelper::escape_query(query)}")
 
     # parse the response
     unless response.match(/Error/)
@@ -116,7 +116,7 @@ class GeocoderController < ApplicationController
     @results = Array.new
 
     # ask geocoder.ca (note - they have a per-day limit)
-    response = fetch_xml("http://geocoder.ca/?geoit=XML&postal=#{escape_query(query)}")
+    response = HttpHelper::fetch_xml("http://geocoder.ca/?geoit=XML&postal=#{HttpHelper::escape_query(query)}")
 
     # parse the response
     if response.get_elements("geodata/error").empty?
@@ -140,7 +140,7 @@ class GeocoderController < ApplicationController
     @results = Array.new
 
     # ask OSM namefinder
-    response = fetch_xml("http://gazetteer.openstreetmap.org/namefinder/search.xml?find=#{escape_query(query)}")
+    response = HttpHelper::fetch_xml("http://gazetteer.openstreetmap.org/namefinder/search.xml?find=#{HttpHelper::escape_query(query)}")
 
     # parse the response
     response.elements.each("searchresults/named") do |named|
@@ -229,7 +229,7 @@ class GeocoderController < ApplicationController
     end
 
     # ask nominatim
-    response = fetch_xml("#{NOMINATIM_URL}search?format=xml&q=#{escape_query(query)}#{viewbox}#{exclude}&accept-language=#{request.user_preferred_languages.join(',')}")
+    response = HttpHelper::fetch_xml("#{NOMINATIM_URL}search?format=xml&q=#{HttpHelper::escape_query(query)}#{viewbox}#{exclude}&accept-language=#{request.user_preferred_languages.join(',')}")
 
     # create result array
     @results = Array.new
@@ -272,7 +272,7 @@ class GeocoderController < ApplicationController
     @results = Array.new
 
     # ask geonames.org
-    response = fetch_xml("http://api.geonames.org/search?q=#{escape_query(query)}&maxRows=20&username=#{GEONAMES_USERNAME}")
+    response = HttpHelper::fetch_xml("http://api.geonames.org/search?q=#{HttpHelper::escape_query(query)}&maxRows=20&username=#{GEONAMES_USERNAME}")
 
     # parse the response
     response.elements.each("geonames/geoname") do |geoname|
@@ -310,7 +310,7 @@ class GeocoderController < ApplicationController
     @results = Array.new
 
     # ask OSM namefinder
-    response = fetch_xml("http://gazetteer.openstreetmap.org/namefinder/search.xml?find=#{types}+near+#{lat},#{lon}&max=#{max}")
+    response = HttpHelper::fetch_xml("http://gazetteer.openstreetmap.org/namefinder/search.xml?find=#{types}+near+#{lat},#{lon}&max=#{max}")
 
     # parse the response
     response.elements.each("searchresults/named") do |named|
@@ -345,7 +345,7 @@ class GeocoderController < ApplicationController
     @results = Array.new
 
     # ask OSM namefinder
-    response = fetch_xml("#{NOMINATIM_URL}reverse?lat=#{lat}&lon=#{lon}&zoom=#{zoom}&accept-language=#{request.user_preferred_languages.join(',')}")
+    response = HttpHelper::fetch_xml("#{NOMINATIM_URL}reverse?lat=#{lat}&lon=#{lon}&zoom=#{zoom}&accept-language=#{request.user_preferred_languages.join(',')}")
 
     # parse the response
     response.elements.each("reversegeocode/result") do |result|
@@ -369,7 +369,7 @@ class GeocoderController < ApplicationController
     @results = Array.new
 
     # ask geonames.org
-    response = fetch_xml("http://ws.geonames.org/countrySubdivision?lat=#{lat}&lng=#{lon}")
+    response = HttpHelper::fetch_xml("http://ws.geonames.org/countrySubdivision?lat=#{lat}&lng=#{lon}")
 
     # parse the response
     response.elements.each("geonames/countrySubdivision") do |geoname|
@@ -385,14 +385,6 @@ class GeocoderController < ApplicationController
   end
 
 private
-
-  def fetch_text(url)
-    return Net::HTTP.get(URI.parse(url),{'Referer' => 'http://#{server_url}', 'User-Agent'=> "Ruby on Rails/OSM website"})
-  end
-
-  def fetch_xml(url)
-    return REXML::Document.new(fetch_text(url))
-  end
 
   def format_distance(distance)
     return t("geocoder.distance", :count => distance)
@@ -423,7 +415,4 @@ private
     return count
   end
 
-  def escape_query(query)
-    return URI.escape(query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]", false, 'N'))
-  end
 end

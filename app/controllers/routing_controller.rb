@@ -86,7 +86,7 @@ class RoutingController < ApplicationController
     to_validate.each_with_index do |point_pair, index|
       logger.debug(point_pair.to_s)
       if((point_pair[:lat].empty? || point_pair[:lon].empty?) && !point_pair[:disp].empty?)
-        response = fetch_xml("#{NOMINATIM_URL}search?format=xml&q=#{escape_query(point_pair[:disp])}")
+        response = HttpHelper::fetch_xml("#{NOMINATIM_URL}search?format=xml&q=#{HttpHelper::escape_query(point_pair[:disp])}")
         # create result array 
         @results = Array.new 
  
@@ -217,7 +217,7 @@ class RoutingController < ApplicationController
     logger.debug(querystring)
 
     begin
-      response = fetch_text(querystring) 
+      response = HttpHelper::fetch_text(querystring) 
     rescue Timeout::Error => e
       @response = "error:no_route_found"
       return
@@ -270,7 +270,7 @@ class RoutingController < ApplicationController
     logger.debug(querystring)
 
     begin
-      server_response_s = fetch_text(querystring) 
+      server_response_s = Http::Helper.fetch_text(querystring) 
     rescue Timeout::Error => e
       @response = "error:no_route_found"
       return
@@ -342,7 +342,7 @@ class RoutingController < ApplicationController
     logger.debug(querystring)
 
     begin
-      server_response = fetch_text(querystring) 
+      server_response = HttpHelper::fetch_text(querystring) 
     rescue Timeout::Error => e
       @response = "error:no_route_found"
       return
@@ -360,7 +360,7 @@ class RoutingController < ApplicationController
 
     logger.debug(querystring)
     begin
-      server_response = fetch_text(querystring) 
+      server_response = HttpHelper::fetch_text(querystring) 
     rescue Timeout::Error => e
       @response = "error:no_route_found"
       return
@@ -369,18 +369,5 @@ class RoutingController < ApplicationController
   end
 
 
-  # Execute http request
-  def fetch_text(url)
-    return Net::HTTP.get(URI.parse(url))
-  end
 
-  # TODO: Dupplicate function from geocoder controller
-  def escape_query(query) 
-    return URI.escape(query, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]", false, 'N')) 
-  end 
-
-  # TODO: Dupplicate function from geocoder controller
-  def fetch_xml(url) 
-    return REXML::Document.new(fetch_text(url)) 
-  end 
 end

@@ -12,23 +12,31 @@
   }
 
   function doSearch(query) {
-    $("#sidebar_title").html("<%= t 'site.sidebar.search_results' %>");
+    if (query.indexOf(" to ") > 0) {
+      dest = query.split(" to ", 2);
+      
+      $.get("<%= url_for :controller => :routing, :action => :start %>", {
+        from: dest[0], to: dest[1] 
+      });
+    } else {
+      $("#sidebar_title").html("<%= t 'site.sidebar.search_results' %>");
 
-    <% if params[:action] == 'index' -%>
-    var extent = unproj(map.getExtent());
+      <% if params[:action] == 'index' -%>
+      var extent = unproj(map.getExtent());
 
-    $("#sidebar_content").load("<%= url_for :controller => :geocoder, :action => :search %>", {
-      query: $("#query").val(),
-      minlon: extent.left,
-      minlat: extent.bottom,
-      maxlon: extent.right,
-      maxlat: extent.top
-    }, openSidebar);
-    <% else -%>
-    $("#sidebar_content").load("<%= url_for :controller => :geocoder, :action => :search %>", {
-      query: $("#query").val()
-    }, openSidebar);
-    <% end -%>
+      $("#sidebar_content").load("<%= url_for :controller => :geocoder, :action => :search %>", {
+        query: $("#query").val(),
+        minlon: extent.left,
+        minlat: extent.bottom,
+        maxlon: extent.right,
+        maxlat: extent.top
+      }, openSidebar);
+      <% else -%>
+      $("#sidebar_content").load("<%= url_for :controller => :geocoder, :action => :search %>", {
+        query: $("#query").val()
+      }, openSidebar);
+      <% end -%>
+    }
   }
 
   $(document).ready(function () {

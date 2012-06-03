@@ -304,6 +304,17 @@ end
     $.ajax({ url: "<%= url_for :controller => :routing, :action => :start %>" });
     <% end -%>
 
+    <% if params[:to] || params[:from] %>
+    $.get("<%= url_for :controller => :routing, :action => :start %>", {
+       <% if params[:from] %>
+         from: "<%= params[:from] %>",
+       <% end %>
+       <% if params[:to] %>
+         to: "<%= params[:to] %>" 
+       <% end %>
+      });
+    <% end %>
+
     <% if params[:query] -%>
     doSearch("<%= params[:query] %>");
     <% end %>

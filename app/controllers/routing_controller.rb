@@ -270,7 +270,7 @@ class RoutingController < ApplicationController
     logger.debug(querystring)
 
     begin
-      server_response_s = Http::Helper.fetch_text(querystring) 
+      server_response_s = HttpHelper::fetch_text(querystring) 
     rescue Timeout::Error => e
       @response = "error:no_route_found"
       return

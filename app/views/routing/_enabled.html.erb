@@ -7,7 +7,7 @@
               <a href="#" id="wp1"><%= image_tag("routing/departure.png", :border => 0, :width => 20) %></a>
            </td>
            <td class="routing_waypoint_element routing_waypoint_input" valign="center">
-              <%= text_field_tag('wp1_display', nil, :size => 17, :style => "width: 100%") %>
+              <%= text_field_tag('wp1_display', params[:from], :size => 17, :style => "width: 100%") %>
            </td>
            <%= hidden_field_tag('wp1_lat') %>
            <%= hidden_field_tag('wp1_lon') %>
@@ -20,7 +20,7 @@
             <a href="#" id="wp2"><%= image_tag("routing/destination.png", :border => 0, :width => 20) %></a>
          </td>
          <td class="routing_waypoint_element_last routing_waypoint_input" valign="center">
-            <%= text_field_tag('wp2_display', nil, :size => 17, :style => "width: 100%") %>
+            <%= text_field_tag('wp2_display', params[:to], :size => 17, :style => "width: 100%") %>
          </td>
          <%= hidden_field_tag('wp2_lat') %>
          <%= hidden_field_tag('wp2_lon') %>

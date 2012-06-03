@@ -340,6 +340,9 @@ $("#wp1_display").change(function () {
 $("#wp1").draggable({containment: 'document', helper: 'clone', appendTo: 'body', stop: function(event, ui) {
     addMarkerXY(1, ui.offset.left + 11, ui.offset.top + 20);}});
 $("#wp1_delete").click(function() { hideError(); clearRoute(); clearWaypoint(1); });
+<% if params[:from] %>
+$("#wp1_display").change();
+<% end %>
 
 $("#wp2").click(function () { setMarker("2"); });
 $("#wp2_display").change(function () {
@@ -350,6 +353,9 @@ $("#wp2_display").change(function () {
 $("#wp2").draggable({containment: 'document', helper: 'clone', appendTo: 'body', stop: function(event, ui) {
     addMarkerXY(2, ui.offset.left + 11, ui.offset.top + 20);}});
 $("#wp2_delete").click(function() { hideError(); clearRoute(); clearWaypoint(2); });
+<% if params[:to] %>
+$("#wp2_display").change();
+<% end %>
 
 
 $("#routing_commit").click(function () {
@@ -369,6 +375,10 @@ $("#routing_commit").click(function () {
     $("#engine").hide();
     $("#distance").hide();
 });
+<% if params[:from] && params[:to] %>
+    $("#routing_commit").click();
+<% end %>
+
 <% elsif ROUTING_STATUS == "maintenance" -%>
 $("#sidebar_content").html("<%=j render :partial => "maintenance" %>");
 <% else -%>

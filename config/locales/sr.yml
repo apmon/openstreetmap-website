@@ -1,4 +1,4 @@
-# Messages for Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
+# Messages for Serbian (Cyrillic script) (‪српски (ћирилица)‬)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Nikola Smolenski
@@ -7,7 +7,7 @@
 # Author: Жељко Тодоровић
 # Author: Милан Јелисавчић
 # Author: Обрадовић Горан
-sr-EC: 
+sr: 
   activerecord: 
     attributes: 
       diary_comment: 

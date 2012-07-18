@@ -13,12 +13,10 @@ function createMap(divName, options) {
          new OpenLayers.Control.Attribution(),
          new SimpleLayerSwitcher(),
          new OpenLayers.Control.Navigation(),
-         new OpenLayers.Control.PanZoom(),
+         new OpenLayers.Control.Zoom(),
          new OpenLayers.Control.PanZoomBar(),
          new OpenLayers.Control.ScaleLine({geodesic: true})
       ],
-      units: "m",
-      maxResolution: 156543.0339,
       numZoomLevels: 20,
       displayProjection: new OpenLayers.Projection("EPSG:4326"),
       theme: "<%= asset_path 'theme/default/style.css' %>"
@@ -69,9 +67,6 @@ function createMap(divName, options) {
    markers = new OpenLayers.Layer.Markers("Markers", {
       displayInLayerSwitcher: false,
       numZoomLevels: 20,
-      maxExtent: new OpenLayers.Bounds(-20037508,-20037508,20037508,20037508),
-      maxResolution: 156543,
-      units: "m",
       projection: "EPSG:900913"
    });
    map.addLayer(markers);
@@ -81,7 +76,7 @@ function createMap(divName, options) {
 
 function getArrowIcon() {
    var size = new OpenLayers.Size(25, 22);
-   var offset = new OpenLayers.Pixel(-30, -27);
+   var offset = new OpenLayers.Pixel(-22, -20);
    var icon = new OpenLayers.Icon("<%= asset_path 'arrow.png' %>", size, offset);
 
    return icon;
@@ -102,8 +97,14 @@ function addMarkerToMap(position, icon, description) {
 }
 
 function addObjectToMap(url, zoom, callback) {
-   var layer = new OpenLayers.Layer.GML("Objects", url, {
-      format: OpenLayers.Format.OSM,
+   var layer = new OpenLayers.Layer.Vector("Objects", {
+      strategies: [ 
+          new OpenLayers.Strategy.Fixed()
+      ],
+      protocol: new OpenLayers.Protocol.HTTP({
+          url: url,
+          format: new OpenLayers.Format.OSM()
+      }),
       style: {
           strokeColor: "blue",
           strokeWidth: 3,
@@ -141,8 +142,6 @@ function addObjectToMap(url, zoom, callback) {
    });
 
    map.addLayer(layer);
-
-   layer.loadGML();
 }
 
 function addBoxToMap(boxbounds, id, outline) {

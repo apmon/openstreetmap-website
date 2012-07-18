@@ -51,6 +51,7 @@ ka:
       old_node: ძველი კვანძი
       old_way: ძველი გზა
       old_way_node: ძველი გზის კვანძი
+      relation: ურთიერთობა
       session: სესია
       trace: ბილიკი
       tracepoint: ბილიკის წერტილი
@@ -793,7 +794,7 @@ ka:
     partners_partners: პარტნიორები
     partners_url: http://wiki.openstreetmap.org/wiki/Partners
     sign_up: რეგისტრაცია
-    tag_line: მსოფლიოს თავისუფალი ვიკი-რუკა
+    tag_line: თავისუფალი ვიკი-რუკა
     user_diaries: მომხმარებლების დღიურები
     user_diaries_tooltip: მომხმარებლების დღიურების ნახვა
     view: იხილეთ
@@ -924,6 +925,12 @@ ka:
       allow_write_api: რუკის შეცვლა.
       confirm: დარწმუნებული ხართ?
       edit: დეტალების რედაქტირება
+  redaction: 
+    edit: 
+      description: აღწერა
+    show: 
+      description: "აღწერა:"
+      user: "შემქმნელი:"
   site: 
     edit: 
       user_page_link: მომხმარებლის გვერდი

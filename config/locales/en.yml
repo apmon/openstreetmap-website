@@ -94,7 +94,6 @@ en:
     changeset:
       title: "Changeset"
       changeset: "Changeset: %{id}"
-      download: "Download %{changeset_xml_link} or %{osmchange_xml_link}"
       changesetxml: "Changeset XML"
       osmchangexml: "osmChange XML"
       feed:
@@ -168,16 +167,14 @@ en:
     node_history:
       node_history: "Node History"
       node_history_title: "Node History: %{node_name}"
-      download: "%{download_xml_link} or %{view_details_link}"
       download_xml: "Download XML"
-      view_details: "view details"
+      view_details: "View details"
     node:
       node: "Node"
       node_title: "Node: %{node_name}"
-      download: "%{download_xml_link}, %{view_history_link} or %{edit_link}"
       download_xml: "Download XML"
-      view_history: "view history"
-      edit: "edit"
+      view_history: "View history"
+      edit: "Edit node"
     not_found:
       sorry: "Sorry, the %{type} with the id %{id}, could not be found."
       type:
@@ -208,9 +205,8 @@ en:
     relation_history:
       relation_history: "Relation History"
       relation_history_title: "Relation History: %{relation_name}"
-      download: "%{download_xml_link} or %{view_details_link}"
       download_xml: "Download XML"
-      view_details: "view details"
+      view_details: "View details"
     relation_member:
       entry: "%{type} %{name}"
       entry_role: "%{type} %{name} as %{role}"
@@ -221,9 +217,8 @@ en:
     relation:
       relation: "Relation"
       relation_title: "Relation: %{relation_name}"
-      download: "%{download_xml_link} or %{view_history_link}"
       download_xml: "Download XML"
-      view_history: "view history"
+      view_history: "View history"
     start:
       view_data: "View data for current map view"
       manually_select: "Manually select a different area"
@@ -235,7 +230,7 @@ en:
       manually_select: "Manually select a different area"
       hide_areas: "Hide areas"
       show_areas: "Show areas"
-      loaded_an_area_with_num_features: "You have loaded an area which contains [[num_features]] features. In general, some browsers may not cope well with displaying this quantity of data. Generally, browsers work best at displaying less than 100 features at a time: doing anything else may make your browser slow/unresponsive. If you are sure you want to display this data, you may do so by clicking the button below."
+      loaded_an_area_with_num_features: "You have loaded an area which contains [[num_features]] features. In general, some browsers may not cope well with displaying this quantity of data. Generally, browsers work best at displaying less than [[max_features]] features at a time: doing anything else may make your browser slow/unresponsive. If you are sure you want to display this data, you may do so by clicking the button below."
       load_data: "Load Data"
       unable_to_load_size: "Unable to load: Bounding box size of [[bbox_size]] is too large (must be smaller than %{max_bbox_size})"
       loading: "Loading..."
@@ -279,16 +274,14 @@ en:
     way_history:
       way_history: "Way History"
       way_history_title: "Way History: %{way_name}"
-      download: "%{download_xml_link} or %{view_details_link}"
       download_xml: "Download XML"
-      view_details: "view details"
+      view_details: "View details"
     way:
       way: "Way"
       way_title: "Way: %{way_name}"
-      download: "%{download_xml_link}, %{view_history_link} or %{edit_link}"
       download_xml: "Download XML"
-      view_history: "view history"
-      edit: "edit"
+      view_history: "View history"
+      edit: "Edit way"
   changeset:
     changeset_paging_nav:
       showing_page: "Showing page %{page}"
@@ -1192,6 +1185,12 @@ en:
           2010.</li>
       </ul>
 
+      <p>
+        For further details of these, and other sources that have been used
+        to help improve OpenStreetMap, please see the <a
+        href="http://wiki.openstreetmap.org/wiki/Contributors">Contributors
+        page</a> on the OpenStreetMap Wiki.
+      </p>
       <p>
         Inclusion of data in OpenStreetMap does not imply that the original
         data provider endorses OpenStreetMap, provides any warranty, or

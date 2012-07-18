@@ -1,6 +1,6 @@
 <% if @user and !@user.home_lon.nil? and !@user.home_lat.nil? %>
   <% content_for :greeting do %>
-    <%= link_to t("layouts.home"), "#", :class => "set_position", "data-lat" => @user.home_lat, "data-lon" => @user.home_lon, "data-zoom" => 15, :title => t("layouts.home_tooltip") %> |
+    <%= link_to t("layouts.home"), "#", :class => "set_position", :data => { :lat => @user.home_lat, :lon => @user.home_lon, :zoom => 15 }, :title => t("layouts.home_tooltip") %> |
   <% end %>
 <% end %>
 
@@ -288,7 +288,7 @@ end
   $(document).ready(function () {
     $("#exportanchor").click(function (e) {
       $.ajax({ url: "<%= url_for :controller => :export, :action => :start %>" });
-      Event.stop(e);
+      e.preventDefault();
     });
 
     <% if params[:action] == 'export' -%>

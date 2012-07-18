@@ -297,7 +297,7 @@ end
 
     $("#routinganchor").click(function (e) {
       $.ajax({ url: "<%= url_for :controller => :routing, :action => :start %>" });
-      Event.stop(e);
+      e.preventDefault();
     });
 
     <% if params[:action] == 'routing' -%>

@@ -2119,6 +2119,8 @@ en:
         comment: Comment
     edit_help: Move the map and zoom in on a location you want to edit, then click here.
     directions:
+      geocode_fail: "Sorry, couldn't find that place."
+      route_fail: "Sorry, couldn't find route between those two places."
       engines:
         graphhopper_bike: "Bicycle (GraphHopper)"
         mapquest_bike: "Bicycle (MapQuest)"

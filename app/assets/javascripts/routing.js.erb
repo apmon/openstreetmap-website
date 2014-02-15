@@ -99,7 +99,7 @@ OSM.Routing=function(map,name,jqSearch) {
 	
 	r._gotGeocode=function(json,field) {
 		if (json.length==0) {
-			alert("Sorry, couldn't find that place."); 	// *** internationalise
+			alert(I18n.t('javascripts.directions.geocode_fail'));
 			r[field.id]=null;
 			return;
 		}

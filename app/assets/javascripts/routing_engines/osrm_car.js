@@ -18,7 +18,7 @@ OSM.RoutingEngines.list.push({
 	},
 	gotRoute: function(router,data) {
 		if (data.status==207) {
-			alert("Couldn't find route between those two places");
+			alert(I18n.t('javascripts.directions.route_fail'));
 			return false;
 		}
         

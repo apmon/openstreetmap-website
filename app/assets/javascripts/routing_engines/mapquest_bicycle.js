@@ -60,6 +60,6 @@ OSM.RoutingEngines.list.push({
 			var d=(i==mq.length-1) ? 15: this.MQ_SPRITE_MAP[s.turnType];
 			steps.push([L.latLng(s.startPoint.lat, s.startPoint.lng), d, s.narrative, s.distance*1000]);
 		}
-		router.setItinerary( { steps: steps });
+		router.setItinerary( { steps: steps, time: data.route.formattedTime, distance: OSM.RoutingFormatDistance(data.route.distance,1000) });
 	}
 });

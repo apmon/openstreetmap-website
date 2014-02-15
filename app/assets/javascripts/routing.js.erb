@@ -186,7 +186,10 @@ OSM.Routing=function(map,name,jqSearch) {
 		// Create base table
 		$("#content").removeClass("overlay-sidebar");
 		$('#sidebar_content').empty();
-		var html='<h2><a class="geolink" href="#" onclick="$(~.close_directions~).click();return false;"><span class="icon close"></span></a>' + I18n.t('javascripts.directions.directions') + '</h2>'.replace(/~/g,"'");
+		var html="<h2>" + I18n.t('javascripts.directions.summary.summary') + "</h2> "
+        html += I18n.t('javascripts.directions.summary.distance') + ": " + data.distance + "<br>"  + I18n.t('javascripts.directions.summary.time') + ": " + data.time + "<br><hr>"
+
+        html+='<h2><a class="geolink" href="#" onclick="$(~.close_directions~).click();return false;"><span class="icon close"></span></a>' + I18n.t('javascripts.directions.directions') + '</h2>'.replace(/~/g,"'");
 		html+="<table id='turnbyturn' />";
 		$('#sidebar_content').html(html);
 		// Add each row
@@ -265,3 +268,21 @@ OSM.Routing=function(map,name,jqSearch) {
 
 	return r;
 };
+
+OSM.RoutingFormatDistance=function(distance_raw, scale) {
+    var d_raw = Math.round(distance_raw * scale);
+    if (d_raw < 1000)
+        var distance = d_raw + "m";
+    else if (distance_raw < 10000)
+        var distance = (d_raw / 1000.0).toFixed(1) + "km";
+    else
+        var distance = Math.round(d_raw / 1000)  + "km";
+
+    return distance
+}
+
+OSM.RoutingFormatTime=function(time_raw, scale) {
+    //This breaks for times > 24 hours
+    var time = new Date(null,null,null,null,null,Math.round(time_raw*scale)).toTimeString().match(/\d{2}:\d{2}:\d{2}/)[0];
+    return time;
+}

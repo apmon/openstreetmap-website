@@ -30,13 +30,16 @@ OSM.RoutingEngines.list.push({
 	},
 	gotRoute: function(router,data) {
 		router.setPolyline(data.route_geometry);
+
 		// Assemble instructions
 		var steps=[];
 		for (i=0; i<data.route_instructions.length; i++) {
 			var s=data.route_instructions[i];
 			steps.push([data.route_geometry[s[2]], this.CM_SPRITE_MAP[s[7]], s[0], s[1]]);
 		}
-		router.setItinerary({ steps: steps });
+		router.setItinerary({ steps: steps,
+                                    distance: OSM.RoutingFormatDistance(data.route_summary.total_distance,1),
+                                    time: OSM.RoutingFormatTime(data.route_summary.total_time,1)});
 	}
 });
 

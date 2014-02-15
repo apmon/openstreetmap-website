@@ -19,6 +19,7 @@ OSM.RoutingEngines.list.push({
             alert("Couldn't find route between those two places");
             return false;
         }
+            
         // Draw polyline
         var line = L.PolylineUtil.decode(data.route.coordinates);
         router.setPolyline(line);
@@ -34,7 +35,9 @@ OSM.RoutingEngines.list.push({
             var distInMeter = instr.distances[i];            
             steps.push([{lat: latlng[0], lng: latlng[1]}, instrCode, instrText, distInMeter]);
         }
-        router.setItinerary({steps: steps});
+        router.setItinerary({steps: steps,
+                                    distance: OSM.RoutingFormatDistance(data.route.distance,1),
+                                    time: OSM.RoutingFormatTime(data.route.time, 0.001});
     },
     GH_INSTR_MAP: {
         "-3": 6, // sharp left

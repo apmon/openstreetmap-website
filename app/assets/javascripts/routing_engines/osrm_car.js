@@ -21,6 +21,7 @@ OSM.RoutingEngines.list.push({
 			alert("Couldn't find route between those two places");
 			return false;
 		}
+        
 		// Draw polyline
 		var line=L.PolylineUtil.decode(data.route_geometry);
 		for (i=0; i<line.length; i++) { line[i].lat/=10; line[i].lng/=10; }
@@ -37,6 +38,9 @@ OSM.RoutingEngines.list.push({
 			if (instCodes[0]!=15) { instText+=s[1] ? "<b>"+s[1]+"</b>" : I18n.t('javascripts.directions.instructions.unnamed'); }
 			steps.push([line[s[3]], s[0].split('-')[0], instText, s[2]]);
 		}
-		if (steps.length) router.setItinerary({ steps: steps });
+		if (steps.length)
+            router.setItinerary({ steps: steps,
+                                        distance: OSM.RoutingFormatDistance(data.route_summary.total_distance,1),
+                                        time: OSM.RoutingFormatTime(data.route_summary.total_time,1) });
 	}
 });

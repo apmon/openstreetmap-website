@@ -2125,6 +2125,10 @@ en:
         osrm_car: "Car (OSRM)"
         cloudmade_foot: "Foot (Cloudmade)"
       directions: "Directions"
+      summary:
+        summary: "Route summary"
+        distance: "Distance"
+        time: "Time"
       instructions:
         continue_on: "Continue on "
         slight_right: "Slight right onto "
